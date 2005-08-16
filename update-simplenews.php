@@ -7,7 +7,7 @@ include_once 'includes/bootstrap.inc';
 include_once 'includes/common.inc';
 
 if (module_exist('simplenews')) {
-  $sql = "CREATE TABLE `sn_snid_tid` (
+  $sql = "CREATE TABLE {sn_snid_tid} (
   `snid` int(10) NOT NULL default '0',
   `tid` int(10) NOT NULL default '0',
   PRIMARY KEY  (`snid`,`tid`)
