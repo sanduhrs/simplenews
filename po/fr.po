@@ -1,0 +1,718 @@
+# LANGUAGE translation of Drupal (simplenews.module)
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+# Generated from file: simplenews.module,v 1.18 2005/10/04 19:56:28 driesk
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: simplenews-cvs\n"
+"POT-Creation-Date: 2005-10-10 23:18+0200\n"
+"PO-Revision-Date: 2006-04-11 00:32-0400\n"
+"Last-Translator: SC <hype.like@gmail.com>\n"
+"Language-Team: French <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: Plural-Forms: nplurals=2; plural=(n > 1);\\n\n"
+"X-Poedit-Language: French\n"
+
+#: simplenews.module:11
+msgid "Allows to send newsletters to subscribed e-mail addresses."
+msgstr "Autorise l'envoi de bulletins aux abonnés."
+
+#: simplenews.module:14
+msgid "Send a newsletter to subscribed e-mail addresses."
+msgstr "Envoyer un bulletin aux abonnés."
+
+#: simplenews.module:24;77;1326
+msgid "newsletter"
+msgstr "bulletin"
+
+#: simplenews.module:79;90
+msgid "newsletters"
+msgstr "bulletins"
+
+#: simplenews.module:83
+msgid "sent items"
+msgstr "éléments envoyés"
+
+#: simplenews.module:86
+msgid "drafts"
+msgstr "brouillons"
+
+#: simplenews.module:93
+msgid "list newsletters"
+msgstr "liste des bulletins"
+
+#: simplenews.module:96
+msgid "add newsletters"
+msgstr "ajouter des bulletins"
+
+#: simplenews.module:100
+msgid "subscriptions"
+msgstr "abonnements"
+
+#: simplenews.module:103
+msgid "list subscriptions"
+msgstr "liste des abonnements"
+
+#: simplenews.module:106
+msgid "import subscriptions"
+msgstr "importer des abonnements"
+
+#: simplenews.module:109
+msgid "export subscriptions"
+msgstr "exporter des abonnements"
+
+#: simplenews.module:113
+msgid "settings"
+msgstr "paramètres"
+
+#: simplenews.module:116
+msgid "general"
+msgstr "général"
+
+#: simplenews.module:120
+msgid "confirm newsletter subscriptions"
+msgstr "confirmer les abonnements aux bulletins"
+
+#: simplenews.module:124
+msgid "manage newsletter subscriptions"
+msgstr "gérer les abonnements aux bulletins"
+
+#: simplenews.module:159
+msgid "Message"
+msgstr "Message"
+
+#: simplenews.module:160
+msgid "This will be the body of your newsletter. Available variables are:"
+msgstr "Ceci sera le corps de votre bulletin. Les variables disponibles sont&nbsp;:"
+
+#: simplenews.module:160
+msgid "(the name of your website),"
+msgstr "(le nom de votre site Web)"
+
+#: simplenews.module:161
+msgid "(a link to your homepage),"
+msgstr "(un lien vers votre page d'accueil)"
+
+#: simplenews.module:161
+msgid "(homepage link without the http://),"
+msgstr "(lien vers la page d'accueil sans le http://)"
+
+#: simplenews.module:162
+msgid "(your e-mail address),"
+msgstr "(votre adresse courriel)"
+
+#: simplenews.module:162
+msgid "(today's date),"
+msgstr "(date d'aujourd'hui),"
+
+#: simplenews.module:162
+msgid "(link to login page)."
+msgstr "(lien vers la page de connexion)"
+
+#: simplenews.module:176;1291
+msgid "Format"
+msgstr "Format"
+
+#: simplenews.module:176;1291
+msgid "plain"
+msgstr "texte brut"
+
+#: simplenews.module:176;1291
+msgid "html"
+msgstr "html"
+
+#: simplenews.module:177;1292
+msgid "Priority"
+msgstr "Priorité"
+
+#: simplenews.module:177;1292
+msgid "none"
+msgstr "rien"
+
+#: simplenews.module:177;1292
+msgid "highest"
+msgstr "le plus haut"
+
+#: simplenews.module:177;1292
+msgid "high"
+msgstr "haut"
+
+#: simplenews.module:177;1292
+msgid "normal"
+msgstr "normal"
+
+#: simplenews.module:177;1292
+msgid "low"
+msgstr "bas"
+
+#: simplenews.module:177;1292
+msgid "lowest"
+msgstr "le plus bas"
+
+#: simplenews.module:178;1293
+msgid "Request receipt"
+msgstr "Accusé de réception"
+
+#: simplenews.module:181;187;1294
+msgid "Don't send now"
+msgstr "Ne pas envoyer maintenant"
+
+#: simplenews.module:182;188;1295
+msgid "Send one test newsletter to the test address"
+msgstr "Envoyer un bulletin d'essai à l'adresse d'essai"
+
+#: simplenews.module:183;1296
+msgid "Send newsletter"
+msgstr "Envoyer le bulletin"
+
+#: simplenews.module:184;189
+msgid "Sending"
+msgstr "Envoi en cours"
+
+#: simplenews.module:189
+msgid "You have no privileges to send this newsletter"
+msgstr "Vous n'avez pas les privilèges requis pour envoyer ce bulletin"
+
+#: simplenews.module:194
+msgid "This newsletter has been sent"
+msgstr "Le bulletin a été envoyé"
+
+#: simplenews.module:196
+msgid "Newsletter sending options"
+msgstr "Options d'envoi du bulletin"
+
+#: simplenews.module:208
+msgid "You should select a newsletter type if you want to send this newsletter."
+msgstr "Pour envoyer ce bulletin, vous devez sélectionner un type de bulletin."
+
+#: simplenews.module:214;217
+msgid "Cannot send test newsletter: no valid test e-mail address specified."
+msgstr "Le bulletin d'essai ne peut être envoyé car aucun courriel d'essai valide n'a été fourni."
+
+#: simplenews.module:295
+msgid "Newsletter %title was successfully deleted."
+msgstr "Le bulletin %title a été supprimé."
+
+#: simplenews.module:319
+msgid "Deleted all subscriptions to newsletter %newsletter."
+msgstr "Tous les abonnements au bulletin %newsletter ont été supprimés."
+
+#: simplenews.module:367
+msgid "Current newsletter subscriptions"
+msgstr "Abonnements courants au bulletin"
+
+#: simplenews.module:372
+msgid "my newsletters"
+msgstr "mes bulletins"
+
+#: simplenews.module:385
+msgid "Newsletter: %title"
+msgstr "Bulletin&nbsp;: %title"
+
+#: simplenews.module:396;1258
+msgid "Stay informed on our latest news!"
+msgstr "Tenez-vous au courant de nos dernières nouvelles&nbsp;!"
+
+#: simplenews.module:410
+msgid "Manage my subscriptions"
+msgstr "Gérer mes abonnements"
+
+#: simplenews.module:415;418
+msgid "Previous issues"
+msgstr "Publications précédentes"
+
+#: simplenews.module:448;448
+msgid "You have to supply an e-mail address"
+msgstr "Vous devez fournir une adresse courriel"
+
+#: simplenews.module:451;451
+msgid "The e-mail address you supplied is not valid"
+msgstr "L'adresse courriel que vous avez fournie est invalide."
+
+#: simplenews.module:471;1128
+msgid "User %email added to the database."
+msgstr "L'utilisateur %email a été ajouté à la base de données."
+
+#: simplenews.module:476
+msgid "We have received a request for subscription of your e-mail address, %mail, to the \"%newsletter\" newsletter from %site (%uri). To confirm that you want to be added to this mailing list, simply visit the confirmation link at the bottom of this e-mail."
+msgstr "Nous avons reçu une demande d'abonnement de votre adresse courriel %mail au bulletin \"%newsletter\" de %site (%uri). Pour confirmer votre abonnement à cette liste de diffusion, veuillez simplement visiter le lien de confirmation au bas du présent courriel."
+
+#: simplenews.module:477;501
+msgid "If you do not wish to be subscribed to this list, please disregard this message."
+msgstr "Si vous ne souhaitez pas vous abonner à cette liste, veuillez ignorer ce message."
+
+#: simplenews.module:479;504
+msgid "You will receive a confirmation e-mail shortly"
+msgstr "Vous recevrez un courriel de confirmation sous peu"
+
+#: simplenews.module:479;504
+msgid "You will receive confirmation e-mails shortly"
+msgstr "Vous recevrez des courriels de confirmation sous peu"
+
+#: simplenews.module:486;486;510;510
+msgid "The newsletter subscriptions have been updated"
+msgstr "Les abonnements au bulletin ont été mis à jour"
+
+#: simplenews.module:494
+msgid "We have received a request for the removal of your e-mail address, %mail, from the \"%newsletter\" newsletter from %site (%uri). If you want to unsubscribe, simply visit the confirmation link at the bottom of this e-mail."
+msgstr "Nous avons reçu une demande pour désabonner votre adresse de courriel %mail du bulletin \"%newsletter\" de %site (%uri). Si vous souhaitez vous désabonner, veuillez simplement visiter le lien de confirmation au bas du présent courriel."
+
+#: simplenews.module:495
+msgid "If you do not wish to be removed from this list, please disregard this message."
+msgstr "Si vous ne souhaitez pas être retiré de cette liste de diffusion, veuillez ignorer ce message."
+
+#: simplenews.module:500
+msgid "We have received a request for the removal of your e-mail address, %mail, from the \"%newsletter\" newsletter from %site (%uri). However, you were not subscribed to this newsletter. If you want to subscribe, you can visit our website by using the link at the bottom of this e-mail."
+msgstr "Nous avons reçu une demande pour désabonner votre adresse %mail du bulletin \"%newsletter\" de %site (%uri). Cependant, vous n'êtes pas inscrit à ce bulletin. Si vous désirez vous abonner, vous pouvez visiter notre site Web en suivant le lien fourni au bas du présent courriel."
+
+#: simplenews.module:515;954;1389
+msgid "User %email deleted from the database."
+msgstr "L'utilisateur %email a été supprimé de la base de données."
+
+#: simplenews.module:545;595;642;654;1434
+msgid "Subscribe"
+msgstr "S'abonner"
+
+#: simplenews.module:546;596;643;658
+msgid "Unsubscribe"
+msgstr "Se désabonner"
+
+#: simplenews.module:555
+msgid "You should select at least one newsletter."
+msgstr "Vous devez choisir au moins un bulletin."
+
+#: simplenews.module:593;640;648;1071
+msgid "E-mail"
+msgstr "Courriel"
+
+#: simplenews.module:594;607
+msgid "Available newsletters"
+msgstr "Bulletins disponibles"
+
+#: simplenews.module:594
+msgid "Select the newsletter(s) to which you want to subscribe or unsubscribe."
+msgstr "Choisissez le(s) bulletin(s) au(x)quel(s) vous désirez vous abonner ou vous désabonner."
+
+#: simplenews.module:602
+msgid "Current subscriptions for %mail."
+msgstr "Abonnements pour %mail"
+
+#: simplenews.module:608
+msgid "Select the newsletter(s) to which you want to be subscribed."
+msgstr "Choisissez le(s) bulletin(s) au(x)quel(s) vous désirez vous abonner."
+
+#: simplenews.module:612
+msgid "Update"
+msgstr "Mise à jour"
+
+#: simplenews.module:645;921;1111;1177;1247;1268;1315;1366
+msgid "Submit"
+msgstr "Soumettre"
+
+#: simplenews.module:727
+msgid "Click here to unsubscribe from this newsletter"
+msgstr "Cliquez ici pour vous désabonner de ce bulletin"
+
+#: simplenews.module:730
+msgid "Unsubscribe from this newsletter:"
+msgstr "Se désabonner de ce bulletin :"
+
+#: simplenews.module:737
+msgid "Newsletter %title could not be sent to %email."
+msgstr "Le bulletin %title n'a pu être envoyé à %email."
+
+#: simplenews.module:786
+msgid "Status confirmation for %newsletter from %site"
+msgstr "Confirmation de statut pour %newsletter de %site"
+
+#: simplenews.module:787
+msgid "This is a subscription status confirmation notice for the \"%newsletter\" newsletter."
+msgstr "Ceci est une confirmation d'abonnement au bulletin \"%newsletter\"."
+
+#: simplenews.module:792
+msgid "Subscribe link:"
+msgstr "Lien pour abonnement :"
+
+#: simplenews.module:795
+msgid "Unsubscribe link:"
+msgstr "Lien pour désabonnement :"
+
+#: simplenews.module:800
+msgid "Visit our site:"
+msgstr "Visitez notre site Web :"
+
+#: simplenews.module:909
+msgid "You can create different newsletter types (or subjects) to categorize your news (e.g. Cats news, Dogs news, ...)."
+msgstr "Vous pouvez créer différents types de bulletins (ou sujets) pour classer vos nouvelles (par exemple, des nouvelles sur les chats, les chiens, etc.)"
+
+#: simplenews.module:912;1235;1368;1424
+msgid "Delete"
+msgstr "Supprimer"
+
+#: simplenews.module:953
+msgid "The user %user was successfully deleted."
+msgstr "L'utilisateur %user a été supprimé."
+
+#: simplenews.module:999
+msgid "all newsletters"
+msgstr "tous les bulletins"
+
+#: simplenews.module:1001;1029
+msgid "n/a"
+msgstr "sans objet"
+
+#: simplenews.module:1011;1015
+msgid "Filter"
+msgstr "Filtre"
+
+#: simplenews.module:1014
+msgid "Show issues from"
+msgstr "Montrez les publications de"
+
+#: simplenews.module:1018
+msgid "Title"
+msgstr "Titre"
+
+#: simplenews.module:1018
+msgid "Type"
+msgstr ""
+
+#: simplenews.module:1018
+msgid "Date created"
+msgstr "Date de création"
+
+#: simplenews.module:1018
+msgid "Published"
+msgstr "Publié"
+
+#: simplenews.module:1018
+msgid "Sent"
+msgstr "Envoyé"
+
+#: simplenews.module:1018
+msgid "Edit"
+msgstr "Éditer"
+
+#: simplenews.module:1033;1089
+msgid "edit"
+msgstr "éditer"
+
+#: simplenews.module:1039
+msgid "No newsletters available."
+msgstr "Aucun bulletin disponible."
+
+#: simplenews.module:1048;1099
+msgid "Table key"
+msgstr "Légende"
+
+#: simplenews.module:1049
+msgid "Not published/Not sent"
+msgstr "Non publié/non envoyé"
+
+#: simplenews.module:1050
+msgid "Published/Sent"
+msgstr "Publié/Envoyé"
+
+#: simplenews.module:1051
+msgid "Currently sending by cron"
+msgstr "Envois en cours par la commande cron"
+
+#: simplenews.module:1071
+msgid "Username"
+msgstr "Nom d'utilisateur"
+
+#: simplenews.module:1071;1218
+msgid "Status"
+msgstr "Statut"
+
+#: simplenews.module:1071;1348
+msgid "Operations"
+msgstr "Opérations"
+
+#: simplenews.module:1081
+msgid "Unregistered user"
+msgstr "Utilisateur non inscrit"
+
+#: simplenews.module:1084
+msgid "activate"
+msgstr "activer"
+
+#: simplenews.module:1087
+msgid "inactivate"
+msgstr "désactiver"
+
+#: simplenews.module:1089
+msgid "delete"
+msgstr "supprimer"
+
+#: simplenews.module:1095
+msgid "No subscriptions available."
+msgstr "Aucun abonnement disponible."
+
+#: simplenews.module:1100
+msgid "Inactive/No newsletters will be sent"
+msgstr "Inactif/Aucun bulletin ne sera envoyé"
+
+#: simplenews.module:1101
+msgid "Active/User will receive newsletters"
+msgstr "Actif/L'utilisateur recevra les bulletins"
+
+#: simplenews.module:1152
+msgid "The following addresses were added or updated: %added."
+msgstr "Les adresses suivantes ont été ajoutées ou mises à jour&nbsp;: %added."
+
+#: simplenews.module:1155
+msgid "No addresses were added."
+msgstr "Aucune adresse n'a été ajoutée."
+
+#: simplenews.module:1159
+msgid "The following addresses were invalid: %invalid."
+msgstr "Les adresses suivantes étaient invalides&nbsp;: %invalid."
+
+#: simplenews.module:1172
+msgid "The addresses were subscribed to the following newsletters: %to."
+msgstr "Les adresses ont été abonnées aux bulletins suivants&nbsp;: %to."
+
+#: simplenews.module:1175;1209;1212
+msgid "E-mail addresses"
+msgstr "Adresses courriel"
+
+#: simplenews.module:1175
+msgid "Supply a comma separated list of e-mail addresses to be added to the list. Spaces between commas and addresses are allowed."
+msgstr "Veuillez fournir une liste de courriels séparés par des virgules à ajouter à la liste de diffusion. Les espaces entre les virgules et les adresses sont permis."
+
+#: simplenews.module:1176
+msgid "Subscribe imported addresses to"
+msgstr "Abonner les adresses importées à"
+
+#: simplenews.module:1184;1225
+msgid "Export"
+msgstr "Exporter"
+
+#: simplenews.module:1212
+msgid "No addresses were found."
+msgstr "Aucune adresse n'a été trouvée."
+
+#: simplenews.module:1216
+msgid "Active users"
+msgstr "Utilisateurs actifs"
+
+#: simplenews.module:1217
+msgid "Inactive users"
+msgstr "Utilisateurs inactifs"
+
+#: simplenews.module:1218
+msgid "Select at least 1 status"
+msgstr "Choisissez au moins 1 statut."
+
+#: simplenews.module:1224
+msgid "Subscribed to"
+msgstr "Abonné à"
+
+#: simplenews.module:1224
+msgid "Select at least 1 newsletter"
+msgstr "Choisissez au moins 1 bulletin."
+
+#: simplenews.module:1232
+msgid "Are you sure you want to remove %user from the subscription list?"
+msgstr "Êtes-vous sûr de vouloir désabonner %user&nbsp;?"
+
+#: simplenews.module:1234
+msgid "This action will only remove the user from the newsletter subscription list. If this user is registered at your site, his/her account information will remain unchanged."
+msgstr "Cette opération ne fera que désabonner l'utilisateur du bulletin. Si cet utilisateur est inscrit sur votre site, son compte sera préservé."
+
+#: simplenews.module:1236;1425;1435
+msgid "Cancel"
+msgstr "Annuler"
+
+#: simplenews.module:1245
+msgid "The %block block is disabled. Click %here to enable this block."
+msgstr "Le bloc %block est désactivé. Cliquez %here pour activer ce bloc."
+
+#: simplenews.module:1245
+msgid "here"
+msgstr "ici"
+
+#: simplenews.module:1257
+msgid "Display block message"
+msgstr "Afficher le message du bloc"
+
+#: simplenews.module:1258
+msgid "Block message"
+msgstr "Message du bloc"
+
+#: simplenews.module:1259
+msgid "Display subscription form"
+msgstr "Afficher le formulaire d'inscription"
+
+#: simplenews.module:1260
+msgid "Display link to overview page"
+msgstr "Afficher le lien vers la page de vue d'ensemble"
+
+#: simplenews.module:1261
+msgid "Display latest issues"
+msgstr "Afficher les dernières publications"
+
+#: simplenews.module:1262
+msgid "Number of issues to display"
+msgstr "Nombre de publications à afficher"
+
+#: simplenews.module:1263
+msgid "Display link to RSS-feed"
+msgstr "Afficher le lien vers le fil RSS"
+
+#: simplenews.module:1265
+msgid "%name block options"
+msgstr "Options du bloc %name"
+
+#: simplenews.module:1265
+msgid "Links (to overview page, RSS-feed and latest issues) are only displayed to users who have \"view links in block\" privileges."
+msgstr "Les liens (vers la page de vue d'ensemble, le fil RSS et les dernières publications) sont seulement montrés aux utilisateurs détenant le privilège \"voir les liens dans le bloc\"."
+
+#: simplenews.module:1279
+msgid "You have to supply a sender's e-mail address."
+msgstr "Vous devez spécifier l'adresse courriel de l'expéditeur."
+
+#: simplenews.module:1282
+msgid "The sender's e-mail address you supplied is not valid."
+msgstr "L'adresse courriel spécifiée pour l'expéditeur n'est pas valide."
+
+#: simplenews.module:1286
+msgid "Your settings were saved."
+msgstr "Vos paramètres ont été sauvegardés."
+
+#: simplenews.module:1291
+msgid "Select the default newsletter sending format."
+msgstr "Choix du format d'envoi par défaut des bulletins."
+
+#: simplenews.module:1292
+msgid "Note that e-mail priority is ignored by a lot of e-mail programs."
+msgstr "Prenez note que la priorité de courriel est ignorée par beaucoup de logiciels de messagerie."
+
+#: simplenews.module:1293
+msgid "Request a Read Receipt from your newsletters. A lot of e-mail programs ignore these so it is not a definitive indication of how many people have read your newsletter."
+msgstr "Demander un accusé de réception pour vos bulletins. Beaucoup de logiciels de messagerie ignorent les demandes d'accusés de réception, par conséquent ceux-ci ne constituent pas une indication précise du nombre de personnes ayant lu un bulletin."
+
+#: simplenews.module:1297
+msgid "Default selection for sending newsletters"
+msgstr "Option par défaut d'envoi des bulletins"
+
+#: simplenews.module:1298
+msgid "Test e-mail address"
+msgstr "Adresse courriel pour les essais"
+
+#: simplenews.module:1299
+msgid "Default newsletter options"
+msgstr "Options par défaut des bulletins"
+
+#: simplenews.module:1299
+msgid "These options will be the defaults for new newsletters, but can be overridden in the newsletter editing form."
+msgstr "Les nouveaux bulletins utiliseront ces options par défaut, mais celles-ci peuvent être modifiées dans le formulaire d'édition de bulletin."
+
+#: simplenews.module:1303
+msgid "From name"
+msgstr "Expéditeur"
+
+#: simplenews.module:1304
+msgid "From e-mail address"
+msgstr "Adresse courriel de l'expéditeur"
+
+#: simplenews.module:1305
+msgid "Sender information"
+msgstr "Informations concernant l'expéditeur"
+
+#: simplenews.module:1312
+msgid "Seconds"
+msgstr "Secondes"
+
+#: simplenews.module:1313
+msgid "Maximum send time"
+msgstr "Temps d'envoi maximal"
+
+#: simplenews.module:1313
+msgid "Sets the maximum time in seconds during which newsletters are sent. If not all recipients have been mailed within this time, sending is further handled as a cronjob."
+msgstr "Détermine la durée maximale d'envoi des bulletins. Si tous les envois ne peuvent être complétés à l'intérieur de ce délai, les envois restants seront gérés par la commande cron."
+
+#: simplenews.module:1313
+msgid "The highest value in the dropdown list is based on max_execution_time in your php.ini file. Note that if not all previous newletters have been sent to all recipients yet, these are sent first."
+msgstr "La valeur la plus élevée de la liste dépend du paramètre max_execution_time, spécifié dans votre fichier php.ini. Prenez note que si tous les envois antérieurs n'ont été complétés, ceux-ci seront faits en premier."
+
+#: simplenews.module:1339;1348;1362
+msgid "Newsletter type"
+msgstr "Type de bulletin"
+
+#: simplenews.module:1352
+msgid "edit type"
+msgstr "éditer le type"
+
+#: simplenews.module:1362
+msgid "This name is used to identify the type."
+msgstr "Ce nom sert à identifier le type."
+
+#: simplenews.module:1363
+msgid "Description"
+msgstr "Description"
+
+#: simplenews.module:1363
+msgid "The description can be used to provide more information."
+msgstr "La description permet de fournir plus d'informations."
+
+#: simplenews.module:1364
+msgid "Weight"
+msgstr "Poids"
+
+#: simplenews.module:1364
+msgid "In listings, the heavier (with a higher weight value) terms will sink and the lighter terms will be positioned nearer the top."
+msgstr "Dans les listes, les termes les plus lourds (ceux qui ont les poids les plus élevés) coulent et les plus légers seront positionnés près du haut de la liste."
+
+#: simplenews.module:1385
+msgid "%user was successfully removed from the %newsletter subscription list."
+msgstr "%user a été retiré de la liste d'abonnements de %newsletter."
+
+#: simplenews.module:1404
+msgid "%user was successfully added to the %newsletter subscription list."
+msgstr "%user a été ajouté avec succès à la liste d'abonnements de %newsletter."
+
+#: simplenews.module:1421
+msgid "Are you sure you want to remove %user from the %newsletter subscription list?"
+msgstr "Êtes-vous sûr vouloir retirer %user de la liste d'abonnements de %newsletter&nbsp;?"
+
+#: simplenews.module:1423
+msgid "This action will only remove you from the newsletter subscription list. If you are registered at our site, your account information will remain unchanged."
+msgstr "Cette opération ne fera que vous désabonner du bulletin. Si vous êtes inscrit sur notre site Web, votre compte sera préservé."
+
+#: simplenews.module:1431
+msgid "Are you sure you want to add %user to the %newsletter subscription list?"
+msgstr "Êtes-vous sûr vouloir ajouter %user à la liste d'abonnements de %newsletter&nbsp;?"
+
+#: simplenews.module:1482;1482
+msgid "XML feed"
+msgstr "fil XML"
+
+#: simplenews.module:472;516;738;955;1129;1390;0
+msgid "simplenews"
+msgstr ""
+
+#: simplenews.module:31
+msgid "view links in block"
+msgstr "voir les liens dans les blocs"
+
+#: simplenews.module:31
+msgid "create newsletter"
+msgstr "créer des bulletins"
+
+#: simplenews.module:31
+msgid "edit own newsletter"
+msgstr "éditer ses propres bulletins"
+
+#: simplenews.module:31
+msgid "administer newsletters"
+msgstr "administrer les bulletins"
+
+#: simplenews.module:31
+msgid "send newsletter"
+msgstr "envoyer des bulletins"
+
