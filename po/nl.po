@@ -3,11 +3,11 @@
 # Generated from file: simplenews.module,v 1.48 2006/12/19 20:34:41 robroy
 msgid ""
 msgstr ""
-"Project-Id-Version: nl\n"
+"Project-Id-Version: simplenews\n"
 "POT-Creation-Date: 2007-01-10 15:46+0100\n"
-"PO-Revision-Date: 2007-01-15 12:51+0100\n"
-"Last-Translator: Hendrik Eeckhaut <Hendrik.Eeckhaut@UGent.be>\n"
-"Language-Team: Nederlands <nl@li.org>\n"
+"PO-Revision-Date: 2007-01-15 13:38+0100\n"
+"Last-Translator: Erik Stielstra <info@erikstielstra.nl>\n"
+"Language-Team: Drupal <nl@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -19,7 +19,7 @@ msgstr ""
 
 #: simplenews.module:10;53
 msgid "Newsletter issue"
-msgstr "Nieuwsbrief"
+msgstr "Nieuwsbrief editie"
 
 #: simplenews.module:12
 msgid "Create a newsletter issue to be sent to subscribed e-mail addresses."
@@ -39,7 +39,7 @@ msgstr "Verzonden edities"
 
 #: simplenews.module:74
 msgid "Drafts"
-msgstr "Kladjes"
+msgstr "Ontwerpversies"
 
 #: simplenews.module:104
 msgid "List newsletters"
@@ -402,7 +402,7 @@ msgstr "Er zijn geen nieuwsbrieven beschikbaar."
 
 #: simplenews.module:1486;1560
 msgid "Table key"
-msgstr "Legende"
+msgstr "Legenda"
 
 #: simplenews.module:1487
 msgid "Not published/Not sent"
@@ -454,11 +454,11 @@ msgstr "Er zijn geen inschrijvingen beschikbaar."
 
 #: simplenews.module:1561
 msgid "Inactive/No newsletters will be sent"
-msgstr "Niet actief/Er worden geen nieuwsbrieven verstuurd"
+msgstr "Niet actief: er worden geen nieuwsbrieven verstuurd"
 
 #: simplenews.module:1562
 msgid "Active/User will receive newsletters"
-msgstr "Actief/De gebruiker zal nieuwsbrieven ontvangen"
+msgstr "Actief: de gebruiker zal nieuwsbrieven ontvangen"
 
 #: simplenews.module:1576;1683
 msgid "E-mail addresses"
@@ -478,17 +478,17 @@ msgstr "De volgende adressen werden toegevoegd of bijgewerkt: %added."
 
 #: simplenews.module:1637
 msgid "The addresses were subscribed to the following newsletters: %newsletters."
-msgstr "De adressen zijn toegevoegd aan de volgende nieuwsbrief/nieuwsbrieven: %newsletters."
+msgstr "De adressen werden toegevoegd aan de volgende nieuwsbrief/nieuwsbrieven: %newsletters."
 
 # Zijn of werden?
 #: simplenews.module:1640
 msgid "No addresses were added."
-msgstr "Er zijn geen adressen toegevoegd."
+msgstr "Er werden geen adressen toegevoegd."
 
 # Alweer: zijn / waren
 #: simplenews.module:1644
 msgid "The following addresses were invalid: %invalid."
-msgstr "De volgende adressen zijn ongeldig: %invalid."
+msgstr "De volgende adressen waren ongeldig: %invalid."
 
 #: simplenews.module:1653
 msgid "Select at least 1 status"
@@ -512,7 +512,7 @@ msgstr "Selecteer tenminste 1 nieuwsbrief"
 
 #: simplenews.module:1686
 msgid "No search performed"
-msgstr "Geen zoekoperatie uitgevoerd"
+msgstr "Nog geen inschrijvingen geëxporteerd."
 
 #: simplenews.module:1727
 msgid "No addresses were found."
@@ -561,7 +561,7 @@ msgstr "Aantal getoonde edities"
 
 #: simplenews.module:1790
 msgid "Display RSS-feed icon"
-msgstr "Toon RSS-feedsymbool"
+msgstr "RSS-feedsymbool weergeven"
 
 #: simplenews.module:1795;1872
 msgid "Sender information"
@@ -593,7 +593,7 @@ msgstr "Hyperlinks bijgevoegd als een genummerde referentielijst"
 
 #: simplenews.module:1820
 msgid "Display hyperlinks inline with the text"
-msgstr "Hyperlinks in de tekst tonen"
+msgstr "Hyperlinks in de tekst weergeven"
 
 #: simplenews.module:1826
 msgid "Default newsletter options"
@@ -709,11 +709,11 @@ msgstr "nieuwsbrief bewerken"
 
 #: simplenews.module:1991
 msgid "There are currently no newsletter series."
-msgstr "Er zijn geen nieuwsbrieftermen beschikbaar."
+msgstr "Er zijn geen nieuwsbriefnamen beschikbaar."
 
 #: simplenews.module:2025
 msgid "Are you sure you want to remove %mail from all newsletter subscription lists?"
-msgstr "Wilt u %mail van alle nieuwsbrief-inschrijflijsten halen?"
+msgstr "Wilt u %mail van alle nieuwsbrief-inschrijflijsten uitschrijven?"
 
 #: simplenews.module:2027
 msgid "This action will remove %mail from all newsletter subscription lists. To unsubscribe this user from a particular newsletter, press Cancel and edit this user."
@@ -811,7 +811,7 @@ msgstr "Klik hier om uw e-mailadres van deze e-maillijst te verwijderen"
 
 #: simplenews.module:2315
 msgid "Unsubscribe from this newsletter: @url"
-msgstr "Deze nieuwsbrief opzeggen: @url"
+msgstr "Uitschrijven voor deze nieuwsbrief: @url"
 
 # Tja, deze vind ik moeilijk
 #: simplenews.module:2331
@@ -885,5 +885,5 @@ msgstr "inschrijven op nieuwsbrieven"
 
 #: simplenews.install:64
 msgid "The installation of the Simplenews module was unsuccessful."
-msgstr "Module Simplenews is succesvol geinstalleerd."
+msgstr "Module Simplenews is succesvol geïnstalleerd."
 
