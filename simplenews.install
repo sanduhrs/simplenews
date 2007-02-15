@@ -65,7 +65,7 @@ function simplenews_install() {
   }
 
   if ($s) {
-    drupal_set_message(t('Simplenesw module installed tables successfully.'));
+    drupal_set_message(t('Simplenews module installed tables successfully.'));
   }
   else {
     drupal_set_message(t('The installation of the Simplenews module was unsuccessful.'), 'error');
