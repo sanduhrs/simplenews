@@ -1029,7 +1029,8 @@ function sn_mail_confirm($email, $message, $newsletter, $snid = NULL, $tid = NUL
 */
 function sn_mail_send($mail) {
   $mail->to = trim($mail->to);
-  require_once('activeMailLib.php');
+  $path = drupal_get_path('module', 'simplenews');
+  require_once("./$path/activeMailLib.php");
   $email = new activeMailLib($mail->s_format);
   $email->From($mail->from_address, $mail->from_name);
   $email->To($mail->to);
