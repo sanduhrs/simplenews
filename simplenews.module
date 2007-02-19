@@ -384,8 +384,7 @@ function simplenews_cron() {
 
 /**
  * Implementation of hook_insert().
- * Saves extra node content to module database table
- * and sends the newsletter, upon node creation
+ * Saves extra node content to module database table.
  */
 function simplenews_insert($node) {
   $term = simplenews_validate_taxonomy($node->taxonomy);
@@ -394,19 +393,9 @@ function simplenews_insert($node) {
   //tid is also saved in this table since it is needed by _simplenews_send(), and the term_node table is
   //only updated after the execution of simplenews_insert(). It cannot be passed by a variable
   //since simplenews_cron() also calls _simplenews_send().
-  if ($node->send == 1 && user_access('send newsletter')) {
-    db_query("INSERT INTO {simplenews_newsletters} (nid, tid, s_status, s_format, priority, receipt)
-    VALUES (%d, %d, %d, '%s', %d, %d)", $node->nid, $node->simplenews_tid, 1, $node->s_format, $node->priority, $node->receipt);
-    _simplenews_send(TRUE);
-    drupal_set_message(t('Newsletter %newsletter is being sent', array('%newsletter' => $node->title)));
-  }
-  else {
-    db_query("INSERT INTO {simplenews_newsletters} (nid, tid, s_status, s_format, priority, receipt)
-    VALUES (%d, %d, %d, '%s', %d, %d)", $node->nid, $node->simplenews_tid, 0, $node->s_format, $node->priority, $node->receipt);
-  }
-  if ($node->send == 2) {
-    simplenews_send_test($node);
-  }
+  $s_status = ($node->send == 1 && user_access('send newsletter')) ? 1 : 0;
+  db_query("INSERT INTO {simplenews_newsletters} (nid, tid, s_status, s_format, priority, receipt)
+		  VALUES (%d, %d, %d, '%s', %d, %d)", $node->nid, $node->simplenews_tid, $s_status, $node->s_format, $node->priority, $node->receipt);
 }
 
 /**
@@ -416,18 +405,23 @@ function simplenews_update($node) {
   $term = simplenews_validate_taxonomy($node->taxonomy);
   $tid = is_array($term) ? array_values($term) : FALSE;
   $node->simplenews_tid = $tid ? $tid[0] : 0;
-  if ($node->send == 1 && user_access('send newsletter')) {
-    db_query("UPDATE {simplenews_newsletters} SET tid = %d, s_status = %d, s_format = '%s', priority = %d, receipt = %d
-    WHERE nid = %d", $node->simplenews_tid, 1, $node->s_format, $node->priority, $node->receipt, $node->nid);
-    _simplenews_send(TRUE);
-    drupal_set_message(t('Newsletter %newsletter is being sent', array('%newsletter' => $node->title)));
-  }
-  else {
-    db_query("UPDATE {simplenews_newsletters} SET tid = %d, s_format = '%s', priority = %d, receipt = %d
-    WHERE nid = %d", $node->simplenews_tid, $node->s_format, $node->priority, $node->receipt, $node->nid);
-  }
-  if ($node->send == 2) {
-    simplenews_send_test($node);
+  $s_status = ($node->send == 1 && user_access('send newsletter')) ? 1 : 0;
+  db_query("UPDATE {simplenews_newsletters} SET tid = %d, s_status = %d, s_format = '%s', priority = %d, receipt = %d
+		  WHERE nid = %d", $node->simplenews_tid, $s_status, $node->s_format, $node->priority, $node->receipt, $node->nid);
+}
+
+/**
+ * Implementation of hook_nodeapi().
+ */
+function simplenews_nodeapi(&$node, $op, $a3 = NULL, $a4 = NULL) {
+  if ($node->type == 'simplenews' && ($op == 'update' || $op == 'insert')) {
+    if ($node->send == 1) {
+      _simplenews_send(TRUE);
+      drupal_set_message(t('Newsletter %newsletter is being sent', array('%newsletter' => $node->title)));
+    }
+    elseif ($node->send == 2) {
+      simplenews_send_test($node);
+    }
   }
 }
 
@@ -587,17 +581,15 @@ function simplenews_block($op = 'list', $delta = 0) {
 }
 function theme_simplenews_block($newsletter) {
   $output = '';
+  if (variable_get('simplenews_block_m_status_'. $newsletter->tid, 1)) {
+    $output .= '<p>'. variable_get('simplenews_block_m_'. $newsletter->tid, t('Stay informed on our latest news!')) .'</p>';
+  }
   if (variable_get('simplenews_block_f_'. $newsletter->tid, 1) && user_access('subscribe to newsletters')) {
     $output .= drupal_get_form('simplenews_block_form', $newsletter->tid);
   }
-  else {
-    if (variable_get('simplenews_block_m_status_'. $newsletter->tid, 1)) {
-      $output .= '<p>'. variable_get('simplenews_block_m_'. $newsletter->tid, t('Stay informed on our latest news!')) .'</p>';
-    }
-    if (user_access('subscribe to newsletters')) {
-      $output .= l(t('Manage my subscriptions'), 'newsletter/subscriptions/');
-    }
-  }
+  if ((!variable_get('simplenews_block_f_'. $newsletter->tid, 1)) && (user_access('subscribe to newsletters')) ){
+    $output .= '<p>'. l(t('Manage my subscriptions'), 'newsletter/subscriptions/'). '</p>';
+  }  
   if (user_access('view links in block') || user_access('administer newsletters')) {
     if (variable_get('simplenews_block_l_'. $newsletter->tid, 1)) {
       $output .= l(t('Previous issues'), 'taxonomy/term/'. $newsletter->tid);
@@ -766,11 +758,18 @@ function simplenews_subscription_manager_form($snid = NULL) {
     }
   }
   else {
-    $subscription = simplenews_get_subscription($user->mail);
+    $subscription = simplenews_get_user_subscription($user->mail);
+    // If current user is not subscribed to any newsletter set current user data.
+    if ($user->uid && !$subscription) {
+      $subscription = new StdClass();
+      $subscription->tids = array();
+      $subscription->uid = $user->uid;
+      $subscription->mail = $user->mail;
+    }
   }
 
   // If non-admin is trying to edit someone else's subscription, access denied.
-  if ($user->uid && $user->uid != $subscription->uid && !user_access('administer newsletters')) {
+  if ($user->uid && $user->uid != $subscription->uid && !user_access('subscribe to newsletters')) {
     drupal_access_denied();
     return;
   }
@@ -805,10 +804,6 @@ function _simplenews_subscription_manager_form($subscription) {
       '#value' => t('Update'),
       '#weight' => 20,
     );
-    $form['delete'] = array('#type' => 'submit',
-      '#value' => t('Delete'),
-      '#weight' => 30,
-    );
   }
   else {
     $form['subscriptions']['#title'] = t('Manage your newsletter subscriptions');
@@ -839,7 +834,7 @@ function simplenews_subscription_manager_form_validate($form_id, $form_values) {
     form_set_error('mail', t('The e-mail address you supplied is not valid.'));
   }
   $checked_newsletters = array_filter($form_values['newsletters']);
-  if (!count($checked_newsletters)) {
+    if (!count($checked_newsletters) && !simplenews_get_user_subscription($form_values['mail'])) {
     form_set_error('newsletters', t('You must select at least one newsletter.'));
   }
 }
@@ -980,13 +975,21 @@ function simplenews_block_form_submit($form_id, $form_values) {
 function simplenews_node_prepare($nid, $tid) {
   $node = node_load(array('nid' => $nid), NULL, TRUE);
   $node = simplenews_replace_vars($node, FALSE);
-  $node = node_prepare($node);
 
+  // To play well with other modules that add content to the node,
+  // simplenews_node_prepare() must mimic node_view() as far as possible.
+  // Following is adapted from node_view().
+  $node = node_build_content($node, false, true);
+  $content = drupal_render($node->content);
+  $node->body = $content;
+  unset($node->teaser);
+  node_invoke_nodeapi($node, 'alter', false, true);
+  
   $node = theme('simplenews_newsletter', $node, $tid);
 
   // TODO: Probably should refactor the whole processing, but check here for
   // mimemail and don't mess with body if we're gonna pass it to mimemail().
-  if (!module_exists('mimemail')) {
+    if ($node->s_format == 'plain' || !module_exists('mimemail')) {
     $node->body = simplenews_html_to_text($node->body, variable_get('simplenews_hyperlinks_'. $tid, 1));
   }
 
@@ -1768,6 +1771,7 @@ function simplenews_admin_settings($tid = NULL) {
     $form['simplenews_block_options']['simplenews_block_f_'. $term->tid] = array('#type' => 'checkbox',
       '#title' => t('Display subscription form'),
       '#return_value' => 1,
+      '#description' => t('If selected a subscription form is displayed, if not selected a link to the subscription page is displayed'),      
       '#default_value' => variable_get('simplenews_block_f_'. $term->tid, 1),
     );
     $form['simplenews_block_options']['simplenews_block_l_'. $term->tid] = array('#type' => 'checkbox',
@@ -2153,7 +2157,7 @@ function simplenews_admin_types_delete($tid = NULL) {
 /**
  * Forms API callback; handles submit for newsletter (term) delete form.
  */
-function simplenews_admin_types_delete_confirm_submit($form_id, $form_values) {
+function simplenews_admin_types_delete_submit($form_id, $form_values) {
   if ($form_values['confirm']) {
     $term = taxonomy_get_term($form_values['tid']);
     taxonomy_del_term($form_values['tid']);
@@ -2309,7 +2313,7 @@ function theme_simplenews_newsletter_footer($node, $hash) {
     $node->body .= '<p>-- <br />'. l(t('Click here to unsubscribe from this newsletter'), 'newsletter/confirm/remove/'. $hash, array(), NULL, NULL, TRUE) .'</p>';
   }
   else {
-    $email->body .= "\n\n-- \n". t('Unsubscribe from this newsletter: @url', array('@url' => url('newsletter/confirm/remove/'. $hash, NULL, NULL, TRUE)));
+    $node->body .= "\n\n-- \n". t('Unsubscribe from this newsletter: @url', array('@url' => url('newsletter/confirm/remove/'. $hash, NULL, NULL, TRUE)));
   }
   return $node;
 }
