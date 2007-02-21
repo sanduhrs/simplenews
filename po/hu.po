@@ -1,704 +1,987 @@
+# translation of simplenews-module.po to Hungarian
 # Hungarian translation of Drupal (simplenews.module)
-# Copyright Drupal.hu FordÌt·si Csapat <forditas [at] drupal.hu>
-# Generated from file: simplenews.module,v 1.1.2.5 2005/08/15 15:02:21 driesk
+# Copyright Drupal.hu Ford√≠t√°si Csapat <forditas [at] drupal.hu>
+# Generated from file: simplenews.module,v 1.42.2.5 2006/06/03 08:28:26 driesk
 #
+# FEH√âR J√°nos <feher.janos _at- mindworks.hu>, 2007.
 msgid ""
 msgstr ""
-"Project-Id-Version: Drupal 4.6.1\n"
-"POT-Creation-Date: 2005-08-17 14:51+0200\n"
-"PO-Revision-Date:2005-08-22 14:31+0200\n"
-"Last-Translator: FehÈr J·nos <feher.janos [at] mindworks.hu>\n"
-"Language-Team: Drupal.hu FordÌt·si Csapat <forditas [at] drupal.hu>\n"
+"Project-Id-Version: simplenews-module\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2007-02-20 10:27+0100\n"
+"PO-Revision-Date: 2007-02-20 12:49+0100\n"
+"Last-Translator: FEH√âR J√°nos <feher.janos _at- mindworks.hu>\n"
+"Language-Team: Hungarian <Drupal.hu Ford√≠t√°si Csapat <forditas [at] drupal.hu>>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: KBabel 1.11.4\n"
 
-#: simplenews.module:11
-msgid "Allows to send newsletters to subscribed e-mail addresses."
-msgstr "SegÌtsÈgÈvel hÌrlevÈl k¸ldheto a feliratkozottak e-mail cÌmeire."
+#: simplenews.module:10;53
+msgid "Newsletter issue"
+msgstr "H√≠rlevele"
 
-#: simplenews.module:14
-msgid "Send a newsletter to subscribed e-mail addresses."
-msgstr "HÌrlevÈl k¸ldÈse a feliratkozottak e-mail cÌmÈre."
+#: simplenews.module:12
+msgid "Create a newsletter issue to be sent to subscribed e-mail addresses."
+msgstr "H√≠rlev√©l k√ºld√©se a feliratkozottak e-mail c√≠m√©re."
 
-#: simplenews.module:24;77;1298
-msgid "newsletter"
-msgstr "hÌrlevÈl"
+#: simplenews.module:58;83;90;97;560
+msgid "Newsletters"
+msgstr "H√≠rlevelek"
 
-#: simplenews.module:79;90
-msgid "newsletters"
-msgstr "hÌrlevelek"
+#: simplenews.module:60
+msgid "Manage newsletters, subscriptions, and configuration options."
+msgstr "H√≠rlevelek, feliratkoz√°sok √©s be√°ll√≠t√°sok karbantart√°sa."
 
-#: simplenews.module:83
-msgid "sent items"
-msgstr "elk¸ldˆtt elemek"
+#: simplenews.module:66
+msgid "Sent issues"
+msgstr "Elk√ºld√∂tt kiad√°sok"
 
-#: simplenews.module:86
-msgid "drafts"
-msgstr "v·zlatok"
+#: simplenews.module:74
+msgid "Drafts"
+msgstr "V√°zlatok"
 
-#: simplenews.module:93
-msgid "list newsletters"
-msgstr "hÌrlevelek list·z·sa"
+#: simplenews.module:104
+msgid "List newsletters"
+msgstr "H√≠rlevelek list√°z√°sa"
 
-#: simplenews.module:96
-msgid "add newsletters"
-msgstr "hÌrlevÈl hozz·ad·sa"
+#: simplenews.module:110
+msgid "Add newsletter"
+msgstr "H√≠rlev√©l hozz√°ad√°sa"
 
-#: simplenews.module:100
-msgid "subscriptions"
-msgstr "feliratkoz·sok"
+#: simplenews.module:119;127;134
+msgid "Subscriptions"
+msgstr "Feliratkoz√°sok"
 
-#: simplenews.module:103
-msgid "list subscriptions"
-msgstr "feliratkoz·sok list·z·sa"
+#: simplenews.module:141
+msgid "List subscriptions"
+msgstr "Feliratkoz√°sok list√°z√°sa"
 
-#: simplenews.module:106
-msgid "import subscriptions"
-msgstr "feliratkoz·sok import·l·sa"
+#: simplenews.module:147
+msgid "Import subscriptions"
+msgstr "Feliratkoz√°sok import√°l√°sa"
 
-#: simplenews.module:109
-msgid "export subscriptions"
-msgstr "feliratkoz·sok expor·tl·sa"
+#: simplenews.module:155
+msgid "Export subscriptions"
+msgstr "Feliratkoz√°sok export√°l√°sa"
 
-#: simplenews.module:113
-msgid "settings"
-msgstr "be·llÌt·sok"
+#: simplenews.module:164
+msgid "Activate subscription"
+msgstr "Feliratkoz√°s aktiv√°l√°sa"
 
-#: simplenews.module:116
-msgid "general"
-msgstr "·ltal·nos"
+#: simplenews.module:170
+msgid "Inactivate subscription"
+msgstr "Feliratkoz√°s felf√ºggeszt√©se"
 
-#: simplenews.module:120
-msgid "confirm newsletter subscriptions"
-msgstr "feliratkoz·sok megerosÌtÈse"
+#: simplenews.module:177
+msgid "Settings"
+msgstr "Be√°ll√≠t√°sok"
 
-#: simplenews.module:124
-msgid "manage newsletter subscriptions"
-msgstr "feliratkoz·sok karbantart·sa"
+#: simplenews.module:185
+msgid "General"
+msgstr "√Åltal√°nos"
 
-#: simplenews.module:159
+#: simplenews.module:192
+msgid "Confirm newsletter subscriptions"
+msgstr "Feliratkoz√°sok meger≈ës√≠t√©se"
+
+#: simplenews.module:198
+msgid "Manage newsletter subscriptions"
+msgstr "Feliratkoz√°sok karbantart√°sa"
+
+#: simplenews.module:230;1439
+msgid "Title"
+msgstr "C√≠m"
+
+#: simplenews.module:238
 msgid "Message"
-msgstr "‹zenet"
+msgstr "√úzenet"
 
-#: simplenews.module:160
+#: simplenews.module:242
 msgid "This will be the body of your newsletter. Available variables are:"
-msgstr "Ez lesz a hÌrlevÈl szˆvegtˆrzse. Az elÈrheto v·ltozatok:"
+msgstr "Ez lesz a h√≠rlev√©l sz√∂vegt√∂rzse. Az el√©rheto v√°ltozatok:"
 
-#: simplenews.module:160
+#: simplenews.module:242
 msgid "(the name of your website),"
-msgstr "(a weboldal cÌme),"
+msgstr "(a weboldal c√≠me),"
 
-#: simplenews.module:161
+#: simplenews.module:242
 msgid "(a link to your homepage),"
 msgstr "(a honlap linkje),"
 
-#: simplenews.module:161
+#: simplenews.module:242
 msgid "(homepage link without the http://),"
-msgstr "(honlap link http:// nÈlk¸l),"
+msgstr "(honlap link http:// n√©lk√ºl),"
 
-#: simplenews.module:162
+#: simplenews.module:242
 msgid "(your e-mail address),"
-msgstr "(az ÷n email cÌme),"
+msgstr "(az √ñn email c√≠me),"
 
-#: simplenews.module:162
+#: simplenews.module:242
 msgid "(today's date),"
-msgstr "(mai d·tum),"
+msgstr "(mai d√°tum),"
 
-#: simplenews.module:162
+#: simplenews.module:242
 msgid "(link to login page)."
-msgstr "(link a belÈpteto oldalra)."
+msgstr "(link a bel√©pteto oldalra)."
 
-#: simplenews.module:176;1263
+#: simplenews.module:259
+msgid "Newsletter sending options"
+msgstr "A h√≠rlev√©lk√ºld√©s be√°ll√≠t√°sai"
+
+#: simplenews.module:265;1831
 msgid "Format"
-msgstr "Form·tum"
+msgstr "Form√°tum"
 
-#: simplenews.module:176;1263
-msgid "plain"
-msgstr "egyszeru"
-
-#: simplenews.module:176;1263
-msgid "html"
-msgstr "html"
-
-#: simplenews.module:177;1264
+#: simplenews.module:270;1837
 msgid "Priority"
-msgstr "Priorit·s"
+msgstr "Priorit√°s"
 
-#: simplenews.module:177;1264
+#: simplenews.module:272;1838
 msgid "none"
 msgstr "nincs"
 
-#: simplenews.module:177;1264
+#: simplenews.module:272;1838
 msgid "highest"
 msgstr "legmagasabb"
 
-#: simplenews.module:177;1264
+#: simplenews.module:272;1838
 msgid "high"
 msgstr "magas"
 
-#: simplenews.module:177;1264
+#: simplenews.module:272;1838
 msgid "normal"
-msgstr "norm·l"
+msgstr "norm√°l"
 
-#: simplenews.module:177;1264
+#: simplenews.module:272;1838
 msgid "low"
 msgstr "alacsony"
 
-#: simplenews.module:177;1264
+#: simplenews.module:272;1838
 msgid "lowest"
 msgstr "legalacsonyabb"
 
-#: simplenews.module:178;1265
+#: simplenews.module:275;1843
 msgid "Request receipt"
-msgstr "IgÈnylÈs-megerosÌtÈs"
+msgstr "Ig√©nyl√©s-meger≈ës√≠t√©s"
 
-#: simplenews.module:181;187;1266
+#: simplenews.module:281;292;1850
 msgid "Don't send now"
-msgstr "MÈg ne k¸ldje el"
+msgstr "M√©g ne k√ºldje el"
 
-#: simplenews.module:182;188;1267
+#: simplenews.module:282;293;1850
 msgid "Send one test newsletter to the test address"
-msgstr "Egy teszt hÌrlevÈl k¸ldÈse a teszt cÌmre"
+msgstr "Egy teszt h√≠rlev√©l k√ºld√©se a teszt c√≠mre"
 
-#: simplenews.module:183;1268
+#: simplenews.module:283;1850
 msgid "Send newsletter"
-msgstr "HÌrlevÈl elk¸ldÈse"
+msgstr "H√≠rlev√©l k√ºld√©se"
 
-#: simplenews.module:184;189
+#: simplenews.module:286;295
 msgid "Sending"
-msgstr "Az elk¸ldÈs folyamatban"
+msgstr "K√ºld√©s"
 
-#: simplenews.module:189
+#: simplenews.module:298
 msgid "You have no privileges to send this newsletter"
-msgstr "Nincs jogosults·g a hÌrlevÈl elk¸ldÈsÈhez"
+msgstr "Nincs jogosults√°g a h√≠rlev√©l elk√ºld√©s√©hez"
 
-#: simplenews.module:194
+#: simplenews.module:303
+msgid "Test e-mail addresses"
+msgstr "Teszt email c√≠m"
+
+#: simplenews.module:308
+msgid ""
+"Supply a comma-separated list of e-mail addresses to be used as test "
+"addresses."
+msgstr ""
+"A hozz√°adand√≥ email c√≠meket vessz≈ëvel elv√°lasztva kell felsorolni. A vessz≈ëk "
+"√©s a c√≠mek k√∂zti sz√≥k√∂z megengedett."
+
+#: simplenews.module:314
 msgid "This newsletter has been sent"
-msgstr "A hÌrlevÈl kÈzbesÌtÈsre ker¸lt"
+msgstr "A h√≠rlev√©l k√©zbes√≠t√©sre ker√ºlt"
 
-#: simplenews.module:196
-msgid "Newsletter sending options"
-msgstr "A hÌrlevÈlk¸ldÈs be·llÌt·sai"
+#: simplenews.module:330
+msgid "You should select a newsletter if you want to send this newsletter."
+msgstr "Sz√©tk√ºld√©s el≈ëtt ki kell v√°lasztani a h√≠rlev√©l t√≠pus√°t"
 
-#: simplenews.module:216
-msgid "You should select a newsletter type if you want to send this newsletter."
-msgstr "SzÈtk¸ldÈs elott ki kell v·lasztani a hÌrlevÈl tÌpus·t"
-
-#: simplenews.module:222;225
+#: simplenews.module:343
 msgid "Cannot send test newsletter: no valid test e-mail address specified."
-msgstr "A teszt hÌrlevÈl nem k¸ldheto el: nem lett teszt emailcÌm kiv·lasztva."
+msgstr "A teszt h√≠rlev√©l nem k√ºldhet≈ë el: nem lett teszt emailc√≠m kiv√°lasztva."
 
-#: simplenews.module:287
+#: simplenews.module:346
+msgid "Cannot send test newsletter to %mail: e-mail address invalid."
+msgstr "A teszt h√≠rlev√©l nem k√ºldhet≈ë el az al√°bbi √©rv√©nytelen email c√≠mre: %mail . "
+
+#: simplenews.module:401;423
+msgid "Newsletter %newsletter is being sent"
+msgstr "A %newsletter  h√≠rlev√©l k√©zbes√≠t√©sre ker√ºlt"
+
+#: simplenews.module:440
 msgid "Newsletter %title was successfully deleted."
-msgstr "%title hÌrlevÈl sikeresen tˆrˆlve."
+msgstr "%title h√≠rlev√©l sikeresen t√∂r√∂lve."
 
-#: simplenews.module:311
+#: simplenews.module:461
 msgid "Deleted all subscriptions to newsletter %newsletter."
-msgstr "%newsletter ˆsszes elofizetoje tˆrlÈsre ker¸lt."
+msgstr "%newsletter √∂sszes elofizetoje t√∂rl√©sre ker√ºlt."
 
-#: simplenews.module:359
+#: simplenews.module:527
 msgid "Current newsletter subscriptions"
-msgstr "Jelenlegi hÌrlevÈl-elofizetok"
+msgstr "Jelenlegi h√≠rlev√©l-el≈ëfizet≈ëk"
 
-#: simplenews.module:364
+#: simplenews.module:534;558
 msgid "my newsletters"
-msgstr "hÌrleveleim"
+msgstr "h√≠rleveleim"
 
-#: simplenews.module:377
-msgid "Newsletter: %title"
-msgstr "HÌrlevÈl: %title"
+#: simplenews.module:550
+msgid "Currently no subscriptions"
+msgstr "Jelenlegi h√≠rlev√©l-el≈ëfizet≈ëk"
 
-#: simplenews.module:388;1230
+#: simplenews.module:553
+msgid "Current subcriptions"
+msgstr "Jelenlegi h√≠rlev√©l-el≈ëfizet≈ëk"
+
+#: simplenews.module:557
+msgid "Manage subscriptions"
+msgstr "Feliratkoz√°sok kezel√©se"
+
+#: simplenews.module:573
+msgid "Newsletter: @title"
+msgstr "H√≠rlev√©l: @title"
+
+#: simplenews.module:595;1766
 msgid "Stay informed on our latest news!"
-msgstr "Mindig naprakÈszen legfrissebb hÌreinkbol!"
+msgstr "Mindig naprak√©szen legfrissebb h√≠reinkb≈ël!"
 
-#: simplenews.module:402
+#: simplenews.module:598
 msgid "Manage my subscriptions"
-msgstr "Feliratkoz·sok kezelÈse"
+msgstr "Feliratkoz√°sok kezel√©se"
 
-#: simplenews.module:407;410
+#: simplenews.module:603;606
 msgid "Previous issues"
-msgstr "Elozo kiad·sok"
+msgstr "El≈ëz≈ë kiad√°sok"
 
-#: simplenews.module:440;440
-msgid "You have to supply an e-mail address"
-msgstr "Meg kell adni egy email cÌmet"
+#: simplenews.module:682
+msgid "Could not load newsletter term ID %id"
+msgstr "A h√≠relv√©l ezzel a kifejez√©s ID-vel nem t√∂lthet≈ë be: %id"
 
-#: simplenews.module:443;443
-msgid "The e-mail address you supplied is not valid"
-msgstr "A megadott emailcÌm ÈrvÈnytelen"
+#: simplenews.module:793
+msgid "Select the newsletter(s) to which you want to subscribe or unsubscribe."
+msgstr ""
+"Ki kell v√°lasztani legal√°bb egy h√≠rlevelet, amelyre fel- vagy leiratkoz√°s "
+"t√∂rt√©njen."
 
-#: simplenews.module:463;1100
-msgid "User %email added to the database."
-msgstr "%email felhaszn·lÛ beker¸lt az adatb·zisba."
+#: simplenews.module:802
+msgid "Subscriptions for %mail"
+msgstr "%mail jelenlegi el≈ëfizet√©sei"
 
-#: simplenews.module:468
-msgid "We have received a request for subscription of your e-mail address, %mail, to the \"%newsletter\" newsletter from %site (%uri). To confirm that you want to be added to this mailing list, simply visit the confirmation link at the bottom of this e-mail."
-msgstr "Egy elofizetÈsi igÈnylÈst kaptunk a %mail emailcÌmrol %site (%uri) Ñ%newsletterî hÌrlevelÈre. A list·ra valÛ felker¸lÈst meg kell erosÌteni, melyet legegyszerubben az email alj·n tal·lhatÛ linkre valÛ kattint·ssal lehet megtenni."
+#: simplenews.module:805;852
+msgid "Update"
+msgstr "Friss√≠t"
 
-#: simplenews.module:469;493
-msgid "If you do not wish to be subscribed to this list, please disregard this message."
-msgstr "Ha nem kÌv·n feliratkozni a list·ra, kÈrem tekintse semmisnek ezt az ¸zenetet."
+#: simplenews.module:809;2000;2027;2068;2110;2148
+msgid "Delete"
+msgstr "T√∂rl√©s"
 
-#: simplenews.module:471;496
-msgid "You will receive a confirmation e-mail shortly"
-msgstr "Hamarosan megÈrkezik a megerosÌto email"
+#: simplenews.module:814
+msgid "Manage your newsletter subscriptions"
+msgstr "Feliratkoz√°saim karbantart√°sa"
 
-#: simplenews.module:471;496
-msgid "You will receive confirmation e-mails shortly"
-msgstr "Hamarosan megÈrkeznek a megerosÌto emailek"
-
-#: simplenews.module:478;478;502;502
-msgid "The newsletter subscriptions have been updated"
-msgstr "A hÌrlevÈl-elofizetÈsek friss¸ltek"
-
-#: simplenews.module:486
-msgid "We have received a request for the removal of your e-mail address, %mail, from the \"%newsletter\" newsletter from %site (%uri). If you want to unsubscribe, simply visit the confirmation link at the bottom of this e-mail."
-msgstr "Egy lemondÛ bejelentÈst kaptunk a %mail emailcÌmrol %site (%uri) Ñ%newsletterî hÌrlevelÈre. A lemond·st meg kell erosÌteni, melyet legegyszerubben az email alj·n tal·lhatÛ linkre valÛ kattint·ssal lehet megtenni."
-
-#: simplenews.module:487
-msgid "If you do not wish to be removed from this list, please disregard this message."
-msgstr "Ha nem szeretnÈ lemondani a hÌrlevelet, kÈrj¸k tekintse semmisnek ezt az ¸zenetet."
-
-#: simplenews.module:492
-msgid "We have received a request for the removal of your e-mail address, %mail, from the \"%newsletter\" newsletter from %site (%uri). However, you were not subscribed to this newsletter. If you want to subscribe, you can visit our website by using the link at the bottom of this e-mail."
-msgstr "Egy lemondÛ bejelentÈst kaptunk a %mail emailcÌmrol %site (%uri) Ñ%newsletterî hÌrlevelÈre, annak ellnÈre, hogy nincs bejegyzett elofizeto ezen az email cÌmen. A feliratkoz·st legegyszerubben az email alj·n tal·lhatÛ linkre valÛ kattint·ssal lehet megtenni."
-
-#: simplenews.module:507;946;1361
-msgid "User %email deleted from the database."
-msgstr "%email felhaszn·lÛ tˆrˆlve az adatb·zisbÛl."
-
-#: simplenews.module:537;587;634;646;1406
-msgid "Subscribe"
-msgstr "Feliratkoz·s"
-
-#: simplenews.module:538;588;635;650
-msgid "Unsubscribe"
-msgstr "LeÌratkoz·s"
-
-#: simplenews.module:547
-msgid "You should select at least one newsletter."
-msgstr "Legal·bb egy hÌrlevelet ki kell v·lasztani."
-
-#: simplenews.module:585;632;640;1043
+#: simplenews.module:816;913;920;1530
 msgid "E-mail"
 msgstr "E-mail"
 
-#: simplenews.module:586;599
-msgid "Available newsletters"
-msgstr "ElÈrheto hÌrlevelek"
+#: simplenews.module:823;863;909;927;2206
+msgid "Subscribe"
+msgstr "Feliratkoz√°s"
 
-#: simplenews.module:586
-msgid "Select the newsletter(s) to which you want to subscribe or unsubscribe."
-msgstr "Ki kell v·lasztani legal·bb egy hÌrlevelet, amelyre fel- vagy leiratkoz·s tˆrtÈnjen."
+#: simplenews.module:827;871;905;927;2233
+msgid "Unsubscribe"
+msgstr "Leiratkoz√°s"
 
-#: simplenews.module:594
-msgid "Current subscriptions for %mail."
-msgstr "%mail jelenlegi elofizetÈsei"
+#: simplenews.module:839;941
+msgid "The e-mail address you supplied is not valid."
+msgstr "A megadott emailc√≠m √©rv√©nytelen"
 
-#: simplenews.module:600
-msgid "Select the newsletter(s) to which you want to be subscribed."
-msgstr "Ki kell v·lasztani legal·bb egy hÌrlevelet, amelyre a feliratkoz·s tˆrtÈnjen."
+#: simplenews.module:843;1603
+msgid "You must select at least one newsletter."
+msgstr "Legal√°bb egy h√≠rlevelet ki kell v√°lasztani."
 
-#: simplenews.module:604
-msgid "Update"
-msgstr "FrissÌt"
+#: simplenews.module:861
+msgid "The newsletter subscriptions for %mail have been updated."
+msgstr "Az al√°bbi c√≠mhez tartoz√≥ h√≠rlev√©l-el≈ëfizet√©sek friss√ºltek: %mail"
 
-#: simplenews.module:637;913;1083;1149;1219;1240;1287;1338
+#: simplenews.module:869;959
+msgid ""
+"You will receive a confirmation e-mail shortly containing further "
+"instructions on how to complete your subscription."
+msgstr "Hamarosan egy meger≈ës√≠t≈ë email fog √©rkezni, amely tartalmazza a feliratkoz√°s tov√°bbi l√©p√©seit is."
+
+#: simplenews.module:877;968
+msgid ""
+"You will receive a confirmation e-mail shortly containing further "
+"instructions on how to complete the unsubscription process."
+msgstr "Hamarosan egy meger≈ës√≠t≈ë email fog √©rkezni, amely tartalmazza a leiratkoz√°s tov√°bbi l√©p√©seit is."
+
+#: simplenews.module:932;2100
 msgid "Submit"
-msgstr "Bek¸ld"
+msgstr "Bek√ºld√©s"
 
-#: simplenews.module:719
-msgid "Click here to unsubscribe from this newsletter"
-msgstr "A hÌrlevÈl lemond·s·hoz ide kell kattintani" 
+#: simplenews.module:962
+msgid "You have been successfully subscribed."
+msgstr "A feliratkoz√°s siker√ºlt."
 
-#: simplenews.module:722
-msgid "Unsubscribe from this newsletter:"
-msgstr "Leiratkoz·s az al·bbi hÌrlevÈlrol:"
+#: simplenews.module:971
+msgid "You have been successfully unsubscribed."
+msgstr "A leiratkoz√°s sikeres volt."
 
-#: simplenews.module:729
+#: simplenews.module:1055
 msgid "Newsletter %title could not be sent to %email."
-msgstr "%title tÈm·j˙ hÌrlevÈl nem k¸ldheto el %email email cÌmre."
+msgstr "%title t√©m√°j√∫ h√≠rlev√©l nem k√ºldhet≈ë el %email email c√≠mre."
 
-#: simplenews.module:778
-msgid "Status confirmation for %newsletter from %site"
-msgstr "%site %newsletter hÌrlevÈl megerosÌtÈse"
+#: simplenews.module:1096
+msgid "Footer will be appended here"
+msgstr "A l√°bl√©c ide fog ker√ºlni"
 
-#: simplenews.module:779
-msgid "This is a subscription status confirmation notice for the \"%newsletter\" newsletter."
-msgstr "Ezzel az ÈrtesÌto emaillel Ñ%newsletterî hÌrlevÈl elofizetÈsi sz·ndÈk·t lehet megerosÌteni."
+#: simplenews.module:1101
+msgid "Test newsletter sent to %recipient."
+msgstr "A teszt k√©zbes√≠tve lett az al√°bbi c√≠mzettnek: %recipient ."
 
-#: simplenews.module:784
-msgid "Subscribe link:"
-msgstr "Feliratkoz·s link:"
+#: simplenews.module:1119
+msgid "Sent confirmation e-mail to %mail."
+msgstr "Hamarosan meg√©rkezik a meger≈ës√≠t≈ë email az al√°bbi c√≠mre: %mail ."
 
-#: simplenews.module:787
-msgid "Unsubscribe link:"
-msgstr "Leiratkoz·s link:"
+#: simplenews.module:1122
+msgid "Sending of confirmation e-mail to %mail failed."
+msgstr "A meger≈ës√≠t≈ë lev√©l k√ºld√©se nem siker√ºlt az al√°bbi c√≠mre: %mail ."
 
-#: simplenews.module:792
-msgid "Visit our site:"
-msgstr "Webhely¸nk:"
+#: simplenews.module:1409;1480;1528
+msgid "Filter"
+msgstr "Sz≈±r≈ë"
 
-#: simplenews.module:901
-msgid "You can create different newsletter types (or subjects) to categorize your news (e.g. Cats news, Dogs news, ...)."
-msgstr "K¸lˆnbˆzo hÌrlevÈltÌpusok (vagy tÈm·k) hozhatÛak lÈtre a hÌrek kategoriz·l·s·hoz (pÈld·ul: Macskavil·g hÌrei, Kutyavil·g hÌrei, stb)."
+#: simplenews.module:1415
+msgid "all newsletters"
+msgstr "√∂sszes h√≠rlev√©l"
 
-#: simplenews.module:904;1207;1340;1396
-msgid "Delete"
-msgstr "Tˆrˆl"
+#: simplenews.module:1418
+msgid "orphaned newsletters"
+msgstr "el√°rvult h√≠rlevelek"
 
-#: simplenews.module:945
-msgid "The user %user was successfully deleted."
-msgstr "%user felhaszn·lÛ sikeresen tˆrˆlve."
+#: simplenews.module:1434
+msgid "Show issues from"
+msgstr "Kiad√°sok megjelen√≠t√©se"
 
-#: simplenews.module:991
-msgid "Title"
-msgstr "CÌm"
+#: simplenews.module:1439;1964
+msgid "Newsletter"
+msgstr "H√≠rlev√©l"
 
-#: simplenews.module:991
-msgid "Type"
-msgstr "TÌpus"
-
-#: simplenews.module:991
+#: simplenews.module:1439
 msgid "Date created"
-msgstr "LÈtrehoz·s d·tuma"
+msgstr "L√©trehoz√°s d√°tuma"
 
-#: simplenews.module:991
+#: simplenews.module:1439
 msgid "Published"
-msgstr "KˆzzÈtett"
+msgstr "K√∂zz√©tett"
 
-#: simplenews.module:991
+#: simplenews.module:1439
 msgid "Sent"
-msgstr "KÈzbesÌtve"
+msgstr "Elk√ºldve"
 
-#: simplenews.module:991
+#: simplenews.module:1439
 msgid "Edit"
-msgstr "SzerkesztÈs"
+msgstr "Szerkeszt√©s"
 
-#: simplenews.module:1002
+#: simplenews.module:1463
 msgid "n/a"
 msgstr "n/a"
 
-#: simplenews.module:1006;1061
+#: simplenews.module:1467;1549
 msgid "edit"
-msgstr "szerkesztÈs"
+msgstr "Szerkeszt√©s"
 
-#: simplenews.module:1012
+#: simplenews.module:1473
 msgid "No newsletters available."
-msgstr "Nincs elÈrheto hÌrlevÈl."
+msgstr "Nincs el√©rhet≈ë h√≠rlev√©l."
 
-#: simplenews.module:1020;1071
+#: simplenews.module:1485;1559
 msgid "Table key"
-msgstr "T·bla kulcs"
+msgstr "T√°bla kulcs"
 
-#: simplenews.module:1021
+#: simplenews.module:1486
 msgid "Not published/Not sent"
-msgstr "Nem kˆzzÈtett/Nem szÈtk¸ldˆtt"
+msgstr "Nem k√∂zz√©tett/Nem sz√©tk√ºld√∂tt"
 
-#: simplenews.module:1022
+#: simplenews.module:1487
 msgid "Published/Sent"
-msgstr "KˆzzÈtett/KÈzbesÌtett"
+msgstr "K√∂zz√©tett/K√©zbes√≠tett"
 
-#: simplenews.module:1023
+#: simplenews.module:1488
 msgid "Currently sending by cron"
-msgstr "Jelenleg kÈzbesÌtÈs alatt"
+msgstr "Jelenleg k√©zbes√≠t√©s alatt"
 
-#: simplenews.module:1043
+#: simplenews.module:1516
+msgid "Show subscriptions to"
+msgstr "feliratkoz√°sok mutat√°sa"
+
+#: simplenews.module:1530
 msgid "Username"
-msgstr "Felhaszn·lÛnÈv"
+msgstr "Felhaszn√°l√≥n√©v"
 
-#: simplenews.module:1043;1190
+#: simplenews.module:1530;1651
 msgid "Status"
-msgstr "¡llapot"
+msgstr "√Ållapot"
 
-#: simplenews.module:1043;1320
+#: simplenews.module:1530;1983
 msgid "Operations"
-msgstr "Muveletek"
+msgstr "M≈±veletek"
 
-#: simplenews.module:1053
+#: simplenews.module:1541
 msgid "Unregistered user"
-msgstr "Nemregisztr·lt felhaszn·lÛ"
+msgstr "Nemregisztr√°lt felhaszn√°l√≥"
 
-#: simplenews.module:1056
+#: simplenews.module:1544
 msgid "activate"
-msgstr "aktiv·l"
+msgstr "aktiv√°l"
 
-#: simplenews.module:1059
+#: simplenews.module:1547
 msgid "inactivate"
-msgstr "felf¸ggeszt"
+msgstr "felf√ºggeszt"
 
-#: simplenews.module:1061
+#: simplenews.module:1549
 msgid "delete"
-msgstr "tˆrˆl"
+msgstr "t√∂rl√©s"
 
-#: simplenews.module:1067
+#: simplenews.module:1555
 msgid "No subscriptions available."
-msgstr "Nincs elofizeto."
+msgstr "Nincs el√©rhet≈ë feliratkoz√°s."
 
-#: simplenews.module:1072
+#: simplenews.module:1560
 msgid "Inactive/No newsletters will be sent"
-msgstr "Felf¸ggeszt/A hÌrlevÈl nem lesz kÈzbesÌtve"
+msgstr "Felf√ºggeszt/A h√≠rlev√©l nem lesz k√©zbes√≠tve"
 
-#: simplenews.module:1073
+#: simplenews.module:1561
 msgid "Active/User will receive newsletters"
-msgstr "Aktiv·l/Az elofizetok megkapj·k a hÌrleveleket"
+msgstr "Aktiv√°l/Az elofizetok megkapj√°k a h√≠rleveleket"
 
-#: simplenews.module:1124
-msgid "The following addresses were added or updated: %added."
-msgstr "Az al·bbi cÌmek hozz·ad·sra ker¸ltek: %added."
-
-#: simplenews.module:1127
-msgid "No addresses were added."
-msgstr "Nem lettek cÌmek hozz·adva."
-
-#: simplenews.module:1131
-msgid "The following addresses were invalid: %invalid."
-msgstr "Az al·bbi cÌmek ÈrvÈnytelenek: %invalid."
-
-#: simplenews.module:1144
-msgid "The addresses were subscribed to the following newsletters: %to."
-msgstr "Az al·bbi cÌmek elofizettek a kˆvetkezo hÌrlevelekre: %to."
-
-#: simplenews.module:1147;1181;1184
+#: simplenews.module:1575;1682
 msgid "E-mail addresses"
-msgstr "E-mail cÌmek"
+msgstr "E-mail c√≠mek"
 
-#: simplenews.module:1147
-msgid "Supply a comma separated list of e-mail addresses to be added to the list. Spaces between commas and addresses are allowed."
-msgstr "A hozz·adandÛ email cÌmeket vesszovel elv·lasztva kell felsorolni. A vesszok Ès a cÌmek kˆzti szÛkˆz megengedett."
+#: simplenews.module:1578
+msgid ""
+"Supply a comma separated list of e-mail addresses to be added to the list. "
+"Spaces between commas and addresses are allowed."
+msgstr ""
+"A hozz√°adand√≥ email c√≠meket vessz≈ëvel elv√°lasztva kell felsorolni. A vessz≈ëk "
+"√©s a c√≠mek k√∂zti sz√≥k√∂z megengedett."
 
-#: simplenews.module:1148
-msgid "Subscribe imported addresses to"
-msgstr "A cÌmek az al·bbi hÌrlevÈl elofizetoi lettek:"
+#: simplenews.module:1586
+msgid "Subscribe imported addresses to the following newsletter(s)"
+msgstr "Az import√°lt c√≠mek fel√≠r√°sa az al√°bbi h√≠rlevelekre"
 
-#: simplenews.module:1156;1197
+#: simplenews.module:1595
+msgid "Import"
+msgstr "Import"
+
+#: simplenews.module:1629
+msgid "The following addresses were added or updated: %added."
+msgstr "Az al√°bbi c√≠mek hozz√°ad√°sra ker√ºltek: %added."
+
+#: simplenews.module:1636
+msgid "The addresses were subscribed to the following newsletters: %newsletters."
+msgstr "Az c√≠mek fel lettek √≠rva a k√∂vetkez≈ë h√≠rlevelekre: %newsletters ."
+
+#: simplenews.module:1639
+msgid "No addresses were added."
+msgstr "Nem lettek c√≠mek hozz√°adva."
+
+#: simplenews.module:1643
+msgid "The following addresses were invalid: %invalid."
+msgstr "Az al√°bbi c√≠mek √©rv√©nytelenek: %invalid."
+
+#: simplenews.module:1652
+msgid "Select at least 1 status"
+msgstr "Legal√°bb 1 √°llapot kiv√°laszt√°sa k√∂telez≈ë"
+
+#: simplenews.module:1657
+msgid "Active users"
+msgstr "Akt√≠v felhaszn√°l√≥k"
+
+#: simplenews.module:1662
+msgid "Inactive users"
+msgstr "Inakt√≠v felhaszn√°l√≥k"
+
+#: simplenews.module:1668
+msgid "Subscribed to"
+msgstr "El≈ëfizet≈ëje"
+
+#: simplenews.module:1669
+msgid "Select at least 1 newsletter"
+msgstr "Legal√°bb 1 h√≠rlev√©l kiv√°laszt√°sa k√∂telez≈ë"
+
+#: simplenews.module:1685
+msgid "No search performed"
+msgstr "Nem t√∂rt√©nt keres√©s"
+
+#: simplenews.module:1689;1698
 msgid "Export"
 msgstr "Export"
 
-#: simplenews.module:1184
+#: simplenews.module:1726
 msgid "No addresses were found."
-msgstr "Nincs a keresÈsnek megfelelo cÌm."
+msgstr "Nincs a keres√©snek megfelel≈ë c√≠m."
 
-#: simplenews.module:1188
-msgid "Active users"
-msgstr "AktÌv felhaszn·lÛk"
+#: simplenews.module:1745
+msgid "The %block block is disabled. Click !here to enable this block."
+msgstr "%block blokk jelenleg tiltott. !here kattintva enged√©lyezhet≈ë."
 
-#: simplenews.module:1189
-msgid "Inactive users"
-msgstr "InaktÌv felhaszn·lÛk"
-
-#: simplenews.module:1190
-msgid "Select at least 1 status"
-msgstr "Legal·bb 1 ·llapot kiv·laszt·sa kˆtelezo"
-
-#: simplenews.module:1196
-msgid "Subscribed to"
-msgstr "Elofizetoje"
-
-#: simplenews.module:1196
-msgid "Select at least 1 newsletter"
-msgstr "Legal·bb 1 hÌrlevÈl kiv·laszt·sa kˆtelezo"
-
-#: simplenews.module:1204
-msgid "Are you sure you want to remove %user from the subscription list?"
-msgstr "Biztos, hogy %user tˆrˆlve legyen az elofizetok list·j·rÛl?"
-
-#: simplenews.module:1206
-msgid "This action will only remove the user from the newsletter subscription list. If this user is registered at your site, his/her account information will remain unchanged."
-msgstr "Ezzel a muvelettel a felhaszn·lÛ csak a hÌrlevÈl elofizetoinek list·j·rÛl lesz tˆrˆlve. Ha a felhaszn·lÛ regisztr·lt a webhelyen, akkor az azonosÌtÛja Ès a hozz·tartozÛ inform·ciÛk v·ltozatlanul megmaradnak."
-
-#: simplenews.module:1208;1397;1407
-msgid "Cancel"
-msgstr "MÈgsem"
-
-#: simplenews.module:1217
-msgid "The %block block is disabled. Click %here to enable this block."
-msgstr "A %block blokk jelenleg tiltott. %here kattintva engedÈlyezheto."
-
-#: simplenews.module:1217
+#: simplenews.module:1745
 msgid "here"
-msgstr "Ide"
+msgstr "ide"
 
-#: simplenews.module:1229
+#: simplenews.module:1752
+msgid "Block options"
+msgstr "blokk tulajdons√°gok"
+
+#: simplenews.module:1753
+msgid ""
+"Links (to overview page, RSS-feed and latest issues) are only displayed to "
+"users who have \"view links in block\" privileges."
+msgstr ""
+"A linkek (√∂sszefoglal√≥ oldal, RSS-csatorna √©s legfrissebb kiad√°s) csak "
+"azoknak a felhaszn√°l√≥knak jelennek meg, akik rendelkeznek a ‚Äûlinkek "
+"megjelen√≠t√©se blokk form√°ban‚Äù jogosults√°ggal."
+
+#: simplenews.module:1758
 msgid "Display block message"
-msgstr "Block ¸zenet megjelenÌtÈse"
+msgstr "Block √ºzenet megjelen√≠t√©se"
 
-#: simplenews.module:1230
+#: simplenews.module:1763
 msgid "Block message"
-msgstr "Block ¸zenet"
+msgstr "Block √ºzenet"
 
-#: simplenews.module:1231
+#: simplenews.module:1769
 msgid "Display subscription form"
-msgstr "Elofizetoi urlap megjelenÌtÈse"
+msgstr "Elofizetoi urlap megjelen√≠t√©se"
 
-#: simplenews.module:1232
-msgid "Display link to overview page"
-msgstr "Az ˆsszefoglalÛ oldal linkjÈnek megjelenÌtÈse"
+#: simplenews.module:1774
+msgid "Display link to archives"
+msgstr "Az arch√≠vum linkj√©nek megjelen√≠t√©se"
 
-#: simplenews.module:1233
+#: simplenews.module:1779
 msgid "Display latest issues"
-msgstr "A legfrissebb kiad·s megjelenÌtÈse"
+msgstr "A legfrissebb kiad√°s megjelen√≠t√©se"
 
-#: simplenews.module:1234
+#: simplenews.module:1784
 msgid "Number of issues to display"
-msgstr "A kiad·s sorsz·m·nak megjelenÌtÈse"
+msgstr "A kiad√°s sorsz√°m√°nak megjelen√≠t√©se"
 
-#: simplenews.module:1235
-msgid "Display link to RSS-feed"
-msgstr "Az RSS-csatorna linkjÈnek megjelenÌtÈse"
+#: simplenews.module:1789
+msgid "Display RSS-feed icon"
+msgstr "Az RSS-csatorna linkj√©nek megjelen√≠t√©se"
 
-#: simplenews.module:1237
-msgid "%name block options"
-msgstr "%name blokk be·llÌt·sai"
-
-#: simplenews.module:1237
-msgid "Links (to overview page, RSS-feed and latest issues) are only displayed to users who have \"view links in block\" privileges."
-msgstr "A linkek (ˆsszefoglalÛ oldal, RSS-csatorna Ès legfrissebb kiad·s) csak azoknak a felhaszn·lÛknak jelennek meg, akik rendelkeznek a Ñlinkek megjelenÌtÈse blokk form·banî jogosults·ggal."
-
-#: simplenews.module:1251
-msgid "You have to supply a sender's e-mail address."
-msgstr "Meg kell adni a feladÛ emailcÌmÈt."
-
-#: simplenews.module:1254
-msgid "The sender's e-mail address you supplied is not valid."
-msgstr "A megadott feladÛi email cÌm ÈrvÈnytelen."
-
-#: simplenews.module:1258
-msgid "Your settings were saved."
-msgstr "A be·llÌt·sok mentÈsre ker¸ltek."
-
-#: simplenews.module:1263
-msgid "Select the default newsletter sending format."
-msgstr "Ki kell v·lasztani az alapÈrtelmezett k¸ldÈsi form·t."
-
-#: simplenews.module:1264
-msgid "Note that e-mail priority is ignored by a lot of e-mail programs."
-msgstr "MegjegyzÈskÈnt, a legtˆbb email olvasÛ program a priorit·st figyelmen kÌv¸l hagyja."
-
-#: simplenews.module:1265
-msgid "Request a Read Receipt from your newsletters. A lot of e-mail programs ignore these so it is not a definitive indication of how many people have read your newsletter."
-msgstr "IgÈnyelheto ÑTÈrtivevÈnyî a hÌrlevÈl cÌmzettjeitol. Sz·mos email olvasÛ szoftver figyelmen kÌv¸l hagyja, Ìgy nem egy dˆnto jelzoje annak, hogy h·nyan olvass·k a hÌrlevelet."
-
-#: simplenews.module:1269
-msgid "Default selection for sending newsletters"
-msgstr "A hÌrlevÈlk¸ldÈshez haszn·lt alapÈrtelmezett ÈrtÈk"
-
-#: simplenews.module:1270
-msgid "Test e-mail address"
-msgstr "Teszt email cÌm"
-
-#: simplenews.module:1271
-msgid "Default newsletter options"
-msgstr "AlapÈrtelmezett hÌrlevÈl be·llÌt·sok"
-
-#: simplenews.module:1271
-msgid "These options will be the defaults for new newsletters, but can be overridden in the newsletter editing form."
-msgstr "Az itt megadott ÈrtÈkek lesznek az alapÈrtelmezettek egy ˙j hÌrlevÈl lÈtrehoz·sakor, de minden ÈrtÈk fel¸lÌrhatÛ a hÌrlevÈl szerkesztÈse urlappal."
-
-#: simplenews.module:1275
-msgid "From name"
-msgstr "FeladÛ"
-
-#: simplenews.module:1276
-msgid "From e-mail address"
-msgstr "A feladÛ email cÌme"
-
-#: simplenews.module:1277
+#: simplenews.module:1794;1871
 msgid "Sender information"
-msgstr "Inform·ciÛ a feladÛrÛl"
+msgstr "Inform√°ci√≥ a felad√≥r√≥l"
 
-#: simplenews.module:1284
+#: simplenews.module:1799;1877
+msgid "From name"
+msgstr "Felad√≥"
+
+#: simplenews.module:1805;1883
+msgid "From e-mail address"
+msgstr "A felad√≥ email c√≠me"
+
+#: simplenews.module:1812
+msgid "HTML to text conversion"
+msgstr "√Åtalak√≠t√°s HTML-b≈ël sz√∂vegg√©"
+
+#: simplenews.module:1815
+msgid ""
+"When your newsletter is sent as plain text, these options will determine how "
+"the conversion to text is performed."
+msgstr ""
+"A h√≠rlev√©l sima sz√∂vegk√©nt t√∂rt√©n≈ë sz√©tk√ºld√©sekor ezek az opci√≥k "
+"szab√°lyozz√°k a sz√∂vegg√© alak√≠t√°s l√©p√©seit."
+
+#: simplenews.module:1818
+msgid "Hyperlink conversion"
+msgstr "Hpyerlinkek √°talak√≠t√°sa"
+
+#: simplenews.module:1819
+msgid "Append hyperlinks as a numbered reference list"
+msgstr "Hyperlinkek megjelen√≠t√©se sz√°mozott referenci√°val"
+
+#: simplenews.module:1819
+msgid "Display hyperlinks inline with the text"
+msgstr "Hyperlinkek megjelen√≠t√©se a sz√∂vegbe √°gyazva"
+
+#: simplenews.module:1825
+msgid "Default newsletter options"
+msgstr "Alap√©rtelmezett h√≠rlev√©l be√°ll√≠t√°sok"
+
+#: simplenews.module:1828
+msgid ""
+"These options will be the defaults for new newsletters, but can be "
+"overridden in the newsletter editing form."
+msgstr ""
+"Az itt megadott √©rt√©kek lesznek az alap√©rtelmezettek egy √∫j h√≠rlev√©l "
+"l√©trehoz√°sakor, de minden √©rt√©k fel√ºl√≠rhat√≥ a h√≠rlev√©l szerkeszt√©se urlappal."
+
+#: simplenews.module:1833
+msgid "Select the default newsletter sending format."
+msgstr "Ki kell v√°lasztani az alap√©rtelmezett k√ºld√©si form√°t."
+
+#: simplenews.module:1839
+msgid "Note that e-mail priority is ignored by a lot of e-mail programs."
+msgstr ""
+"Megjegyz√©sk√©nt, a legt√∂bb email olvas√≥ program a priorit√°st figyelmen k√≠v√ºl "
+"hagyja."
+
+#: simplenews.module:1846
+msgid ""
+"Request a Read Receipt from your newsletters. A lot of e-mail programs "
+"ignore these so it is not a definitive indication of how many people have "
+"read your newsletter."
+msgstr ""
+"Ig√©nyelhet≈ë ‚ÄûT√©rtivev√©ny‚Äù a h√≠rlev√©l c√≠mzettjeit≈ël. Sz√°mos email olvas√≥ "
+"szoftver figyelmen k√≠v√ºl hagyja, √≠gy nem egy d√∂nt≈ë jelz≈ëje annak, hogy "
+"h√°nyan olvass√°k a h√≠rlevelet."
+
+#: simplenews.module:1849
+msgid "Default selection for sending newsletters"
+msgstr "A h√≠rlev√©lk√ºld√©shez haszn√°lt alap√©rtelmezett √©rt√©k"
+
+#: simplenews.module:1854
+msgid "Test addresses options"
+msgstr "A teszt c√≠m opci√≥i"
+
+#: simplenews.module:1857
+msgid ""
+"Supply a comma-separated list of e-mail addresses to be used as test "
+"addresses. The override function allows to override these addresses upon "
+"newsletter creation."
+msgstr ""
+"A tesztlevelekhez haszn√°lt email c√≠mek vessz≈ëvel elv√°lasztott list√°ja.A "
+"h√≠rlev√©l l√©trehoz√°sakor az ‚Äûfel√ºlb√≠r√°l√°s‚Äù funkci√≥ enged√©lyez√©s√©vel lehet≈ës√©g "
+"ny√≠lik a lista fel√ºlb√≠r√°l√°s√°ra."
+
+#: simplenews.module:1860
+msgid "Test e-mail address"
+msgstr "Teszt email c√≠m"
+
+#: simplenews.module:1866
+msgid "Allow test address override"
+msgstr "A teszc√≠mek fel√ºlb√≠r√°l√°s√°nak enged√©lyez√©se"
+
+#: simplenews.module:1874
+msgid ""
+"Default sender address that will only be used for confirmation e-mails. You "
+"can specify sender information for each newsletter separately on the "
+"newsletter's settings page."
+msgstr ""
+"Az alap√©rtelmezett k√©zbes√≠t≈ëi c√≠m csak a meger≈ës√≠t≈ë levelekkor lesz "
+"felhaszn√°lva. Minden h√≠rlev√©lhez k√ºl√∂n megadhat√≥ a k√©zbes√≠t≈ë adatai a "
+"h√≠rlev√©l be√°ll√≠t√°si lehet≈ës√©geinek oldal√°n."
+
+#: simplenews.module:1890
+msgid "Initial send time"
+msgstr "Kezd≈ë k√©zbes√≠t√©si id≈ë"
+
+#: simplenews.module:1893
+msgid ""
+"Sets the maximum time in seconds during which newsletters are sent. If not "
+"all recipients have been mailed within this time, sending is further handled "
+"as a cronjob."
+msgstr ""
+"Megadhat√≥ a h√≠rlevelenk√©nt k√©zbes√≠t√©s maxim√°lis id≈ëtartama. Ha ez id≈ë alatt "
+"nem siker√ºlt minden c√≠mzettet feldolgozni, akkor a k√©zbes√≠t√©s egy k√∂vetkez≈ë "
+"cronjobk√©nt fog megt√∂rt√©nni."
+
+#: simplenews.module:1893
+msgid ""
+"The highest value in the dropdown list is based on max_execution_time in "
+"your php.ini file. Note that if not all previous newsletters have been sent "
+"to all recipients yet, these are sent first."
+msgstr ""
+"A legmagasabb √©rt√©k a leg√∂rd√ºl≈ë list√°ban a max_execution_time √©rt√©ket veszi "
+"alapul, amelyet els≈ësorban a php.ini f√°jlban lehet megadni. Megjegyz√©s: ha "
+"vannak olyan c√≠mzettek, amelyeket egy kor√°bbi k√©zbes√≠t√©skor m√°r nem volt id≈ë "
+"feldolgozni, akkor azok √∫jb√≥li k√©zbes√≠t√©skor el≈ënyt √©lveznek."
+
+#: simplenews.module:1900
 msgid "Seconds"
-msgstr "M·sodperc"
+msgstr "M√°sodperc"
 
-#: simplenews.module:1285
-msgid "Maximum send time"
-msgstr "Maxim·lis kÈzbesÌtÈsi ido"
+#: simplenews.module:1905
+msgid "Cron throttle"
+msgstr "Cron visszafog√≥"
 
-#: simplenews.module:1285
-msgid "Sets the maximum time in seconds during which newsletters are sent. If not all recipients have been mailed within this time, sending is further handled as a cronjob."
-msgstr "MegadhatÛ a hÌrlevelenkÈnt kÈzbesÌtÈs maxim·lis idotartama. Ha ez ido alatt nem siker¸lt minden cÌmzettet feldolgozni, akkor a kÈzbesÌtÈs egy kˆvetkezo cronjobkÈnt fog megtˆrtÈnni."
+#: simplenews.module:1908
+msgid "Sets the numbers of newsletters sent per cron run."
+msgstr "Meg kell adni, hogy a cron fut√°sonk√©nt mennyi h√≠rlev√©l legyen kik√ºldve."
 
-#: simplenews.module:1285
-msgid "The highest value in the dropdown list is based on max_execution_time in your php.ini file. Note that if not all previous newletters have been sent to all recipients yet, these are sent first."
-msgstr "A legmagasabb ÈrtÈk a legˆrd¸lo list·ban a max_execution_time ÈrtÈket veszi alapul, amelyet elsosorban a php.ini f·jlban lehet megadni. MegjegyzÈs: ha vannak olyan cÌmzettek, amelyeket egy kor·bbi kÈzbesÌtÈskor m·r nem volt ido feldolgozni, akkor ezek az elmaradt levelek ˙jbÛli kÈzbesÌtÈskor elonyt Èlveznek."
+#: simplenews.module:1911
+msgid "Unlimited"
+msgstr "V√©gtelen"
 
-#: simplenews.module:1311;1320;1334
-msgid "Newsletter type"
-msgstr "HÌrlevÈl tÌpusa"
+#: simplenews.module:1913
+msgid "Number of mails"
+msgstr "E-mailek sz√°ma"
 
-#: simplenews.module:1324
-msgid "edit type"
-msgstr "tÌpus szerkesztÈse"
+#: simplenews.module:1933
+msgid "The sender's e-mail address you supplied is not valid."
+msgstr "A megadott felad√≥i email c√≠m √©rv√©nytelen."
 
-#: simplenews.module:1334
-msgid "This name is used to identify the type."
-msgstr "Ezzel a nÈvvel lehet azonosÌtani a tÌpust."
+#: simplenews.module:1944;682;1055;1119;1122;2051
+msgid "newsletter"
+msgstr "h√≠rlev√©l"
 
-#: simplenews.module:1335
+#: simplenews.module:1949;2127
+msgid "Updated term %name."
+msgstr "A k√∂vetkez≈ë kifejez√©s friss√ºlt: %name"
+
+#: simplenews.module:1952
+msgid "Deleted term %name."
+msgstr "A k√∂vetkez≈ë kifejez√©s t√∂r√∂lve lett: %name"
+
+#: simplenews.module:1967
+msgid "Updated vocabulary %name."
+msgstr "A sz√≥t√°r friss√ºlt: %name"
+
+#: simplenews.module:1970
+msgid "Created vocabulary %name."
+msgstr "A sz√≥t√°r l√©trej√∂tt: %name"
+
+#: simplenews.module:1983;2079
+msgid "Newsletter name"
+msgstr "H√≠rlev√©l neve"
+
+#: simplenews.module:1986
+msgid "edit newsletter"
+msgstr "h√≠rlev√©l szerkeszt√©se"
+
+#: simplenews.module:1990
+msgid "There are currently no newsletter series."
+msgstr "Jelenleg nincs egy h√≠rlev√©l sem."
+
+#: simplenews.module:2024
+msgid "Are you sure you want to remove %mail from all newsletter subscription lists?"
+msgstr "Biztos, hogy %mail le legyen iratkozva az √∂sszes h√≠rlev√©lr≈ël?"
+
+#: simplenews.module:2026
+msgid ""
+"This action will remove %mail from all newsletter subscription lists. To "
+"unsubscribe this user from a particular newsletter, press Cancel and edit "
+"this user."
+msgstr "Ezzel a m≈±velettel %mail le lesz iratkozva az √∂sszes h√≠rlev√©lr≈ël. Ahhoz, hogy a felhaszn√°l√≥ csak adott h√≠rlev√©lr≈ël legyen t√∂r√∂lve, a ‚ÄûM√©gsem‚Äù megnyom√°sa ut√°n a felhaszn√°l√≥ szerkeszt√©s√©n√©l v√©gezhet≈ë el."
+
+#: simplenews.module:2028;2149;2207;2234
+msgid "Cancel"
+msgstr "M√©gsem"
+
+#: simplenews.module:2039
+msgid "The user %user was successfully deleted from the subscription list."
+msgstr "A felhaszn√°l√≥ sikeresen t√∂r√∂ve lett a feliratkozottak list√°j√°r√≥l: %user ."
+
+#: simplenews.module:2051
+msgid "User %email deleted from the subscription list."
+msgstr "A felhaszn√°l√≥ t√∂r√∂lve a feliratkozottak list√°j√°r√≥l: %email ."
+
+#: simplenews.module:2077
+msgid ""
+"You can create different newsletters (or subjects) to categorize your news "
+"(e.g. Cats news, Dogs news, ...)."
+msgstr ""
+"K√ºl√∂nb√∂z≈ë h√≠rlev√©lt√≠pusok (vagy t√©m√°k) hozhat√≥ak l√©tre a h√≠rek "
+"kategoriz√°l√°s√°hoz (p√©ld√°ul: Macskavil√°g h√≠rei, Kutyavil√°g h√≠rei, stb)."
+
+#: simplenews.module:2082
+msgid "This name is used to identify the newsletter."
+msgstr "Ezzel a n√©vvel lehet azonos√≠tani a h√≠rlevelet."
+
+#: simplenews.module:2087
 msgid "Description"
-msgstr "LeÌr·s"
+msgstr "Le√≠r√°s"
 
-#: simplenews.module:1335
+#: simplenews.module:2090
 msgid "The description can be used to provide more information."
-msgstr "A leÌr·s segÌtsÈgÈvel tov·bbi inform·ciÛ adhatÛ meg."
+msgstr "A le√≠r√°s seg√≠ts√©g√©vel tov√°bbi inform√°ci√≥ adhat√≥ meg."
 
-#: simplenews.module:1336
+#: simplenews.module:2094
 msgid "Weight"
-msgstr "S˙ly"
+msgstr "S√∫ly"
 
-#: simplenews.module:1336
-msgid "In listings, the heavier (with a higher weight value) terms will sink and the lighter terms will be positioned nearer the top."
-msgstr "A list·z·skor a nehezebb (nagyobb s˙ly ÈrtÈkkel rendelkezo) elemek les¸lyednek, a kˆnyebbek elorÈbb ker¸lnek."
+#: simplenews.module:2096
+msgid ""
+"In listings, the heavier (with a higher weight value) terms will sink and "
+"the lighter terms will be positioned nearer the top."
+msgstr ""
+"A list√°z√°skor a nehezebb (nagyobb s√∫ly √©rt√©kkel rendelkezo) elemek "
+"les√ºlyednek, a k√∂nyebbek elor√©bb ker√ºlnek."
 
-#: simplenews.module:1357
-msgid "%user was successfully removed from the %newsletter subscription list."
-msgstr "%user sikeresen leiratkozott %newsletter elofizetoi list·j·ra."
+#: simplenews.module:2124
+msgid "Created new term %name."
+msgstr "A k√∂vetkez≈ë kifejez√©s l√©trej√∂tt: %name"
 
-#: simplenews.module:1376
-msgid "%user was successfully added to the %newsletter subscription list."
-msgstr "%user sikeresen feliratkozott %newsletter elofizetoi list·j·ra."
+#: simplenews.module:2145
+msgid ""
+"Are you sure you want to delete %title? All subscriptions associated with "
+"this newsletter will be lost."
+msgstr "Biztos, hogy t√∂r√∂lve legyen a h√≠rlev√©l: %title ? Az √∂sszes feliratkoz√°s el fog veszni."
 
-#: simplenews.module:1393
-msgid "Are you sure you want to remove %user from the %newsletter subscription list?"
-msgstr "Biztos, hogy %user tˆrˆlve legyen %newsletter elofizetoi kˆz¸l?"
+#: simplenews.module:2147
+msgid "This action cannot be undone."
+msgstr "A m≈±velet nem visszavonhat√≥."
 
-#: simplenews.module:1395
-msgid "This action will only remove you from the newsletter subscription list. If you are registered at our site, your account information will remain unchanged."
-msgstr "Ezzel a muvelettel csak a hÌrlevÈl elofizetÈsÈt mondja le. Ha regisztr·lt felhaszn·lÛja a webhelynek, az azonosÌtÛja Ès a hozz·tartozÛ inform·ciÛk v·ltozatlanok maradnak."
+#: simplenews.module:2160
+msgid "Newsletter %title has been deleted."
+msgstr "Ah√≠rlev√©l sikeresen t√∂r√∂lve: %title ."
 
-#: simplenews.module:1403
+#: simplenews.module:2203
 msgid "Are you sure you want to add %user to the %newsletter subscription list?"
-msgstr "Biztos, hogy %user elofizetoje legyen a %newsletter list·nak?"
+msgstr "Biztos, hogy %user el≈ëfizet≈ëje legyen a %newsletter list√°nak?"
 
-#: simplenews.module:1454;1454
-msgid "XML feed"
-msgstr "XML csatorna"
+#: simplenews.module:2205
+msgid "You always have the possibility to unsubscribe later."
+msgstr "K√©s≈ëbb is lesz lehet≈ës√©g leiratkozni."
 
-#: simplenews.module:464;508;730;947;1101;1362;0
-msgid "simplenews"
-msgstr "simplenews"
+#: simplenews.module:2217
+msgid "%user was successfully added to the %newsletter subscription list."
+msgstr "%user sikeresen feliratkozott %newsletter el≈ëfizet≈ëi list√°j√°ra."
 
-#: simplenews.module:31
+#: simplenews.module:2230
+msgid "Are you sure you want to remove %user from the %newsletter subscription list?"
+msgstr "Biztos, hogy %user t√∂r√∂lve legyen %newsletter el≈ëfizet≈ëi k√∂z√ºl?"
+
+#: simplenews.module:2232
+msgid ""
+"This action will only remove you from the newsletter subscription list. If "
+"you are registered at our site, your account information will remain "
+"unchanged."
+msgstr ""
+"Ezzel a m≈±velettel csak a h√≠rlev√©l el≈ëfizet√©s√©t mondja le. Ha regisztr√°lt "
+"felhaszn√°l√≥ja a webhelynek, az azonos√≠t√≥ja √©s a hozz√°tartoz√≥ inform√°ci√≥k "
+"v√°ltozatlanok maradnak."
+
+#: simplenews.module:2244
+msgid "%user was successfully removed from the %newsletter subscription list."
+msgstr "%user sikeresen leiratkozott %newsletter list√°j√°r√≥l."
+
+#: simplenews.module:2287
+msgid "plain"
+msgstr "egyszer≈±"
+
+#: simplenews.module:2289
+msgid "html"
+msgstr "html"
+
+#: simplenews.module:2309
+msgid "Click here to unsubscribe from this newsletter"
+msgstr "A h√≠rlev√©l lemond√°s√°hoz ide kell kattintani"
+
+#: simplenews.module:2312
+msgid "Unsubscribe from this newsletter: @url"
+msgstr "Leiratkoz√°s a h√≠rlev√©lr≈ël: @url"
+
+#: simplenews.module:2328
+msgid "Confirmation for @newsletter from @site"
+msgstr "@site @newsletter h√≠rlev√©l meger≈ës√≠t√©se"
+
+#: simplenews.module:2329
+msgid "This is a subscription status confirmation notice for the @newsletter."
+msgstr ""
+"Ezzel az √©rtes√≠t≈ë emaillel ‚Äû@newsletter‚Äù h√≠rlev√©l feliratkoz√°si sz√°nd√©k√°t "
+"lehet meger≈ës√≠teni."
+
+#: simplenews.module:2336
+msgid ""
+"We have received a request for subscription of your e-mail address, @mail, "
+"to the @newsletter from @site (@uri). However, you are already subscribed to "
+"this newsletter. If you want to unsubscribe, you can visit our website by "
+"using the link at the bottom of this e-mail."
+msgstr "Egy feliratkoz√°si bejelent√©st kaptunk a @mail emailc√≠mr≈ël @site (@uri) ‚Äû@newsletter‚Äù h√≠rlevel√©re, annak ellen√©re, hogy m√°r feliratkozott erre a h√≠rlev√©lre. A leiratkoz√°st legegyszer≈±bben az email alj√°n tal√°lhat√≥ linkre val√≥ kattint√°ssal lehet megtenni."
+
+#: simplenews.module:2339
+msgid ""
+"We have received a request for subscription of your e-mail address, @mail, "
+"to the @newsletter from @site (@uri). To confirm that you want to be added "
+"to this mailing list, simply visit the confirmation link at the bottom of "
+"this e-mail."
+msgstr ""
+"Egy el≈ëfizet√©si ig√©nyl√©st kaptunk @mail emailc√≠mr≈ël @site (@uri) ‚Äû@newsletter‚Äù h√≠rlevel√©re. A list√°ra val√≥ felker√ºl√©st meg kell er≈ës√≠teni, "
+"melyet legegyszer≈±bben az email alj√°n tal√°lhat√≥ linkre val√≥ kattint√°ssal "
+"lehet megtenni."
+
+#: simplenews.module:2340;2352
+msgid ""
+"If you do not wish to be subscribed to this list, please disregard this "
+"message."
+msgstr ""
+"Ha nem k√≠v√°n feliratkozni a list√°ra, k√©rem tekintse semmisnek ezt az "
+"√ºzenetet."
+
+#: simplenews.module:2341
+msgid "Subscribe link: @url"
+msgstr "Feliratkoz√°s link: @url"
+
+#: simplenews.module:2346
+msgid ""
+"We have received a request for the removal of your e-mail address, @mail, "
+"from the @newsletter from @site (@uri). If you want to unsubscribe, simply "
+"visit the confirmation link at the bottom of this e-mail."
+msgstr ""
+"Egy lemond√≥ bejelent√©st kaptunk a @mail emailc√≠mr≈ël @site (@uri) ‚Äû@newsletter‚Äù h√≠rlevel√©re. A lemond√°st meg kell er≈ës√≠teni, melyet "
+"legegyszer≈±bben az email alj√°n tal√°lhat√≥ linkre val√≥ kattint√°ssal lehet "
+"megtenni."
+
+#: simplenews.module:2347
+msgid "If you did not make this request, please disregard this message."
+msgstr ""
+"Ha nem szeretn√© meger≈ës√≠teni a k√©rt m≈±veletet, k√©rj√ºk tekintse semmisnek ezt az "
+"√ºzenetet."
+
+#: simplenews.module:2348
+msgid "Unsubscribe link: @url"
+msgstr "Leiratkoz√°s link: @url"
+
+#: simplenews.module:2351
+msgid ""
+"We have received a request for the removal of your e-mail address, @mail, "
+"from the @newsletter from @site (@uri). However, you were not subscribed to "
+"this newsletter. If you want to subscribe, you can visit our website by "
+"using the link at the bottom of this e-mail."
+msgstr ""
+"Egy lemond√≥ bejelent√©st kaptunk a %mail emailc√≠mrol @site (@uri) ‚Äû@newsletter‚Äù h√≠rlevel√©re, annak elln√©re, hogy nincs bejegyzett el≈ëfizet≈ë ezen "
+"az email c√≠men. A feliratkoz√°st legegyszer≈±bben az email alj√°n tal√°lhat√≥ "
+"linkre val√≥ kattint√°ssal lehet megtenni."
+
+#: simplenews.module:2358
+msgid "Visit our site: @url"
+msgstr "Webhely√ºnk: @url"
+
+#: simplenews.module:21
 msgid "view links in block"
-msgstr "linkek megjelenÌtÈse blokk form·ban"
+msgstr "linkek megjelen√≠t√©se blokk form√°ban"
 
-#: simplenews.module:31
+#: simplenews.module:21
 msgid "create newsletter"
-msgstr "hÌrlevÈl lÈtrehoz·sa"
+msgstr "h√≠rlev√©l l√©trehoz√°sa"
 
-#: simplenews.module:31
+#: simplenews.module:21
 msgid "edit own newsletter"
-msgstr "saj·t hÌrlevÈl szerkesztÈse"
+msgstr "saj√°t h√≠rlev√©l szerkeszt√©se"
 
-#: simplenews.module:31
+#: simplenews.module:21
 msgid "administer newsletters"
-msgstr "hÌrlevelek adminisztr·ciÛja"
+msgstr "h√≠rlevelek adminisztr√°ci√≥ja"
 
-#: simplenews.module:31
+#: simplenews.module:21
 msgid "send newsletter"
-msgstr "hÌrlevÈl szÈtk¸ldÈse"
+msgstr "h√≠rlev√©l k√ºld√©se"
+
+#: simplenews.module:21
+msgid "subscribe to newsletters"
+msgstr "Feliratkoz√°s a h√≠rlevelekre"
 
