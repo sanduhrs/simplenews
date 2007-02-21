@@ -580,17 +580,13 @@ function simplenews_block($op = 'list', $delta = 0) {
         else {
           $message = NULL;
         }
+        $block['content'] = $message;
         $block['subject'] = check_plain($newsletter->name);
         if (variable_get('simplenews_block_f_'. $tid, 1) && user_access('subscribe to newsletters')) {
-          $block['content'] = simplenews_block_form($tid);
+          $block['content'] .= simplenews_block_form($tid);
         }
-        else {
-          if ($message) {
-            $block['content'] = $message;
-          }
-          if (user_access('subscribe to newsletters')) {
-            $block['content'] .= l(t('Manage my subscriptions'), 'newsletter/subscriptions/');
-          }
+        if (!variable_get('simplenews_block_f_'. $tid, 1) && user_access('subscribe to newsletters')) {
+          $block['content'] .= '<p>'. l(t('Manage my subscriptions'), 'newsletter/subscriptions/'). '</p>';
         }
       }
       if (user_access('view links in block') || user_access('administer newsletters')) {
@@ -1807,6 +1803,7 @@ function simplenews_admin_settings($tid = NULL) {
     $form['simplenews_block_options']['simplenews_block_f_'. $term->tid] = array('#type' => 'checkbox',
       '#title' => t('Display subscription form'),
       '#return_value' => 1,
+      '#description' => t('If selected a subscription form is displayed, if not selected a link to the subscription page is displayed.'),
       '#default_value' => variable_get('simplenews_block_f_'. $term->tid, 1),
     );
     $form['simplenews_block_options']['simplenews_block_l_'. $term->tid] = array('#type' => 'checkbox',
