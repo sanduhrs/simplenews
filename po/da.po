@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Danish translation of Drupal (simplenews.module) $Id$\n"
 "POT-Creation-Date: \n"
-"PO-Revision-Date: 2007-12-16 19:38+0100\n"
+"PO-Revision-Date: 2007-12-16 20:23+0100\n"
 "Last-Translator: Morten Wulff <wulff@ratatosk.net>\n"
 "Language-Team: Danish <l10n@drupaldanmark.dk>\n"
 "MIME-Version: 1.0\n"
@@ -800,7 +800,7 @@ msgstr "Vægt"
 
 #: simplenews.module:2365
 msgid "In listings, the heavier (with a higher weight value) terms will sink and the lighter terms will be positioned nearer the top."
-msgstr "In listings, the heavier (with a higher weight value) terms will sink and the lighter terms will be positioned nearer the top."
+msgstr "I lister vil tunge ord synke til bunds, mens lette ord vil blive placeret nær toppen."
 
 #: simplenews.module:2393
 msgid "Created new term %name."
