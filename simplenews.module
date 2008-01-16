@@ -450,13 +450,13 @@ function simplenews_load($node) {
  * Deletes subscriptions to term when term is deleted, and cleans the blocks
  * table.
  */
-function simplenews_taxonomy($op, $type, $object = NULL) {
-  if ($type == 'term' && $op == 'delete' && $object->vid == _simplenews_get_vid()) {
-    db_query('DELETE FROM {simplenews_snid_tid} WHERE tid = %d', $object->tid);
-    db_query("DELETE FROM {blocks} WHERE module = '%s' AND delta = '%s'", 'simplenews', 'newsletter-'. $object->tid);
-    drupal_set_message(t('Deleted all subscriptions to newsletter %newsletter.', array('%newsletter' => $object->name)));
+function simplenews_taxonomy($op, $type, $array = NULL) {
+  if ($type == 'term' && $op == 'delete' && $array['vid'] == _simplenews_get_vid()) {
+    db_query('DELETE FROM {simplenews_snid_tid} WHERE tid = %d', $array['tid']);
+    db_query("DELETE FROM {blocks} WHERE module = '%s' AND delta = '%s'", 'simplenews', 'newsletter-'. $array['tid']);
+    drupal_set_message(t('Deleted all subscriptions to newsletter %newsletter.', array('%newsletter' => $array['name'])));
   }
-  elseif ($op == 'delete' && $type == 'vocabulary' && $object->vid == _simplenews_get_vid())  {
+  elseif ($op == 'delete' && $type == 'vocabulary' && $array['vid'] == _simplenews_get_vid())  {
     variable_del('simplenews_vid');
   }
 }
