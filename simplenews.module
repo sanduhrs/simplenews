@@ -220,26 +220,31 @@ function simplenews_menu($may_cache) {
  * Implementation of hook_form().
  */
 function simplenews_form(&$node) {
+  $type = node_get_types('type', $node);
   _simplenews_create_default_newsletter_term();
   global $user;
-  $form['title'] = array(
-    '#type' => 'textfield',
-    '#title' => t('Title'),
-    '#default_value' => $node->title,
-    '#size' => 60,
-    '#maxlength' => 128,
-    '#required' => TRUE,
-  );
-  $form['body'] = array(
-    '#type' => 'textarea',
-    '#title' => t('Message'),
-    '#default_value' => $node->body,
-    '#rows' => 20,
-    '#required' => TRUE,
-    '#description' => t('This will be the body of your newsletter. Available variables are:') . ' %site ' . t('(the name of your website),') . ' %uri ' . t('(a link to your homepage),') . ' %uri_brief ' . t('(homepage link without the http://),') . ' %mymail ' . t('(your e-mail address),') . ' %date ' . t('(today\'s date),') . ' %login_uri ' . t('(link to login page).'),
-  );
 
-  $form['format'] = filter_form($node->format);
+  if ($type->has_title) {
+    $form['title'] = array(
+      '#type' => 'textfield',
+      '#title' => check_plain($type->title_label),
+      '#default_value' => $node->title,
+      '#size' => 60,
+      '#maxlength' => 128,
+      '#required' => TRUE,
+    );
+  }
+  if ($type->has_body) {
+    $form['body_filter']['body'] = array(
+      '#type' => 'textarea',
+      '#title' => check_plain($type->body_label),
+      '#default_value' => $node->body,
+      '#rows' => 20,
+      '#required' => ($type->min_word_count > 0),
+      '#description' => t('This will be the body of your newsletter. Available variables are:') . ' %site ' . t('(the name of your website),') . ' %uri ' . t('(a link to your homepage),') . ' %uri_brief ' . t('(homepage link without the http://),') . ' %mymail ' . t('(your e-mail address),') . ' %date ' . t('(today\'s date),') . ' %login_uri ' . t('(link to login page).'),
+    );
+    $form['body_filter']['format'] = filter_form($node->format);
+  }
 
   if (!$sel1 = $node->s_format) {
     $sel1 = variable_get('simplenews_format', 'plain');
