@@ -183,7 +183,7 @@ function simplenews_menu($may_cache) {
 
     $items[] = array('path' => 'newsletter/confirm',
       'title' => t('Confirm newsletter subscriptions'),
-      'access' => user_access('access content'),
+      'access' => user_access('subscribe to newsletters'),
       'callback' => 'simplenews_confirm_subscription',
       'type' => MENU_CALLBACK,
     );
