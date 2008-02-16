@@ -327,12 +327,15 @@ function simplenews_form(&$node) {
  */
 function simplenews_validate($node) {
   global $valid_mails;
-  if ($node->taxonomy && $node->send == 1) {
-    if (!simplenews_validate_taxonomy($node->taxonomy)) {
-      form_set_error('', t('You should select a newsletter if you want to send this newsletter.'));
+  if ($node->send == 1) {
+    if (!isset($node->taxonomy)) {
+      form_set_error('', t('You should assign content type %content_type to the !newsletter_vocabulary before you can send this newsletter.', array('%content_type' => $node->type, '!newsletter_vocabulary' => l(t('Newsletter vocabulary'), 'admin/content/taxonomy'))));
+    }
+    elseif (!simplenews_validate_taxonomy($node->taxonomy)) {
+      form_set_error('taxonomy', t('You should select a newsletter before you can send this newsletter.'));
     }
   }
-  if ($node->send == 2) {
+  elseif ($node->send == 2) {
     if (variable_get('simplenews_test_address_override', 0)) {
       $mails = explode(',',$node->test_address);
     }
@@ -370,11 +373,15 @@ function simplenews_validate_taxonomy($taxonomy) {
   while ($tid = db_fetch_object($result)) {
     $tids[] = $tid->tid;
   }
-  $taxes = array();
-  foreach ($taxonomy as $tax) {
-    $taxes[] = $tax;
+  if (isset($tids) && !empty($taxonomy)) {
+    $taxes = array();
+    foreach ($taxonomy as $tax) {
+      $taxes[] = $tax;
+    }
+    $selected_terms = array_intersect($tids, $taxes);
+    return empty($selected_terms) ? FALSE : $selected_terms;
   }
-  return array_intersect($tids, $taxes);
+  return FALSE;
 }
 
 /**
