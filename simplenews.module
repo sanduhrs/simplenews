@@ -199,7 +199,7 @@ function simplenews_menu($may_cache) {
     drupal_add_css(drupal_get_path('module', 'simplenews') .'/simplenews.css', 'module', 'all', FALSE);
   
     if (arg(0) == 'admin' && arg(1) == 'content' && arg(2) == 'newsletters' && arg(3) == 'settings') {
-      $tree = taxonomy_get_tree(_simplenews_get_vid());
+      $tree = taxonomy_get_tree(variable_get('simplenews_vid', ''));
       if ($tree) {
         $weight = -9;
         foreach ($tree as $newsletter) {
@@ -221,7 +221,6 @@ function simplenews_menu($may_cache) {
  */
 function simplenews_form(&$node) {
   $type = node_get_types('type', $node);
-  _simplenews_create_default_newsletter_term();
   global $user;
 
   if ($type->has_title) {
@@ -368,7 +367,7 @@ function simplenews_submit(&$node) {
 }
 
 function simplenews_validate_taxonomy($taxonomy) {
-  $vid = _simplenews_get_vid();
+  $vid = variable_get('simplenews_vid', '');
   $result = db_query('SELECT tid FROM {term_data} WHERE vid = %d', $vid);
   while ($tid = db_fetch_object($result)) {
     $tids[] = $tid->tid;
@@ -463,12 +462,12 @@ function simplenews_load($node) {
  * table.
  */
 function simplenews_taxonomy($op, $type, $array = NULL) {
-  if ($type == 'term' && $op == 'delete' && $array['vid'] == _simplenews_get_vid()) {
+  if ($type == 'term' && $op == 'delete' && $array['vid'] == variable_get('simplenews_vid', '')) {
     db_query('DELETE FROM {simplenews_snid_tid} WHERE tid = %d', $array['tid']);
     db_query("DELETE FROM {blocks} WHERE module = '%s' AND delta = '%s'", 'simplenews', 'newsletter-'. $array['tid']);
     drupal_set_message(t('Deleted all subscriptions to newsletter %newsletter.', array('%newsletter' => $array['name'])));
   }
-  elseif ($op == 'delete' && $type == 'vocabulary' && $array['vid'] == _simplenews_get_vid())  {
+  elseif ($op == 'delete' && $type == 'vocabulary' && $array['vid'] == variable_get('simplenews_vid', ''))  {
     variable_del('simplenews_vid');
   }
 }
@@ -480,6 +479,27 @@ function simplenews_view(&$node, $teaser = FALSE) {
   $node = simplenews_replace_vars($node, TRUE);
   $node = node_prepare($node, $teaser);
   return $node;
+}
+
+/**
+ * Implementation of hook_form_alter().
+ */
+function simplenews_form_alter($form_id, &$form) {
+  $vid = variable_get('simplenews_vid', '');
+  // Newsletter vocabulary form
+  if ($form_id == 'taxonomy_form_vocabulary' && isset($form['vid']) && $form['vid']['#value'] == $vid) {
+    // Hide critical options from forum vocabulary.
+    $form['help_forum_vocab'] = array(
+      '#value' => t('This is the designated simplenews vocabulary. This vocabulary can not be deleted.'),
+      '#weight' => -1,
+    );
+    $form['nodes']['#required'] = TRUE;
+    $form['nodes']['#description'] = t('Select content type(s) to be used as newsletter');
+    $form['multiple'] = array('#type' => 'value', '#value' => FALSE);
+    
+    // Prevent the vocabulary gets deleted
+    unset($form['delete']);
+  }
 }
 
 /**
@@ -545,7 +565,7 @@ function simplenews_user($op, &$edit, &$account, $category = NULL) {
     case 'view':
       global $user;
       if ($user->uid == $account->uid || user_access('administer users')) {
-        $tree = taxonomy_get_tree(_simplenews_get_vid());
+        $tree = taxonomy_get_tree(variable_get('simplenews_vid', ''));
         foreach ($tree as $newsletter) {
           if (db_num_rows(db_query('SELECT s.uid FROM {simplenews_subscriptions} s INNER JOIN {simplenews_snid_tid} t ON s.snid = t.snid WHERE s.uid = %d AND t.tid = %d', $account->uid, $newsletter->tid))) {
             $subscriptions[] = l($newsletter->name, 'taxonomy/term/'. $newsletter->tid);
@@ -582,7 +602,7 @@ function simplenews_block($op = 'list', $delta = 0, $edit = array()) {
   switch ($op) {
     case 'list':
       $blocks = array();
-      foreach (taxonomy_get_tree(_simplenews_get_vid()) as $newsletter) {
+      foreach (taxonomy_get_tree(variable_get('simplenews_vid', '')) as $newsletter) {
         $blocks['newsletter-'. $newsletter->tid] = array('info' => t('Newsletter: @title', array('@title' => $newsletter->name)));
       }
       return $blocks;
@@ -879,7 +899,7 @@ function _simplenews_subscription_manager_form($subscription) {
   $form = array();
   $form['#base'] = 'simplenews_subscription_manager_form';
   $options = array();
-  foreach (taxonomy_get_tree(_simplenews_get_vid()) as $newsletter) {
+  foreach (taxonomy_get_tree(variable_get('simplenews_vid', '')) as $newsletter) {
     $options[$newsletter->tid] = $newsletter->name;
   }
   $form['subscriptions'] = array('#type' => 'fieldset', '#description' => t('Select the newsletter(s) to which you want to subscribe or unsubscribe.'));
@@ -1527,7 +1547,7 @@ function simplenews_get_filter($type, $na = TRUE) {
     $queries['na'] = ' AND s.tid = 0';
   }
   // Data for each newsletter
-  foreach (taxonomy_get_tree(_simplenews_get_vid()) as $newsletter) {
+  foreach (taxonomy_get_tree(variable_get('simplenews_vid', '')) as $newsletter) {
     $names[$newsletter->tid] = $newsletter->name;
     $queries[$newsletter->tid] = ' AND s.tid = '. $newsletter->tid;
   }
@@ -1535,8 +1555,7 @@ function simplenews_get_filter($type, $na = TRUE) {
 }
 
 function simplenews_admin_news($action = 'sent') {
-  _simplenews_create_default_newsletter_term();
-  $vid = _simplenews_get_vid();
+  $vid = variable_get('simplenews_vid', '');
   $form = array();
   $form['simplenews_issue_filter'] = array(
     '#type' => 'fieldset',
@@ -1627,7 +1646,7 @@ function simplenews_subscription_filters() {
       'all'   => t('All newsletters'),
     ),
   );
-  foreach (taxonomy_get_tree(_simplenews_get_vid()) as $newsletter) {
+  foreach (taxonomy_get_tree(variable_get('simplenews_vid', '')) as $newsletter) {
     $filters['newsletter']['options']['tid-'. $newsletter->tid] = $newsletter->name;
   }
   
@@ -1932,7 +1951,7 @@ function simplenews_subscription_list_add() {
     '#description' => t('Supply a comma separated list of e-mail addresses to be added to the list. Spaces between commas and addresses are allowed.'),
   );
   $newsletters = array();
-  foreach (taxonomy_get_tree(_simplenews_get_vid()) as $newsletter) {
+  foreach (taxonomy_get_tree(variable_get('simplenews_vid', '')) as $newsletter) {
     $newsletters[$newsletter->tid] = $newsletter->name;
   }
   $form['newsletters'] = array(
@@ -1959,7 +1978,7 @@ function simplenews_subscription_list_add_validate($form_id, $form_values) {
 }
 
 function simplenews_subscription_list_add_submit($form_id, $form_values) {
-  $tree = taxonomy_get_tree(_simplenews_get_vid());
+  $tree = taxonomy_get_tree(variable_get('simplenews_vid', ''));
   $added = array();
   $invalid = array();
   $checked_newsletters = array_filter($form_values['newsletters']);
@@ -1999,7 +2018,7 @@ function simplenews_subscription_list_add_submit($form_id, $form_values) {
 }
 
 function simplenews_subscription_list_export() {
-  $tree = taxonomy_get_tree(_simplenews_get_vid());
+  $tree = taxonomy_get_tree(variable_get('simplenews_vid', ''));
   $form['simplenews_status'] = array(
     '#type' => 'fieldset',
     '#title' => t('Status'),
@@ -2050,7 +2069,7 @@ function simplenews_subscription_list_export() {
 function simplenews_admin_export_after_build($form, $edit) {
   $op = isset($_POST['op']) ? $_POST['op'] : '';
   if ($op == t('Export')) {
-    $tree = taxonomy_get_tree(_simplenews_get_vid());
+    $tree = taxonomy_get_tree(variable_get('simplenews_vid', ''));
     if ($edit['active'] == 1) {
       $where[] = 's.a_status = 1';
     }
@@ -2242,55 +2261,11 @@ function simplenews_admin_settings_validate($form_id, $form_values, $form, $tid 
   }
 }
 
-function _simplenews_create_default_newsletter_term() {
-  $edit = $_POST['edit'];
-  // Get vid or create vocabulary
-  $vid = _simplenews_get_vid();
-  // Check to see if at least 1 term exists, else create one
-  $tid = db_result(db_query('SELECT tid FROM {term_data} WHERE vid = %d', $vid));
-  if (!$tid) {
-    $edit['name'] = variable_get('site_name', 'Drupal') .' '. t('newsletter');
-    $edit['vid'] = $vid;
-    $edit['weight'] = 0;
-    switch(taxonomy_save_term($edit)) {
-      case SAVED_UPDATED:
-        drupal_set_message(t('Updated term %name.', array('%name' => $edit['name'])));
-        break;
-      case SAVED_DELETED:
-        drupal_set_message(t('Deleted term %name.', array('%name' => $edit['name'])));
-        break;
-    }
-  }
-}
-
-function _simplenews_get_vid() {
-  $vid = variable_get('simplenews_vid', '');
-  if (empty($vid)) {
-    // Check to see if a newsletter vocabulary exists
-    $vid = db_result(db_query("SELECT vid FROM {vocabulary} WHERE module = 'simplenews'"));
-    if (!$vid) {
-      $vocabulary = array('name' => t('Newsletter'), 'multiple' => '0', 'required' => '0', 'hierarchy' => '0', 'relations' => '0', 'module' => 'simplenews', 'nodes' => array('simplenews' => 1));
-      switch (taxonomy_save_vocabulary($vocabulary)) {
-        case SAVED_UPDATED:
-          drupal_set_message(t('Updated vocabulary %name.', array('%name' => $vocabulary['name'])));
-          break;
-        case SAVED_NEW:
-          drupal_set_message(t('Created vocabulary %name.', array('%name' => $vocabulary['name'])));
-          break;
-      }
-      $vid = $vocabulary['vid'];
-    }
-    variable_set('simplenews_vid', $vid);
-  }
-
-  return $vid;
-}
-
 function simplenews_types_overview() {
   $rows = array();
   $header = array(t('Newsletter name'), t('Operations'));
 
-  foreach (taxonomy_get_tree(_simplenews_get_vid()) as $term) {
+  foreach (taxonomy_get_tree(variable_get('simplenews_vid', '')) as $term) {
     $rows[] = array($term->name, l(t('edit newsletter'), 'admin/content/newsletters/types/edit/'. $term->tid));
   }
 
@@ -2367,7 +2342,7 @@ function simplenews_admin_types_form($tid = NULL) {
     $edit = (array)taxonomy_get_term($tid);
 
     // If the given term is not a newsletter, don't allow editing.
-    if (_simplenews_get_vid() != $edit['vid']) {
+    if (variable_get('simplenews_vid', '') != $edit['vid']) {
       drupal_not_found();
       return;
     }
@@ -2379,7 +2354,7 @@ function simplenews_admin_types_form($tid = NULL) {
   }
   else {
     // Add form so choose simplenews vocabulary.
-    $edit = array('vid' => _simplenews_get_vid());
+    $edit = array('vid' => variable_get('simplenews_vid', ''));
   }
 
   $form['info'] = array('#value' => t('You can create different newsletters (or subjects) to categorize your news (e.g. Cats news, Dogs news, ...).'));
