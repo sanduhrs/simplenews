@@ -1161,9 +1161,9 @@ function _simplenews_send($timer = FALSE) {
 
       // Add themable footer to message as this changes per user.
       $user_node = drupal_clone($node);
+      $user_node->to = $mail->mail;
       $user_node = theme('simplenews_newsletter_footer', $user_node, $hash);
 
-      $user_node->to = $mail->mail;
       $counter++;
       if (simplenews_mail_send($user_node)) {
         // TODO: This looks like it may choke if you were sending multiple
