@@ -217,7 +217,7 @@ function simplenews_menu($may_cache) {
      * Always load simplenews_views.inc when views module is present
      */
     if (module_exists('views')) {
-      require_once dirname(__FILE__).'/simplenews_views.inc';
+      include_once(base_path() . drupal_get_path('module', 'simplenews') .'/simplenews_views.inc');
     }
   }
   return $items;
