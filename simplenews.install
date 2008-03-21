@@ -104,6 +104,8 @@ function simplenews_enable() {
     // vocabulary still exists. Leave all other node types unchanged.
     $vocabulary = (array) $vocabulary;
     $vocabulary['nodes']['simplenews'] = 1;
+    // If it exists we remove the 0 key. It is the indication that no node types are selected.
+    unset($vocabulary['nodes'][0]);
     taxonomy_save_vocabulary($vocabulary);
   }
   else {
