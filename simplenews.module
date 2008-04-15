@@ -754,6 +754,9 @@ function _simplenews_user_load($mail) {
  *   to the newsletter until he or she clicks the confirm link in the e-mail.
  */
 function simplenews_subscribe_user($mail, $tid, $confirm = TRUE) {
+  //Prevent mismatches from accidental capitals in mail address
+  $mail = strtolower($mail);
+  
   $subscription = simplenews_get_user_subscription($mail);
 
   // If user is not subscribed to ANY newsletter, add basic info first.
@@ -788,6 +791,9 @@ function simplenews_subscribe_user($mail, $tid, $confirm = TRUE) {
  *   user from the newsletter until he clicks the confirm link in the e-mail.
  */
 function simplenews_unsubscribe_user($mail, $tid, $confirm = TRUE) {
+  //Prevent mismatches from accidental capitals in mail address
+  $mail = strtolower($mail);
+
   $subscription = simplenews_get_user_subscription($mail);
 
   if (!$newsletter = taxonomy_get_term($tid)) {
