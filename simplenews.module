@@ -409,8 +409,8 @@ function simplenews_insert($node) {
   //only updated after the execution of simplenews_insert(). It cannot be passed by a variable
   //since simplenews_cron() also calls _simplenews_send().
   $s_status = ($node->send == 1 && user_access('send newsletter')) ? 1 : 0;
-  db_query("INSERT INTO {simplenews_newsletters} (nid, tid, s_status, s_format, priority, receipt)
-		  VALUES (%d, %d, %d, '%s', %d, %d)", $node->nid, $node->simplenews_tid, $s_status, $node->s_format, $node->priority, $node->receipt);
+  db_query("INSERT INTO {simplenews_newsletters} (nid, vid, tid, s_status, s_format, priority, receipt)
+		  VALUES (%d, %d, %d, %d, '%s', %d, %d)", $node->nid, $node->vid, $node->simplenews_tid, $s_status, $node->s_format, $node->priority, $node->receipt);
 }
 
 /**
@@ -421,8 +421,8 @@ function simplenews_update($node) {
   $tid = is_array($term) ? array_values($term) : FALSE;
   $node->simplenews_tid = $tid ? $tid[0] : 0;
   if ($node->send == 1 && user_access('send newsletter')) {
-    db_query("UPDATE {simplenews_newsletters} SET tid = %d, s_status = %d, s_format = '%s', priority = %d, receipt = %d
-    WHERE nid = %d", $node->simplenews_tid, 1, $node->s_format, $node->priority, $node->receipt, $node->nid);
+    db_query("UPDATE {simplenews_newsletters} SET vid = %d, tid = %d, s_status = %d, s_format = '%s', priority = %d, receipt = %d
+    WHERE nid = %d", $node->vid, $node->simplenews_tid, 1, $node->s_format, $node->priority, $node->receipt, $node->nid);
   }
   else {
     db_query("UPDATE {simplenews_newsletters} SET tid = %d, s_format = '%s', priority = %d, receipt = %d
@@ -1097,8 +1097,8 @@ function simplenews_block_form_submit($form_id, $form_values) {
 /**
 * Prepare node for sending
 */
-function simplenews_node_prepare($nid, $tid) {
-  $node = node_load(array('nid' => $nid), NULL, TRUE);
+function simplenews_node_prepare($nid, $vid, $tid) {
+  $node = node_load(array('nid' => $nid), $vid, TRUE);
   $node = simplenews_replace_vars($node, FALSE);
 
   // To play well with other modules that add content to the node,
@@ -1156,10 +1156,10 @@ function _simplenews_send($timer = FALSE) {
     $throttle = variable_get('simplenews_throttle', 20);
     static $counter = 0;
   }
-  $result = db_query(db_rewrite_sql('SELECT n.nid, s.tid, n.created FROM {node} n INNER JOIN {simplenews_newsletters} s ON n.nid = s.nid WHERE s.s_status = %d ORDER BY n.created ASC'), 1);
+  $result = db_query(db_rewrite_sql('SELECT n.nid, s.vid, s.tid, n.created FROM {node} n INNER JOIN {simplenews_newsletters} s ON n.nid = s.nid WHERE s.s_status = %d ORDER BY n.created ASC'), 1);
   while ($nid = db_fetch_object($result)) {
     $term = taxonomy_get_term($nid->tid);
-    $node = simplenews_node_prepare($nid->nid, $nid->tid);
+    $node = simplenews_node_prepare($nid->nid, $nid->vid, $nid->tid);
 
     $result2 = db_query('SELECT s.mail, s.snid FROM {simplenews_subscriptions} s INNER JOIN {simplenews_snid_tid} t ON s.snid = t.snid WHERE s.s_status = %d AND s.a_status = %d AND t.tid = %d ORDER BY s.snid ASC', 0, 1, $nid->tid);
     while ($mail = db_fetch_object($result2)) {
@@ -1218,7 +1218,7 @@ function _simplenews_send($timer = FALSE) {
 function simplenews_send_test($input) {
   $tid = db_result(db_query('SELECT tid FROM {simplenews_newsletters} WHERE nid = %d', $input->nid));
   $tid = $tid ? $tid : FALSE;
-  $node = simplenews_node_prepare($input->nid, $tid);
+  $node = simplenews_node_prepare($input->nid, NULL, $tid);
   $term = $tid ? taxonomy_get_term($tid) : FALSE;
   $name = $term ? $term->name : 'Unassigned newsletter';
   $node->body .= "\n\n-- \n". t('Footer will be appended here');
