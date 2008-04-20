@@ -1029,9 +1029,9 @@ function simplenews_block_form($tid) {
       $submit_text = t('Subscribe');
       $form['action'] = array('#type' => 'value', '#value' => 'subscribe');
     }
-    $form['display_mail'] = array('#type' => 'item',
-      '#title' => t('E-mail'),
-      '#value' => truncate_utf8($user->mail, 29, FALSE, TRUE),
+    $form['display_mail'] = array(
+      '#title' => t('User'),
+      '#value' => check_plain($user->name),
     );
     $form['mail'] = array('#type' => 'value', '#value' => $user->mail);
   }
