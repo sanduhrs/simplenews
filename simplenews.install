@@ -18,6 +18,7 @@ function simplenews_install() {
 
       $result[] = db_query("CREATE TABLE {simplenews_newsletters} (
         nid int(10) NOT NULL default '0',
+        vid int(10) NOT NULL default '0',
         tid int(10) NOT NULL default '0',
         s_status int(2) NOT NULL default '0',
         s_format varchar(8) NOT NULL default '',
@@ -46,6 +47,7 @@ function simplenews_install() {
 
       $result[] = db_query("CREATE TABLE {simplenews_newsletters} (
         nid integer NOT NULL default '0',
+        vid integer NOT NULL default '0',
         tid integer NOT NULL default '0',
         s_status smallint NOT NULL default '0',
         s_format varchar(8) NOT NULL default '',
@@ -183,6 +185,21 @@ function simplenews_update_5000() {
     case 'mysqli':
     case 'pgsql':
       $ret[] = update_sql('CREATE INDEX {simplenews_subscriptions}_mail_idx ON {simplenews_subscriptions} (mail)');
+      break;
+  }
+  return $ret;
+}
+
+/**
+ * Add index to simplenews_subscriptions
+ */
+function simplenews_update_5001() {
+  $ret = array();
+  switch ($GLOBALS['db_type']) {
+    case 'mysql':
+    case 'mysqli':
+    case 'pgsql':
+      $ret[] = update_sql("ALTER TABLE {simplenews_newsletters} ADD vid int(10) NOT NULL default '0'");
       break;
   }
   return $ret;
