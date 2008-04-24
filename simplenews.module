@@ -18,7 +18,7 @@ function simplenews_node_info() {
  * Implementation of hook_perm().
  */
 function simplenews_perm() {
-  return array('view links in block', 'create newsletter', 'edit own newsletter', 'administer newsletters', 'send newsletter', 'subscribe to newsletters');
+  return array('view links in block', 'create newsletter', 'edit own newsletter', 'edit any newsletter','administer newsletters', 'send newsletter', 'subscribe to newsletters');
 }
 
 /**
@@ -33,6 +33,9 @@ function simplenews_access($op, $node) {
   }
   if ($op == 'update' || $op == 'delete') {
     if (user_access('administer newsletters')) {
+      return TRUE;
+    }
+    elseif (user_access('edit any newsletter')) {
       return TRUE;
     }
     elseif (user_access('edit own newsletter') && $user->uid == $node->uid) {
