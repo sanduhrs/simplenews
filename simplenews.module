@@ -1927,6 +1927,7 @@ function simplenews_subscription_multiple_delete_confirm() {
   // Subscriptions to be deleted are passed via session var.
   $snids = $_SESSION['simplenews_subscriptions_delete'];
   
+  $form['notice'] = array('#value' => t('These user(s) will be unsubscribed from any and all Newsletters to which they are currently subscribed. This will not delete related user account(s) from this site.'));
   $form['snids'] = array('#prefix' => '<ul>', '#suffix' => '</ul>', '#tree' => TRUE);
   // array_filter returns only elements with TRUE values
   foreach (array_filter($snids) as $snid => $value) {
@@ -1942,7 +1943,7 @@ function simplenews_subscription_multiple_delete_confirm() {
    
   return confirm_form($form,
                       t('Are you sure you want to delete these subscriptions?'),
-                      'admin/content/newsletters/users', t('This action cannot be undone.'),
+                      'admin/content/newsletters/users', NULL,
                       t('Delete all'), t('Cancel'));
 }
 
@@ -2587,6 +2588,14 @@ function simplenews_help($section) {
       if (!module_exists('mimemail')) {
         $help .= "<p>". t('Install Mime Mail module to send HTML emails. Mime Mail is also used to send emails with attachments, both plain text and HTML emails.') ."</p>\n";
       }
+      return $help;
+    case 'admin/content/newsletters/users':
+      $help = "<p>". t('Operations and update options:
+<ul>
+<li>To temporarily stop all newsletters to an e-mail address, <em>inactivate</em> this subscription. </li>
+<li>To unsubscribe an e-mail address from all newsletters, <em>delete</em> this subscription.</li>
+<li>To unsubscribe an e-mail address from a specific newsletter, use the <em>edit link</em> of this subscription. </li>
+</ul>') ."</p>\n";
       return $help;
   }
 }
