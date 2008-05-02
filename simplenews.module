@@ -2496,11 +2496,12 @@ function simplenews_confirm_subscription($op1 = NULL, $op2 = NULL) {
  */
 function simplenews_confirm_add_form($mail, $newsletter) {
   $form = array();
+  $form['question'] = array('#value' => '<p>'. t('Are you sure you want to add %user to the %newsletter subscription list?', array('%user' => $mail, '%newsletter' => $newsletter->name)) ."<p>\n");
   $form['mail'] = array('#type' => 'value', '#value' => $mail);
   $form['newsletter'] = array('#type' => 'value', '#value' => $newsletter);
 
   return confirm_form($form,
-    t('Are you sure you want to add %user to the %newsletter subscription list?', array('%user' => $mail, '%newsletter' => $newsletter->name)),
+    t('Confirm subscription'),
     '',
     t('You always have the option of unsubscribing later.'),
     t('Subscribe'),
@@ -2523,11 +2524,12 @@ function simplenews_confirm_add_form_submit($form_id, $form_values) {
  */
 function simplenews_confirm_removal_form($mail, $newsletter) {
   $form = array();
+  $form['question'] = array('#value' => '<p>'. t('Are you sure you want to remove %user from the %newsletter subscription list?', array('%user' => $mail, '%newsletter' => $newsletter->name)) ."<p>\n");
   $form['mail'] = array('#type' => 'value', '#value' => $mail);
   $form['newsletter'] = array('#type' => 'value', '#value' => $newsletter);
 
   return confirm_form($form,
-    t('Are you sure you want to remove %user from the %newsletter subscription list?', array('%user' => $mail, '%newsletter' => $newsletter->name)),
+    t('Confirm unsubscription'),
     '',
     t('This action will only remove you from the newsletter subscription list. If you are registered at our site, your account information will remain unchanged.'),
     t('Unsubscribe'),
