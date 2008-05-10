@@ -338,7 +338,8 @@ function simplenews_validate($node) {
   global $valid_mails;
   if ($node->send == 1) {
     if (!isset($node->taxonomy)) {
-      form_set_error('', t('You should assign content type %content_type to the !newsletter_vocabulary before you can send this newsletter.', array('%content_type' => $node->type, '!newsletter_vocabulary' => l(t('Newsletter vocabulary'), 'admin/content/taxonomy'))));
+      $names =  node_get_types('names', $node);
+      form_set_error('', t('You should select content type %content_type in !newsletter_vocabulary before you can send this newsletter.', array('%content_type' => $names[$node->type], '!newsletter_vocabulary' => l(t('Newsletter vocabulary'), 'admin/content/taxonomy/edit/vocabulary/'. variable_get('simplenews_vid', '')))));
     }
     elseif (!simplenews_validate_taxonomy($node->taxonomy)) {
       form_set_error('taxonomy', t('You should select a newsletter before you can send this newsletter.'));
