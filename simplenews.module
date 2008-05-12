@@ -199,7 +199,7 @@ function simplenews_menu($may_cache) {
     );
   }
   else {
-    drupal_add_css(drupal_get_path('module', 'simplenews') .'/simplenews.css', 'module', 'all', FALSE);
+    drupal_add_css(drupal_get_path('module', 'simplenews') .'/simplenews.css', 'module', 'all', TRUE);
   
     if (arg(0) == 'admin' && arg(1) == 'content' && arg(2) == 'newsletters' && arg(3) == 'settings') {
       $tree = taxonomy_get_tree(variable_get('simplenews_vid', ''));
