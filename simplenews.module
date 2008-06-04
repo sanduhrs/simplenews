@@ -463,7 +463,13 @@ function simplenews_delete($node) {
  * Implementation of hook_load().
  */
 function simplenews_load($node) {
-  return db_fetch_object(db_query('SELECT * FROM {simplenews_newsletters} WHERE nid = %d', $node->nid));
+  $newsletter = db_fetch_object(db_query('SELECT * FROM {simplenews_newsletters} WHERE nid = %d', $node->nid));
+  // Newsletter vid is stored in simplenews->vid.
+  // This will prevent overwrite of node->vid.
+  // A better solution would be a node->simplenews with all newsletter data.
+  $newsletter->simplenews_vid = $newsletter->vid;
+  unset($newsletter->vid);
+  return $newsletter;
 }
 
 /**
