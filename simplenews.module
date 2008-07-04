@@ -714,7 +714,7 @@ function _simplenews_block($tid) {
   $block['tid'] = $tid;
   $block['message'] = check_plain(variable_get('simplenews_block_m_'. $tid, t('Stay informed on our latest news!')));
   if (user_access('subscribe to newsletters')) {
-    $block['form'] = drupal_get_form('simplenews_block_form', $tid);
+    $block['form'] = drupal_get_form('simplenews_block_form_'. $tid);
     $block['subscription-link'] = l(t('Manage my subscriptions'), 'newsletter/subscriptions'); 
   }
   if (user_access('view links in block') || user_access('administer newsletters')) {
@@ -754,6 +754,21 @@ function theme_simplenews_block($block) {
   return $output;
 }
 
+/**
+ * Implementation of hook_forms
+ *
+ * All form blocks are build using simplenews_block_form().
+ * hook_forms() is required to provide unique form id for each block form.
+ */
+function simplenews_forms() {
+  foreach (taxonomy_get_tree(variable_get('simplenews_vid', '')) as $newsletter) {
+    $forms['simplenews_block_form_'. $newsletter->tid] = array(
+      'callback' => 'simplenews_block_form',
+      'callback arguments' => array($newsletter->tid),
+    );
+  }
+  return $forms;
+}
 /**
  * Helper function for API functions; loads a user or creates a dummy anonymous
  * user with uid = 0 and $mail equal to the input param.
@@ -1075,7 +1090,10 @@ function simplenews_block_form($tid) {
     );
   }
 
+  // All block forms use the same validate and submit function.
+  // 'tid' carries the tid for processing of the right newsletter issue term.
   $form['tid'] = array('#type' => 'value', '#value' => $tid);
+  $form['#base'] = 'simplenews_block_form';
   $form['submit'] = array('#type' => 'submit', '#value' => isset($submit_text) ? $submit_text : t('Submit'));
   return $form;
 }
