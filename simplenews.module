@@ -1169,14 +1169,21 @@ function simplenews_node_prepare($nid, $vid, $tid) {
 
 /**
  * Helper function to set from name and e-mail for a mail object.
+ *
+ * Newsletter specific from name and address are set by admin. They default
+ * to Simplenews general from name and address. Which on their turn default
+ * to site name and from email address.
+ *
+ * @param object &$mail simplenews mail object.
+ * @param integer $tid newsletter term id
  */
 function simplenews_set_from(&$mail, $tid = NULL) {
   $address_default = variable_get('site_mail', ini_get('sendmail_from'));
   $name_default = variable_get('site_name', 'drupal');
 
   if (isset($tid)) {
-    $mail->from_address = variable_get('simplenews_from_address_'. $tid, $address_default);
-    $mail->from_name = variable_get('simplenews_from_name_'. $tid, $name_default);
+    $mail->from_address = variable_get('simplenews_from_address_'. $tid, variable_get('simplenews_from_address', $address_default));
+    $mail->from_name = variable_get('simplenews_from_name_'. $tid, variable_get('simplenews_from_name', $name_default));
   }
   else {
     $mail->from_address = variable_get('simplenews_from_address', $address_default);
@@ -2185,14 +2192,14 @@ function simplenews_admin_settings($tid = NULL) {
       '#title' => t('From name'),
       '#size' => 60,
       '#maxlength' => 128,
-      '#default_value' => variable_get('simplenews_from_name_'. $term->tid, $name_default),
+      '#default_value' => variable_get('simplenews_from_name_'. $term->tid, variable_get('simplenews_from_name', $name_default)),
     );
     $form['simplenews_sender_information']['simplenews_from_address_'. $term->tid] = array('#type' => 'textfield',
       '#title' => t('From e-mail address'),
       '#size' => 60,
       '#maxlength' => 128,
       '#required' => TRUE,
-      '#default_value' => variable_get('simplenews_from_address_'. $term->tid, $address_default),
+      '#default_value' => variable_get('simplenews_from_address_'. $term->tid, variable_get('simplenews_from_address', $address_default)),
     );
     $form['simplenews_hyperlinks'] = array('#type' => 'fieldset',
       '#title' => t('HTML to text conversion'),
