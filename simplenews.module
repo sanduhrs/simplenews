@@ -1462,7 +1462,7 @@ function _simplenews_define_search() {
         '!</?p[^>]*>!i',                              // <p>
         "/<br[^>]*>\n?/i",                            // <br>
         '!</?(b|strong)[^>]*>!i',                     // <b> and <strong>
-        '!</?(em|i)[^>]*>!i',                         // <em> and <i>
+        '!</?(em|i)[^>\w]*>!i',                       // <em> and <i>
         '/(<ul[^>]*>|<\/ul>)/i',                      // <ul> and </ul>
         '/(<ol[^>]*>|<\/ol>)/i',                      // <ol> and </ol>
         '/(<dl[^>]*>|<\/dl>)/i',                      // <dl> and </dl>
