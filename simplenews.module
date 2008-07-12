@@ -611,10 +611,14 @@ function simplenews_user($op, &$edit, &$account, $category = NULL) {
         else {
           $subscriptions = t('Currently no subscriptions');
         }
-        $items[] = array('class' => 'item',
-          'title' => t('Current subscriptions'),
-          'value' => $subscriptions,
-        );
+        // When a user has no permission to subscribe and is not subscribed 
+        // we do not display the 'no subscriptions' message. 
+        if (user_access('subscribe to newsletters' || $subscriptions != t('Currently no subscriptions'))) {
+          $items[] = array('class' => 'item',
+            'title' => t('Current subscriptions'),
+            'value' => $subscriptions,
+          );
+        }
         if (user_access('subscribe to newsletters')) {
           $items[] = array('class' => 'item',
             'title' => t('Manage subscriptions'),
