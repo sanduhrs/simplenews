@@ -1385,15 +1385,30 @@ function simplenews_mail_send($mail) {
 }
 
 /**
-* Other module-specific functions
-*/
+ * Convert html text to plain text.
+ *
+ * Conversion of html tags, special characters and anchor and image tags.
+ * URLs in anchor and image tags are converted to absolute URLs and, depending
+ * on admin setting, placed in-line or at the bottom of the email.
+ *
+ * @param string $txt
+ *    html text string
+ * @param boolean $inline
+ *    TRUE = anchor and image tags are converted in-line;
+ *    FALSE = anchor and image tags are converted and placed at the bottom of the message.
+ * @return string
+ *    converted plain text string
+ */
 function simplenews_html_to_text($txt, $inline) {
-  $pattern = '@(<a href="(.\S+?)"[^>]*>(.+?)</a>)@ei';
+  $pattern = '@(<a[^>]+?href="(.\S+?)"[^>]*>(.+?)</a>)|(<img[^>]+?src="([^"]*)"[^>]*?>)@ei';
   if ($inline) {
-    $txt = preg_replace($pattern, "_simplenews_mail_uri('\\2', '\\3')", $txt);
+    $txt = preg_replace($pattern, "_simplenews_mail_uri('\\2\\5', '\\3')", $txt);
   }
   else {
-    $txt = preg_replace($pattern, "'\\3 ['. _simplenews_mail_urls('\\2') .']'", $txt);
+    // Converted 'a' and 'img' URLs are converted by and stored in _simplenews_mail_urls().
+    $txt = preg_replace($pattern, "'\\3 ['. _simplenews_mail_urls('\\2\\5') .']'", $txt);
+    // Retreive array of URLs from _simplenews_mail_urls() and format them 
+    // as a list at the end of the message.
     $urls = _simplenews_mail_urls();
     if (count($urls)) {
       $txt .= "\n";
@@ -1402,6 +1417,7 @@ function simplenews_html_to_text($txt, $inline) {
         $txt .= '['. ($i + 1) .'] '. $urls[$i] ."\n";
       }
     }
+    // Empty the the stored list of URLs.
     _simplenews_mail_urls(0, TRUE);
   }
 
@@ -1413,6 +1429,16 @@ function simplenews_html_to_text($txt, $inline) {
   return wordwrap($txt, 80);
 }
 
+/**
+ * Format URL and link text for in-line display in plain text message.
+ *
+ * @param string $href
+ *    Absolute URL
+ * @param string $link
+ *    Link text
+ * @retun string
+ *    Formatted URL with link text. Format 'url_text [ link_text ]'
+ */
 function _simplenews_mail_uri($href, $link) {
   $href = _simplenews_mail_url($href);
   if ($href == $link) {
@@ -1424,6 +1450,17 @@ function _simplenews_mail_uri($href, $link) {
   return $output;
 }
 
+/**
+ * Convert URL to absolute URL
+ *
+ * Strings containing ':/' are regarded absolute and not converted.
+ * Any 'mailto:' is stripped from the text.
+ * 
+ * @param string $url
+ *   URL to be converted
+ * @return string
+ *   Absolute url
+ */
 function _simplenews_mail_url($url) {
   if (preg_match('@://@', $url)) {
     return $url;
@@ -1436,6 +1473,17 @@ function _simplenews_mail_url($url) {
   }
 }
 
+/**
+ * Collect and store URLs
+ *
+ * @param string $url
+ *   URL to be converted to absolute and stored
+ * @param boolean $refresh
+ *   TRUE: URL storage is cleared.
+ * @return mixed
+ *   if param $url is URL to be converted: Number of URLs currently stored.
+ *   if param $url is empty: Keyed array of converted URLs.
+ */
 function _simplenews_mail_urls($url = 0, $refresh = FALSE) {
   static $urls = array();
   if($refresh) {
@@ -2214,7 +2262,7 @@ function simplenews_admin_settings($tid = NULL) {
     );
     $form['simplenews_hyperlinks']['simplenews_hyperlinks_'. $term->tid] = array('#type' => 'radios',
       '#title' => t('Hyperlink conversion'),
-      '#options' => array(t('Append hyperlinks as a numbered reference list'), t('Display hyperlinks inline with the text')),
+      '#options' => array(t('Append hyperlinks and links to images as a numbered reference list'), t('Display hyperlinks and links to image inline with the text')),
       '#default_value' => variable_get('simplenews_hyperlinks_'. $term->tid, 1),
     );
   }
