@@ -1377,9 +1377,15 @@ function simplenews_mail_send($mail) {
       $plain_text_body = NULL;
     }
 
+    if (variable_get('simplenews_debug', FALSE)) {
+      watchdog('simplenews', t('Outgoing email via mimemail.<br />Subject: %subject<br />Recipient: %to', array('%to' => $mail->to, '%subject' => $mail->subject)), WATCHDOG_NOTICE);
+    }
     return mimemail($from, $mail->to, $mail->subject, $mail->body, $plain_text_only, $headers, $plain_text_body);
   }
   else {
+    if (variable_get('simplenews_debug', FALSE)) {
+      watchdog('simplenews', t('Outgoing email.<br />Subject: %subject<br />Recipient: %to', array('%to' => $mail->to, '%subject' => $mail->subject)), WATCHDOG_NOTICE);
+    }
     return drupal_mail('simplenews-send-mail', $mail->to, $mail->subject, $mail->body, $from_email, $headers);
   }
 }
@@ -2332,34 +2338,6 @@ function simplenews_admin_settings($tid = NULL) {
       '#required' => TRUE,
       '#default_value' => variable_get('simplenews_from_address', $address_default),
     );
-    $form['simplenews_init_send'] = array('#type' => 'fieldset',
-      '#title' => t('Initial send time'),
-      '#collapsible' => TRUE,
-      '#collapsed' => TRUE,
-      '#description' => t('Sets the maximum time in seconds during which newsletters are sent. If not all recipients have been mailed within this time, sending is further handled as a cronjob.').' <br /> '.t('The highest value in the dropdown list is based on max_execution_time in your php.ini file. Note that if not all previous newsletters have been sent to all recipients yet, these are sent first.'),
-    );
-    $max_time = array(0, 1, 2, 3, 4);
-    for ($i = 5; $i < ini_get('max_execution_time'); $i=$i+5) {
-      $max_time[] = $i;
-    }
-    $form['simplenews_init_send']['simplenews_time'] = array('#type' => 'select',
-      '#title' => t('Seconds'),
-      '#options' => drupal_map_assoc($max_time),
-      '#default_value' => variable_get('simplenews_time', 2),
-    );
-    $form['simplenews_cron_throttle'] = array('#type' => 'fieldset',
-      '#title' => t('Cron throttle'),
-      '#collapsible' => TRUE,
-      '#collapsed' => TRUE,
-      '#description' => t('Sets the numbers of newsletters sent per cron run. Failure to send will also be counted.'),
-    );
-    $throttle = drupal_map_assoc(array(10, 20, 30, 40, 50, 100, 200, 300, 400, 500, 1000, 2000, 3000, 4000, 5000));
-    $throttle[999999] = t('Unlimited');
-    $form['simplenews_cron_throttle']['simplenews_throttle'] = array('#type' => 'select',
-      '#title' => t('Number of mails'),
-      '#options' => $throttle,
-      '#default_value' => variable_get('simplenews_throttle', 20),
-    );
     $form['simplenews_subscription'] = array(
       '#type' => 'fieldset',
       '#title' => t('Subscription options'),
@@ -2371,6 +2349,36 @@ function simplenews_admin_settings($tid = NULL) {
       '#title' => t('Synchronize with account'),
       '#default_value' => variable_get('simplenews_sync_account', FALSE),
       '#description' => t('When checked subscriptions will be synchronized with site accounts. When accounts are deteted, subscriptions with the same email address will be removed. When site accounts are blocked/unblocked, subscriptions will be deactivated/activated. When not checked subscriptions will be unchanged when associated accounts are deleted or blocked.'),
+    );
+    $form['simplenews_mail_backend'] = array(
+      '#type' => 'fieldset',
+      '#title' => t('Mail backend'),
+      '#collapsible' => TRUE,
+      '#collapsed' => TRUE,
+    );
+    $max_time = array(0, 1, 2, 3, 4);
+    for ($i = 5; $i < ini_get('max_execution_time'); $i=$i+5) {
+      $max_time[] = $i;
+    }
+    $form['simplenews_mail_backend']['simplenews_time'] = array('#type' => 'select',
+      '#title' => t('Initial send time'),
+      '#options' => drupal_map_assoc($max_time),
+      '#default_value' => variable_get('simplenews_time', 2),
+      '#description' => t('Sets the maximum time in seconds during which newsletters are sent. If not all recipients have been mailed within this time, sending is further handled as a cronjob.').' <br /> '.t('The highest value in the dropdown list is based on max_execution_time in your php.ini file. Note that if not all previous newsletters have been sent to all recipients yet, these are sent first.'),
+    );
+    $throttle = drupal_map_assoc(array(1, 10, 20, 30, 40, 50, 100, 200, 300, 400, 500, 1000, 2000, 3000, 4000, 5000));
+    $throttle[999999] = t('Unlimited');
+    $form['simplenews_mail_backend']['simplenews_throttle'] = array('#type' => 'select',
+      '#title' => t('Cron throttle'),
+      '#options' => $throttle,
+      '#default_value' => variable_get('simplenews_throttle', 20),
+      '#description' => t('Sets the numbers of newsletters sent per cron run. Failure to send will also be counted.'),
+    );
+    $form['simplenews_mail_backend']['simplenews_debug'] = array(
+      '#type' => 'checkbox',
+      '#title' => t('Log emails'),
+      '#default_value' => variable_get('simplenews_debug', FALSE),
+      '#description' => t('When checked all outgoing simplenews emails are logged in the system log. A logged email does not guarantee that it is send or will be delivered. It only indicates that a message is send to the PHP mail() function. No status information is available of delivery by the PHP mail() function.'),
     );
   }
   return system_settings_form($form);
