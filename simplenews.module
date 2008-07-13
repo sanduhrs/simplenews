@@ -599,6 +599,7 @@ function simplenews_user($op, &$edit, &$account, $category = NULL) {
     case 'view':
       global $user;
       if ($user->uid == $account->uid || user_access('administer users')) {
+        $items = array();
         $tree = taxonomy_get_tree(variable_get('simplenews_vid', ''));
         foreach ($tree as $newsletter) {
           if (db_num_rows(db_query('SELECT s.uid FROM {simplenews_subscriptions} s INNER JOIN {simplenews_snid_tid} t ON s.snid = t.snid WHERE s.uid = %d AND t.tid = %d', $account->uid, $newsletter->tid))) {
@@ -611,9 +612,9 @@ function simplenews_user($op, &$edit, &$account, $category = NULL) {
         else {
           $subscriptions = t('Currently no subscriptions');
         }
-        // When a user has no permission to subscribe and is not subscribed 
-        // we do not display the 'no subscriptions' message. 
-        if (user_access('subscribe to newsletters' || $subscriptions != t('Currently no subscriptions'))) {
+        // When a user has no permission to subscribe and is not subscribed
+        // we do not display the 'no subscriptions' message.
+        if (user_access('subscribe to newsletters') || $subscriptions != t('Currently no subscriptions')) {
           $items[] = array('class' => 'item',
             'title' => t('Current subscriptions'),
             'value' => $subscriptions,
