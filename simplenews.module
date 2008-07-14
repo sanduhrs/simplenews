@@ -766,14 +766,18 @@ function theme_simplenews_block($block) {
  * hook_forms() is required to provide unique form id for each block form.
  */
 function simplenews_forms() {
-  foreach (taxonomy_get_tree(variable_get('simplenews_vid', '')) as $newsletter) {
-    $forms['simplenews_block_form_'. $newsletter->tid] = array(
-      'callback' => 'simplenews_block_form',
-      'callback arguments' => array($newsletter->tid),
-    );
+  $forms = array();
+  if ($tree = taxonomy_get_tree(variable_get('simplenews_vid', ''))) {
+    foreach ($tree as $newsletter) {
+      $forms['simplenews_block_form_'. $newsletter->tid] = array(
+        'callback' => 'simplenews_block_form',
+        'callback arguments' => array($newsletter->tid),
+      );
+    }
   }
   return $forms;
 }
+
 /**
  * Helper function for API functions; loads a user or creates a dummy anonymous
  * user with uid = 0 and $mail equal to the input param.
