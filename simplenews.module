@@ -1324,7 +1324,7 @@ function simplenews_mail_send($mail) {
   $from = isset($mail->from_name) ? '"'. mime_header_encode(addslashes($mail->from_name)).'" <'. $from_email .'>' : $from_email;
 
   $headers = array(
-    //'From' => $from,
+    'From' => $from,
     'Reply-To' => $from_email,
     'X-Mailer' => 'Drupal',
     'Return-Path' => $from_email,
