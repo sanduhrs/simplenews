@@ -135,6 +135,17 @@ COLLABORATION WITH OTHER MODULES
    A helper module for the Simplenews module which automatically populates a
    newsletter subscription list with users from specified roles.
 
+ * Simplenews_register
+   Adds the ability to sign up for newsletter from the user registration page.
+
+ * Simplenews_scheduler
+   Sends a newsletter as a re-occurring item based on a schedule.
+
+ * Simplenews_digest
+   Allow you to automatically generate digest emails to subscribed users. The
+   emails contain a simple listing of links, grouped by node type, to nodes
+   posted on the site since the last time a digest newsletter was sent out.
+
  * Category
    Simplenews and Category module are currently NOT COMPATIBLE.
    See http://drupal.org/node/115693
