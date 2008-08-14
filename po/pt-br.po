@@ -229,7 +229,7 @@ msgstr "Boletim %newsletter está sendo enviado"
 
 #: simplenews.module:458
 msgid "Newsletter %title was successfully deleted."
-msgstr "Newsletter %title foi apagada com sucesso."
+msgstr "Boletim %title foi apagado com sucesso."
 
 #: simplenews.module:479
 msgid "Deleted all subscriptions to newsletter %newsletter."
@@ -403,6 +403,14 @@ msgstr "Email de confirmação enviado para %mail."
 msgid "Sending of confirmation e-mail to %mail failed."
 msgstr "Envio de email de confirmação para %mail falhou."
 
+#: simplenews.module:1381
+msgid "Outgoing email via mimemail.<br />Subject: %subject<br />Recipient: %to"
+msgstr "Email enviado via mimemail.<br />Assunto: %subject<br />Para: %to"
+
+#: simplenews.module:1387
+msgid "Outgoing email.<br />Subject: %subject<br />Recipient: %to"
+msgstr "Email enviado.<br />Assunto: %subject<br />Para: %to"
+
 #: simplenews.module:1562;1639;1762;1785
 msgid "Filter"
 msgstr "Filtrar"
@@ -511,7 +519,15 @@ msgstr "Operações"
 msgid "Update options"
 msgstr "Opções de atualização"
 
-#: simplenews.module:1876
+#: simplenews.module:1938
+msgid "Activate"
+msgstr "Ativar"
+
+#: simplenews.module:1939
+msgid "Inactivate"
+msgstr "Desativar"
+
+#: simplenews.module:1966
 msgid "No items selected."
 msgstr "Nenhum item selecionado."
 
@@ -679,7 +695,19 @@ msgstr "Permite sobrescrever endereços teste"
 msgid "Default sender address that will only be used for confirmation e-mails. You can specify sender information for each newsletter separately on the newsletter's settings page."
 msgstr "Endereço de remetente padrão que será utilizado apenas para emails de confirmação. Você pode especificar separadamente as informações do remetente para cada boletim na página de configurações do boletim."
 
-#: simplenews.module:2252
+#: simplenews.module:2343
+msgid "Subscription options"
+msgstr "Configurações de assinatura"
+
+#: simplenews.module:2349
+msgid "Synchronize with account"
+msgstr "Sincronizar com conta de usuário"
+
+#: simplenews.module:2351
+msgid "When checked subscriptions will be synchronized with site accounts. When accounts are deteted, subscriptions with the same email address will be removed. When site accounts are blocked/unblocked, subscriptions will be deactivated/activated. When not checked subscriptions will be unchanged when associated accounts are deleted or blocked."
+msgstr "Quando selecionado, assinaturas serão sincronizadas com as contas do site. Quando contas forem apagadas, as assinaturas com o mesmo endereço de email serão canceladas. Quando contas do site forem bloqueadas/desbloqueadas, as assinaturas serão desativadas/ativadas. Quando não selecionado, as assinaturas não serão alteradas quando contas associadas forem apagadas ou bloqueadas."
+
+#: simplenews.module:2364
 msgid "Initial send time"
 msgstr "Tempo de envio inicial"
 
@@ -710,18 +738,6 @@ msgstr "Ilimitado"
 #: simplenews.module:2275
 msgid "Number of mails"
 msgstr "Número de mensagens"
-
-#: simplenews.module:2281
-msgid "Subscription options"
-msgstr "Configurações de assinatura"
-
-#: simplenews.module:2287
-msgid "Synchronize with account"
-msgstr "Sincronizar com conta de usuário"
-
-#: simplenews.module:2289
-msgid "When checked subscriptions will be synchronized with site accounts. When accounts are deteted, subscriptions with the same email address will be removed. When site accounts are blocked/unblocked, subscriptions will be deactivated/activated. When not checked subscriptions will be unchanged when associated accounts are deleted or blocked."
-msgstr "Quando selecionado, assinaturas serão sincronizadas com as contas do site. Quando contas forem apagadas, as assinaturas com o mesmo endereço de email serão canceladas. Quando contas do site forem bloqueadas/desbloqueadas, as assinaturas serão desativadas/ativadas. Quando não selecionado, as assinaturas não serão alteradas quando contas associadas forem apagadas ou bloqueadas."
 
 #: simplenews.module:2307
 msgid "The sender's e-mail address you supplied is not valid."
