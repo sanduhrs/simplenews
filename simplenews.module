@@ -22,6 +22,18 @@ function simplenews_perm() {
 }
 
 /**
+ * Implementation of hook_init().
+ */
+function simplenews_init() {
+  // only bother when we are not serving a cached page. check for which function that only exists afterwards
+  if (function_exists('drupal_set_content')) {
+    if (module_exists('views')) {
+      include(drupal_get_path('module', 'simplenews') .'/simplenews_views.inc');
+    }
+  }
+}
+
+/**
  * Implementation of hook_access().
  */
 function simplenews_access($op, $node) {
@@ -214,13 +226,6 @@ function simplenews_menu($may_cache) {
           );
         }
       }
-    }
-
-    /**
-     * Always load simplenews_views.inc when views module is present
-     */
-    if (module_exists('views')) {
-      include_once(drupal_get_path('module', 'simplenews') .'/simplenews_views.inc');
     }
   }
   return $items;
