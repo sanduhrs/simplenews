@@ -1335,7 +1335,7 @@ function simplenews_mail_confirm($email, $newsletter, $snid = NULL, $op = NULL) 
  */
 function simplenews_mail_send($mail) {
   $from_email = isset($mail->from_address) ? $mail->from_address : variable_get('site_mail', ini_get('sendmail_from'));
-  $from = isset($mail->from_name) ? '"'. mime_header_encode(addslashes($mail->from_name)).'" <'. $from_email .'>' : $from_email;
+  $from = isset($mail->from_name) ? '"'. mime_header_encode($mail->from_name).'" <'. $from_email .'>' : $from_email;
 
   $headers = array(
     'From' => $from,
