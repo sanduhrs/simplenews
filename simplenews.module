@@ -1090,6 +1090,8 @@ function simplenews_block_form($tid) {
     $form['display_mail'] = array(
       '#title' => t('User'),
       '#value' => check_plain($user->name),
+      '#prefix' => '<div class="user-name">',
+      '#suffix' => '</div>',
     );
     $form['mail'] = array('#type' => 'value', '#value' => $user->mail);
   }
