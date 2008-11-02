@@ -1400,7 +1400,7 @@ function simplenews_mail_send($mail) {
     if (variable_get('simplenews_debug', FALSE)) {
       watchdog('simplenews', t('Outgoing email via mimemail.<br />Subject: %subject<br />Recipient: %to', array('%to' => $mail->to, '%subject' => $mail->subject)), WATCHDOG_NOTICE);
     }
-    return mimemail($from, $mail->to, $mail->subject, $mail->body, $plain_text_only, $headers, $plain_text_body);
+    return mimemail($from, $mail->to, $mail->subject, $mail->body, $plain_text_only, $headers, $plain_text_body, array(), 'simplenews-send-mail');
   }
   else {
     if (variable_get('simplenews_debug', FALSE)) {
