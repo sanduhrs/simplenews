@@ -14,9 +14,9 @@ function simplenews_views_tables() {
     'name' => 'simplenews_newsletters',
     'fields' => array(
       's_status' => array(
-        'name' => t('Simplenews: Send status'),
+        'name' => t('Simplenews: Sent status'),
         'handler' => 'simplenews_handler_send_status',
-        'help' => t('Newsletter send status: Not send, Pending (being send or waiting for cron to run), Send. '),
+        'help' => t('Newsletter send status: Not sent, Pending (being sent or waiting for cron to run), Sent. '),
         'sortable' => TRUE,
       ),
     ),
@@ -31,13 +31,13 @@ function simplenews_views_tables() {
     ),
     'sorts' => array(
       's_status' => array(
-        'name' => t('Simplenews: Send status'),
-        'help' => t('Sort by send status; Ascending = Not send > Pending > Send'),
+        'name' => t('Simplenews: Sent status'),
+        'help' => t('Sort by sent status; Ascending = Not sent > Pending > Sent'),
       ),
     ),
     'filters' => array(
       's_status' => array(
-        'name' => t('Simplenews: Send status'),
+        'name' => t('Simplenews: Sent status'),
         'list' => 'simplenews_handler_filter_send_status',
         'list-type' => 'list',
         'operator' => 'views_handler_operator_or',
@@ -69,8 +69,8 @@ function simplenews_handler_filter_send_status($op) {
  */
 function _simplenews_handler_send_status_data() {
   return array(
-    0 => t('Not send'),
+    0 => t('Not sent'),
     1 => t('Pending'),
-    2 => t('Send'),
+    2 => t('Sent'),
   );
 }
