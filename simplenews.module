@@ -1646,7 +1646,7 @@ function _simplenews_define_replace() {
  * @param $snid array of snid's
  */
 function simplenews_activate_subscription($snid) {
-  db_query('UPDATE {simplenews_subscriptions} SET a_status = 1 WHERE snid IN(%s)', implode(',', $snid));
+  db_query('UPDATE {simplenews_subscriptions} SET a_status = 1 WHERE snid IN(%s)', implode(',', (int) $snid));
 }
 
 /**
@@ -1655,7 +1655,7 @@ function simplenews_activate_subscription($snid) {
  * @param $snid array of snid's
  */
 function simplenews_inactivate_subscription($snid) {
-  db_query('UPDATE {simplenews_subscriptions} SET a_status = 0 WHERE snid IN(%s)', implode(',', $snid));
+  db_query('UPDATE {simplenews_subscriptions} SET a_status = 0 WHERE snid IN(%s)', implode(',', (int) $snid));
 }
 
 /**
