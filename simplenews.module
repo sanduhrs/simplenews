@@ -1162,7 +1162,7 @@ function simplenews_block_form_submit($form_id, $form_values) {
 */
 function simplenews_node_prepare($nid, $vid, $tid) {
   // node_load() sometimes returns empty nodes. The cause of this problem is yet unknown.
-    if (!$node = node_load(array('nid' => $nid), $vid, TRUE)) {
+    if (!$node = node_load($nid, $vid, TRUE)) {
     return FALSE;
   }
   $node = simplenews_replace_vars($node, FALSE);
