@@ -320,8 +320,8 @@ function simplenews_form(&$node) {
         '#default_value' => $node->test_address ? $node->test_address : variable_get('simplenews_test_address', ''),
         '#size' => 60,
         '#maxlength' => 128,
+        '#description' => t('Supply a comma-separated list of e-mail addresses to be used as test addresses.'),
       );
-      $form['sending_options']['#description'] = t('Supply a comma-separated list of e-mail addresses to be used as test addresses.');
     }
   }
   else {
