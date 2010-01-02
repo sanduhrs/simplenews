@@ -1426,7 +1426,7 @@ function simplenews_mail_send($mail) {
  *    converted plain text string
  */
 function simplenews_html_to_text($txt, $inline) {
-  $pattern = '@(<a[^>]+?href="(.\S+?)"[^>]*>(.+?)</a>)|(<img[^>]+?src="([^"]*)"[^>]*?>)@ei';
+  $pattern = '@(<a[^>]+?href="(.\S+?)"[^>]*>(.+?)</a>)|(<img[^>]+?src="([^"]*)"[^>]*?>)@eis';
   if ($inline) {
     $txt = preg_replace($pattern, "_simplenews_mail_uri('\\2\\5', '\\3')", $txt);
   }
