@@ -1,5 +1,4 @@
 <?php
-// $Id$
 
 function simplenews_install() {
   $result = array();
