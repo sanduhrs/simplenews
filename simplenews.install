@@ -1,5 +1,4 @@
 <?php
-// $Id$
 
 function simplenews_install() {
   drupal_set_message('Installing Simplenews');
