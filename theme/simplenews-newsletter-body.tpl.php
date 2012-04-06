@@ -14,6 +14,12 @@
  * - $title: Node title
  * - $language: Language object
  *
+ * Available tokens:
+ * - [simplenews-unsubscribe-url]: unsubscribe url to be used as link
+ * for more tokens: see simplenews_token_list()
+ *
+ * Note that unsubscribe links are broken in case of test send to a non-subscriber.
+ *
  * @see template_preprocess_simplenews_newsletter_body()
  */
 ?>
