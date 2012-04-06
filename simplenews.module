@@ -409,7 +409,7 @@ function simplenews_node_tab_send_form($form_state, $node) {
         '#value' => key($format_options),
       );
     }
-    
+
     // include function that provides the priority values
     module_load_include('inc', 'simplenews', 'includes/simplenews.admin');
 
@@ -427,13 +427,13 @@ function simplenews_node_tab_send_form($form_state, $node) {
     );
   }
   else {
-   
+
     $form['simplenews']['none'] = array(
       '#type' => 'checkbox',
       '#return_value' => 0,
       '#attributes' => array('checked' => 'checked', 'disabled' => 'disabled'),
     );
-    
+
     $form['simplenews']['none']['#title'] = ($simplenews_values['s_status'] == SIMPLENEWS_STATUS_SEND_READY) ? t('This newsletter has been sent.') :  t('This newsletter is pending.');
     // We return now, because there's no point in having a submit button
     return $form;
@@ -481,13 +481,13 @@ function simplenews_node_tab_send_form_submit($form, &$form_state) {
   // Get the node
   $values = $form_state['values'];
   $node = node_load($values['nid']);
-  
+
   $s_status = SIMPLENEWS_STATUS_SEND_NOT;
   if ($values['simplenews']['send'] == SIMPLENEWS_COMMAND_SEND_NOW) {
     $s_status = SIMPLENEWS_STATUS_SEND_PENDING;
   }
   $values['simplenews']['s_status'] = $s_status;
-  
+
   // Is this a multilingual newsletter ?
   // When this node is selected for translation all translation of this node
   // will be sent too.
@@ -659,7 +659,24 @@ function simplenews_nodeapi(&$node, $op, $teaser, $page) {
       }
       // Get Simplenews vid
       $simplenews_vid = variable_get('simplenews_vid', '');
-      $node->simplenews['tid'] = $node->taxonomy[$simplenews_vid];
+
+      // Drupal changed its taxonomy format on the insert and update operations
+      // in version 6.24.
+      $first_value = reset($node->taxonomy);
+
+      // Drupal <= 6.23: $node->taxonomy[vid] = tid
+      if (is_int($first_value)) {
+        $node->simplenews['tid'] = $node->taxonomy[$simplenews_vid];
+      }
+      // Drupal >= 6.24: $node->taxonomy[tid] = termObject
+      elseif (is_object($first_value)) {
+        foreach ($node->taxonomy as $tid => $term) {
+          if ($term->vid == $simplenews_vid) {
+            $node->simplenews['tid'] = $term->tid;
+          }
+        }
+      }
+
       // Call the same update function as tab submit function
       simplenews_newsletter_update($node, $node->simplenews);
       break;
@@ -1810,7 +1827,7 @@ function simplenews_mail($key, &$message, $params) {
         $subject = token_replace($subject, 'node', $context['node']);
         $subject = str_replace(array("\r", "\n"), '', $subject);
         $message['subject'] = $messages[$nid][$langcode]['subject'] = $subject;
-        
+
         // Set the active language to the node's language.
         // This needs to be done as otherwise the language used to send the mail
         // is the language of the user logged in.
@@ -1844,7 +1861,7 @@ function simplenews_mail($key, &$message, $params) {
             'simplenews_newsletter_footer'), $context, $key, $message['language']);
           $messages[$nid][$langcode]['footer'] = $footer;
         }
-        
+
         // Reset the language to the original settings.
         if (module_exists('i18n')) {
           i18n_selection_mode('reset');
