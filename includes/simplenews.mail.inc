@@ -90,6 +90,9 @@ function simplenews_send_node($node, $accounts = array()) {
     }
     if (variable_get('simplenews_use_cron', TRUE) == FALSE) {
       simplenews_mail_spool($node_data['nid'], $node_data['vid'], 999999);
+      simplenews_clear_spool();
+      // Update sent status for newsletter admin panel.
+      simplenews_send_status_update();
       drupal_set_message(t('Newsletter sent.'));
       simplenews_clear_spool();
     }
@@ -126,7 +129,6 @@ function simplenews_send_test($node) {
       $mail = trim($mail);
       if (!empty($mail)) {
         $account = _simplenews_user_load($mail);
-        $subscription = simplenews_get_subscription($account);
         if ($account->uid) {
           $recipients['user'][] = $account->name . ' <' . $mail . '>';
         }
@@ -157,11 +159,18 @@ function simplenews_send_test($node) {
  * @param $vid revision id of newsletter node
  * @param $mail target email address
  * @param $key email key [node|test]
+ * @param $reset
+ *   Reset static cache.
  *
  * @return TRUE if email is successfully delivered by php mail()
  */
-function simplenews_mail_mail($nid, $vid, $mail, $key = 'node') {
-  static $cache;
+function simplenews_mail_mail($nid, $vid, $mail, $key = 'node', $reset = FALSE) {
+  static $cache = array();
+
+  if ($reset) {
+    $cache = array();
+    return;
+  }
 
   // Get subscription data for recipient and language
   $account = new stdClass();

@@ -295,7 +295,7 @@ function simplenews_admin_types_form(&$form_state, $tid = NULL) {
 }
 
 function simplenews_admin_types_form_validate($form, &$form_state) {
-  $tid = $form_state['values']['tid'];
+  $tid = isset($form_state['values']['tid']) ? $tid : '';
   $field_name = 'simplenews_from_address_'. $tid;
 
   if (!simplenews_valid_email_address($form_state['values'][$field_name])) {
@@ -313,18 +313,17 @@ function simplenews_admin_types_form_submit($form, &$form_state) {
   // When creating a term $form_state['values']['tid'] is NULL.
   if (isset($form_state['values']['tid'])) {
     $termdata = (array)taxonomy_get_term($form_state['values']['tid']);
+
+    // Maintain hierarchy
+    $parents = taxonomy_get_parents($form_state['values']['tid']);
+    foreach ($parents as $parent) {
+      $termdata['parent'][] = $parent->tid;
+    }
   }
-  $termdata['tid'] = $form_state['values']['tid'];
   $termdata['vid'] = $form_state['values']['vid'];
   $termdata['name'] = $form_state['values']['name'];
   $termdata['description'] = $form_state['values']['description'];
   $termdata['weight'] = $form_state['values']['weight'];
-
-  // Maintain hierarchy
-  $parents = taxonomy_get_parents($form_state['values']['tid']);
-  foreach ($parents as $parent) {
-    $termdata['parent'][] = $parent->tid;
-  }
 
   switch (taxonomy_save_term($termdata)) {
     case SAVED_NEW:
@@ -585,7 +584,14 @@ function simplenews_subscription_list_export() {
 
   // Emails item is initially empty. It serves as place holder. Data is added by
   // simplenews_admin_export_after_build().
-  $form['emails'] = array();
+  $form['emails'] = array(
+    '#type' => 'textarea',
+    '#title' => t('Export results'),
+    '#cols' => 60,
+    '#rows' => 5,
+    '#value' => '',
+    '#access' => FALSE,
+  );
   $form['submit'] = array(
     '#type' => 'submit',
     '#value' => t('Export'),
@@ -640,13 +646,8 @@ function simplenews_admin_export_after_build($form, $form_element) {
     else {
       $exported_mails = t('No addresses were found.');
     }
-    $form['emails'] = array(
-      '#type' => 'textarea',
-      '#title' => t('Export results'),
-      '#cols' => 60,
-      '#rows' => 5,
-      '#value' => $exported_mails,
-    );
+    $form['emails']['#value'] = $exported_mails;
+    $form['emails']['#access'] = TRUE;
   }
   return $form;
 }
@@ -1441,6 +1442,6 @@ function simplenews_get_priority() {
     SIMPLENEWS_PRIORITY_HIGH => t('high'),
     SIMPLENEWS_PRIORITY_NORMAL => t('normal'),
     SIMPLENEWS_PRIORITY_LOW => t('low'),
-    SIMPLENEWS_PRIORITY_LOWEST => t('lowest'),  
+    SIMPLENEWS_PRIORITY_LOWEST => t('lowest'),
   );
 }

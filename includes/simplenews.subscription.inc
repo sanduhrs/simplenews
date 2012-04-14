@@ -89,7 +89,6 @@ function simplenews_subscriptions_account_form_submit($form, &$form_state) {
   global $user;
   // Get current subscriptions if any. Defined in user_profile_form
   $account = $form_state['values']['_account'];
-  $subscription = simplenews_get_subscription($account);
 
   // We first subscribe, then unsubscribe. This prevents deletion of subscriptions
   // when unsubscribed from the
@@ -285,15 +284,21 @@ function simplenews_subscriptions_page_form(&$form_state) {
  * FAPI PAGE subscription form_validate.
  */
 function simplenews_subscriptions_page_form_validate($form, &$form_state) {
+  global $user;
   $valid_email = simplenews_valid_email_address($form_state['values']['mail']);
   if (!$valid_email) {
     form_set_error('mail', t('The email address you supplied is not valid.'));
   }
-  $account = (object) array('mail' => $form_state['values']['mail']);
+  if (isset($user->mail) && $user->mail == $form_state['values']['mail']) {
+    $account = $user;
+  }
+  else {
+    $account = (object) array('mail' => $form_state['values']['mail']);
+  }
   $subscription = simplenews_get_subscription($account);
 
   $checked_newsletters = array_filter($form_state['values']['newsletters']);
-  if (!count($checked_newsletters) && !$subscription) {
+  if (!count($checked_newsletters) && !$subscription->uid) {
     form_set_error('newsletters', t('You must select at least one newsletter.'));
   }
 }
@@ -302,8 +307,13 @@ function simplenews_subscriptions_page_form_validate($form, &$form_state) {
  * FAPI PAGE subscription form_submit.
  */
 function simplenews_subscriptions_page_form_submit($form, &$form_state) {
-  $account = (object) array('mail' => $form_state['values']['mail']);
-  $subscription = simplenews_get_subscription($account);
+  global $user;
+  if (isset($user->mail) && $user->mail == $form_state['values']['mail']) {
+    $account = $user;
+  }
+  else {
+    $account = (object) array('mail' => $form_state['values']['mail']);
+  }
 
   switch ($form_state['values']['op']) {
     case t('Update'):
@@ -325,7 +335,7 @@ function simplenews_subscriptions_page_form_submit($form, &$form_state) {
       foreach ($form_state['values']['newsletters'] as $tid => $checked) {
         $confirm = FALSE;
         if ($checked) {
-          if (!$account->uid) {
+          if (empty($account->uid)) {
             $confirm = variable_get('simplenews_opt_inout_'. $tid, 'double') == 'double';
             $confirm_any |= $confirm;
           }
@@ -675,7 +685,13 @@ function simplenews_subscriptions_admin_form(&$form_state, $snid) {
  * FAPI ADMIN subscription form_validate.
  */
 function simplenews_subscriptions_admin_form_validate($form, &$form_state) {
-  $account = (object) array('mail' => $form_state['values']['mail']);
+  global $user;
+  if (isset($user->mail) && $user->mail == $form_state['values']['mail']) {
+    $account = $user;
+  }
+  else {
+    $account = (object) array('mail' => $form_state['values']['mail']);
+  }
   $subscription = simplenews_get_subscription($account);
 
   $valid_email = simplenews_valid_email_address($form_state['values']['mail']);
@@ -683,7 +699,7 @@ function simplenews_subscriptions_admin_form_validate($form, &$form_state) {
     form_set_error('mail', t('The email address you supplied is not valid.'));
   }
   $checked_newsletters = array_filter($form_state['values']['newsletters']);
-  if (!count($checked_newsletters) && !$subscription) {
+  if (!count($checked_newsletters) && $subscription->uid) {
     form_set_error('newsletters', t('You must select at least one newsletter.'));
   }
   $languages = language_list('enabled');
@@ -697,7 +713,13 @@ function simplenews_subscriptions_admin_form_validate($form, &$form_state) {
  * FAPI ADMIN subscription form_submit.
  */
 function simplenews_subscriptions_admin_form_submit($form, &$form_state) {
-  $account = (object) array('mail' => $form_state['values']['mail']);
+  global $user;
+  if (isset($user->mail) && $user->mail == $form_state['values']['mail']) {
+    $account = $user;
+  }
+  else {
+    $account = (object) array('mail' => $form_state['values']['mail']);
+  }
   $subscription = simplenews_get_subscription($account);
 
   arsort($form_state['values']['newsletters'], SORT_NUMERIC);

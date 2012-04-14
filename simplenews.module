@@ -315,8 +315,7 @@ function simplenews_node_tab_access($node = NULL) {
  * Menu callback. Displays newsletter-related stuff of a node.
  */
 function simplenews_node_tab_page($node = NULL) {
-  $output .= drupal_get_form('simplenews_node_tab_send_form', $node);
-  return $output;
+  return drupal_get_form('simplenews_node_tab_send_form', $node);
 }
 
 /**
@@ -642,7 +641,7 @@ function simplenews_nodeapi(&$node, $op, $teaser, $page) {
       $vid = variable_get('simplenews_vid', '');
       if (!isset($node->taxonomy[$vid]) || empty($node->taxonomy[$vid]) || simplenews_validate_taxonomy($node->taxonomy) == FALSE) {
         form_set_error('taxonomy', t('No newsletter term is selected, the newsletter taxonomy term is probably not configured correctly.<br /> Check and <strong>save</strong> the <a href="@settings">Simplenews general settings</a>.', array(
-          '%name' => $vocabulary->name,
+          '%name' => taxonomy_vocabulary_load($vid)->name,
           '@settings' => url('admin/settings/simplenews/general')
         )));
       }
@@ -707,11 +706,14 @@ function simplenews_nodeapi(&$node, $op, $teaser, $page) {
       break;
     case 'load':
       // @todo: {simplenews_newsletters} data might be missing if an uninstall happened at some time with simplenews nodes created. provide reasonable defaults.
-      $node->simplenews = db_fetch_array(db_query('
+      $newsletter = db_fetch_array(db_query('
         SELECT *
         FROM {simplenews_newsletters}
         WHERE nid = %d',
         $node->nid));
+      return array(
+        'simplenews' => $newsletter,
+      );
       break;
   }
 }
@@ -1109,7 +1111,6 @@ function simplenews_user($op, &$edit, &$account, $category = NULL) {
       if ($category == 'newsletter') {
         // This is reached only if op=categories access callback passed.
         module_load_include('inc', 'simplenews', 'includes/simplenews.mail');
-        $subscription = simplenews_get_subscription($account);
         module_load_include('inc', 'simplenews', 'includes/simplenews.subscription');
         $form_state = array();
         $form = simplenews_subscriptions_account_form($form_state, $account);
@@ -1132,6 +1133,7 @@ function simplenews_user($op, &$edit, &$account, $category = NULL) {
         $account->content['simplenews'] = array(
           '#type' => 'user_profile_category',
           '#title' => t('Newsletters'),
+          '#children' => array(),
         );
         // Collect newsletter to which the current user is subscribed.
         // 'hidden' newsletters are not listed.
@@ -1747,8 +1749,25 @@ function simplenews_recent_newsletters($tid, $count = 5) {
  *          [from]                : array('address' => 'noreply@example.org', 'formatted' =>  'site name <noreply@example.org>')
  *          [newsletter]          : newsletter object (tid, name)
  *          [tokens]              : tokens for variable replacement. Defaults to: user_mail_tokens()
+ * @param $reset
+ *   Reset the static cache, only used internally for tests.
  */
-function simplenews_mail($key, &$message, $params) {
+function simplenews_mail($key, &$message, $params, $reset = FALSE) {
+  // Message header, body and mail headers are buffered to increase
+  // performance when sending multiple mails. Buffered data only contains
+  // general data, no recipient specific content. Tokens are used
+  // for recipient data and will later be replaced.
+  // When mailing multiple newsletters in one page call or cron run,
+  // data is once stored and subsequently retrieved from the
+  // static $messages variable.
+  // $message buffer is node and language specific.
+  static $messages = array();
+
+  if ($reset) {
+    $messages = array();
+    return;
+  }
+
   module_load_include('inc', 'simplenews', 'includes/simplenews.mail');
   $context = $params['context'];
   $langcode = $message['language']->language;
@@ -1756,15 +1775,6 @@ function simplenews_mail($key, &$message, $params) {
   switch ($key) {
     case 'node':
     case 'test':
-      // Message header, body and mail headers are buffered to increase
-      // performance when sending multiple mails. Buffered data only contains
-      // general data, no recipient specific content. Tokens are used
-      // for recipient data and will later be replaced.
-      // When mailing multiple newsletters in one page call or cron run,
-      // data is once stored and subsequently retrieved from the
-      // static $messages variable.
-      // $message buffer is node and language specific.
-      static $messages = array();
 
       // By default the the node is send which is supplied in the function call.
       // When translation is used, the availability of translations is checked
@@ -2060,7 +2070,7 @@ function simplenews_token_values($type, $object = NULL, $options = array()) {
     case 'simplenews_subscription':
       $account = $object['account'];
       $newsletter = $object['newsletter'];
-      $node = $object['node'];
+      $node = isset($object['node']) ? $object['node'] : '';
       $language = isset($account->language) ? $account->language : language_default();
       $urlargs = array('absolute' => TRUE, 'language' => $language);
 
@@ -2261,9 +2271,7 @@ function simplenews_locale_refresh() {
  *
  * @see simplenews_locale()
  */
-function _simplenews_subscription_confirmation_text($key, $language = NULL, $translate = TRUE) {
-  $langcode = isset($language) ? $language->language : NULL;
-
+function _simplenews_subscription_confirmation_text($key, $langcode = NULL, $translate = TRUE) {
   $text = variable_get('simplenews_confirm_'. $key, FALSE);
   // If administrator did not change the text, the variable is empty.
   // We get the default here.
@@ -2514,7 +2522,6 @@ function template_preprocess_simplenews_multi_block(&$variables) {
   $variables['form'] = drupal_get_form('simplenews_subscriptions_multi_block_form');
 
   // Additional variables
-  $variables['subscribed'] = empty($user->uid) ? FALSE : (simplenews_user_is_subscribed($user->mail, $tid) == TRUE);
   $variables['user'] = !empty($user->uid);
 }
 
