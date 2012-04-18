@@ -295,7 +295,7 @@ function simplenews_admin_types_form(&$form_state, $tid = NULL) {
 }
 
 function simplenews_admin_types_form_validate($form, &$form_state) {
-  $tid = isset($form_state['values']['tid']) ? $tid : '';
+  $tid = isset($form_state['values']['tid']) ? $form_state['values']['tid'] : '';
   $field_name = 'simplenews_from_address_'. $tid;
 
   if (!simplenews_valid_email_address($form_state['values'][$field_name])) {
