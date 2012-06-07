@@ -986,6 +986,7 @@ class SimplenewsSendTestCase extends SimplenewsTestCase {
     $this->drupalPost(NULL, $edit, t('Subscribe'));
 
     // Reset the static cache.
+    module_load_include('inc', 'simplenews', 'includes/simplenews.mail');
     simplenews_mail(NULL, $message = NULL, $params = NULL, TRUE);
     simplenews_mail_mail(NULL, NULL, NULL, NULL, TRUE);
     token_get_values('global', NULL, TRUE);
@@ -1280,8 +1281,10 @@ class SimplenewsSendTestCase extends SimplenewsTestCase {
 
 /**
  * Unit tests for certain functions.
+ *
+ * @todo: This should be a unit test class, but the test bot seems to brake.
  */
-class SimplenewsUnitTest extends DrupalUnitTestCase {
+class SimplenewsUnitTest extends SimplenewsTestCase {
 
   function getInfo() {
     return array(
