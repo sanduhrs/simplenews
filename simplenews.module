@@ -1133,7 +1133,6 @@ function simplenews_user($op, &$edit, &$account, $category = NULL) {
         $account->content['simplenews'] = array(
           '#type' => 'user_profile_category',
           '#title' => t('Newsletters'),
-          '#children' => array(),
         );
         // Collect newsletter to which the current user is subscribed.
         // 'hidden' newsletters are not listed.
@@ -1176,6 +1175,10 @@ function simplenews_user($op, &$edit, &$account, $category = NULL) {
             )),
             '#weight' => -1,
           );
+        }
+        // Avoid notice.
+        if (count(element_children($account->content['simplenews'])) == 0) {
+          $account->content['simplenews']['#children'] = '';
         }
       }
       break;
