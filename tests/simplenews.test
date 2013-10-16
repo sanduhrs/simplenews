@@ -942,6 +942,18 @@ class SimpleNewsAdministrationTestCase extends SimplenewsTestCase {
     // @todo Test Admin subscriber edit category
     // @todo Test Admin subscriber edit preferred language $subscription->language
     // @todo Test Admin subscriber edit Active / Inactive
+
+    // Register a subscriber with an insecure e-mail address through the API
+    // and make sure the address is correctly encoded.
+    $xss_mail = "<script>alert('XSS');</script>";
+    simplenews_subscribe_user($xss_mail, $this->getRandomNewsletter(), FALSE);
+    $this->drupalGet('admin/content/simplenews/users');
+    $this->assertNoRaw($xss_mail);
+    $this->assertRaw(check_plain($xss_mail));
+    $xss_subscriber = simplenews_get_subscription(_simplenews_user_load($xss_mail));
+    $this->drupalGet('admin/content/simplenews/users/edit/' . $xss_subscriber->snid);
+    $this->assertNoRaw($xss_mail);
+    $this->assertRaw(check_plain($xss_mail));
   }
 
 }
