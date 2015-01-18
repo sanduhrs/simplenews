@@ -38,9 +38,9 @@ abstract class SimplenewsTestBase extends WebTestBase {
 
   public function setUp() {
     parent::setUp();
-    $this->config = \Drupal::config('simplenews.settings');
+    $this->config = $this->config('simplenews.settings');
 
-    $site_config = \Drupal::config('system.site');
+    $site_config = $this->config('system.site');
     $site_config->set('site_mail', 'simpletest@example.com');
 
     // The default newsletter has already been created, so we need to make sure

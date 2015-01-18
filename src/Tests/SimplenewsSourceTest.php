@@ -188,7 +188,7 @@ class SimplenewsSourceTest extends SimplenewsTestBase {
     $this->setUpSubscribers(5);
 
     // Use custom testing mail system to support HTML mails.
-    $mail_config = \Drupal::config('system.mail');
+    $mail_config = $this->config('system.mail');
     $mail_config->set('interface.default', 'test_simplenews_html_mail');
     $mail_config->save();
 

@@ -165,7 +165,7 @@ class SimplenewsSubscribeTest extends SimplenewsTestBase {
     $this->getMail(2);
 
     // Load simplenews settings config object.
-    $config = \Drupal::config('simplenews.settings');
+    $config = $this->config('simplenews.settings');
 
     // Change behavior to always use combined mails.
     $config->set('subscription.use_combined', 'always');
@@ -375,7 +375,7 @@ class SimplenewsSubscribeTest extends SimplenewsTestBase {
 
     // Test that it is possible to register with a mail address that is already
     // a subscriber.
-    $site_config = \Drupal::config('user.settings');
+    $site_config = $this->config('user.settings');
     $site_config->set('register', 'visitors');
     $site_config->set('verify_mail', false);
     $site_config->save();

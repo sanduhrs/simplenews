@@ -34,8 +34,8 @@ class SimplenewsSynchronizeFieldsTest extends KernelTestBase {
     $this->installEntitySchema('user');
     $this->installEntitySchema('simplenews_subscriber');
     $this->installSchema('system', array('sequences', 'sessions'));
-    \Drupal::config('system.mail')->set('interface.default', 'test_mail_collector')->save();
-    \Drupal::config('simplenews.settings')
+    $this->config('system.mail')->set('interface.default', 'test_mail_collector')->save();
+    $this->config('simplenews.settings')
       ->set('subscriber.sync_account', TRUE)
       ->save();
     ConfigurableLanguage::create(array('id' => 'fr'))->save();
@@ -79,7 +79,7 @@ class SimplenewsSynchronizeFieldsTest extends KernelTestBase {
     $this->assertTrue($subscriber->getStatus());
 
     // Status is not synced if sync_account is not set.
-    \Drupal::config('simplenews.settings')->set('subscriber.sync_account', FALSE)->save();
+    $this->config('simplenews.settings')->set('subscriber.sync_account', FALSE)->save();
     $user->block();
     $user->save();
     $subscriber = Subscriber::load($subscriber->id());
@@ -178,7 +178,7 @@ class SimplenewsSynchronizeFieldsTest extends KernelTestBase {
    */
   public function testDisableSync() {
     // Disable sync.
-    \Drupal::config('simplenews.settings')->set('subscriber.sync_account', FALSE)->save();
+    $this->config('simplenews.settings')->set('subscriber.sync_account', FALSE)->save();
 
     // Create and attach a field to both.
     $this->addField('string', 'field_on_both', 'simplenews_subscriber');

@@ -110,7 +110,7 @@ class SimplenewsSendTest extends SimplenewsTestBase {
    */
   function testSendNowNoCron() {
     // Disable cron.
-    $config = \Drupal::config('simplenews.settings');
+    $config = $this->config('simplenews.settings');
     $config->set('mail.use_cron', FALSE);
     $config->save();
 
@@ -160,7 +160,7 @@ class SimplenewsSendTest extends SimplenewsTestBase {
    */
   function testSendMultipleNoCron() {
     // Disable cron.
-    $config = \Drupal::config('simplenews.settings');
+    $config = $this->config('simplenews.settings');
     $config->set('mail.use_cron', FALSE);
     $config->save();
 
@@ -231,7 +231,7 @@ class SimplenewsSendTest extends SimplenewsTestBase {
    * Send a newsletter using cron and a low throttle.
    */
   function testSendNowCronThrottle() {
-    $config = \Drupal::config('simplenews.settings');
+    $config = $this->config('simplenews.settings');
     $config->set('mail.throttle', 3);
     $config->save();
 
@@ -387,7 +387,7 @@ class SimplenewsSendTest extends SimplenewsTestBase {
    */
   function testSendPublishNoCron() {
     // Disable cron.
-    $config = \Drupal::config('simplenews.settings');
+    $config = $this->config('simplenews.settings');
     $config->set('mail.use_cron', FALSE);
     $config->save();
 
@@ -501,7 +501,7 @@ class SimplenewsSendTest extends SimplenewsTestBase {
     $this->assertText(t('Create Newsletter Issue'));
 
     // Prevent deleting the mail spool entries automatically.
-    $config = \Drupal::config('simplenews.settings');
+    $config = $this->config('simplenews.settings');
     $config->set('mail.spool_expire', 1);
     $config->save();
 

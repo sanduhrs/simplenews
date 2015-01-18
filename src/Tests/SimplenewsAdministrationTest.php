@@ -38,7 +38,7 @@ class SimplenewsAdministrationTest extends SimplenewsTestBase {
   function testNewsletterSettings() {
 
     // Allow registration of new accounts without approval.
-    $site_config = \Drupal::config('user.settings');
+    $site_config = $this->config('user.settings');
     $site_config->set('verify_mail', false);
     $site_config->save();
 
