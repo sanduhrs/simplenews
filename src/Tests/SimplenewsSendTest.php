@@ -10,6 +10,7 @@
 namespace Drupal\simplenews\Tests;
 
 use Drupal\node\Entity\Node;
+use Drupal\user\Entity\User;
 
 /**
  * Test cases for creating and sending newsletters.
@@ -586,4 +587,74 @@ class SimplenewsSendTest extends SimplenewsTestBase {
     $this->assertEqual(0, $spooled, t('No mails remaining in spool.'));
   }
 
+  /**
+   * Test that the correct user is used when sending newsletters.
+   */
+  function testImpersonation() {
+
+    // Create user to manage subscribers.
+    $admin_user = $this->drupalCreateUser(array('administer users'));
+    $this->drupalLogin($admin_user);
+
+    // Add users for some existing subscribers.
+    $subscribers = array_slice($this->subscribers, -3);
+    $users = array();
+    foreach ($subscribers as $subscriber) {
+      $user = User::create(array(
+        'name' => $this->randomMachineName(),
+        'mail' => $subscriber,
+        'status' => 1
+      ));
+      $user->save();
+      $users[$subscriber] = $user->id();
+    }
+
+    // Create a very basic node.
+    $node = Node::create(array(
+      'type' => 'simplenews',
+      'title' => $this->randomString(10),
+      'uid' => '0',
+      'status' => 1,
+      'body' => 'User ID: [current-user:uid]'
+    ));
+
+    $node->simplenews_issue->target_id = $this->getRandomNewsletter();
+    $node->simplenews_issue->handler = 'simplenews_all';
+    $node->save();
+
+    module_load_include('inc', 'simplenews', 'includes/simplenews.mail');
+
+    // Send the node.
+    simplenews_add_node_to_spool($node);
+    $node->save();
+
+    // Send mails.
+    simplenews_mail_spool();
+    simplenews_clear_spool();
+    // Update sent status for newsletter admin panel.
+    simplenews_send_status_update();
+
+    // Verify mails.
+    $mails = $this->drupalGetMails();
+    // Check the mails sent to subscribers (who are also users) and verify each
+    // users uid in the mail body.
+    $mails_with_users = 0;
+    $mails_without_users = 0;
+    foreach ($mails as $mail) {
+      $body = $mail['body'];
+      $user_mail = $mail['to'];
+      if (isset($users[$user_mail])) {
+        if (strpos($body, 'User ID: ' . $users[$user_mail])) {
+          $mails_with_users++;
+        }
+      }
+      else {
+        if (strpos($body, 'User ID: not yet assigned')) {
+          $mails_without_users++;
+        }
+      }
+    }
+    $this->assertEqual(3, $mails_with_users, '3 mails with user ids found');
+    $this->assertEqual(2, $mails_without_users, '2 mails with no user ids found');
+  }
 }
