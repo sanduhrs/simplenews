@@ -250,12 +250,6 @@ block.settings.simplenews_subscription_block:
     form:
       type: integer
       label: Form behavior
-    issue_status:
-      type: integer
-      label: Issue status
-    issues:
-      type: integer
-      label: How many issues to show
     unique_id:
       type: string
       label: Unique ID

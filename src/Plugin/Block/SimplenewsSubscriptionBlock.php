@@ -91,8 +91,6 @@ class SimplenewsSubscriptionBlock extends BlockBase implements ContainerFactoryP
       'newsletters' => array(),
       'message' => t('Stay informed - subscribe to our newsletter.'),
       'form' => 1,
-      'issue_status' => 0,
-      'issues' => 5,
       'unique_id' => '',
     );
   }
@@ -144,23 +142,6 @@ class SimplenewsSubscriptionBlock extends BlockBase implements ContainerFactoryP
           '#description' => t('Link points to newsletter/newsletter_id, which is provided by the newsletter issue list default view.'),
         );
       }*/
-    $form['issue_status'] = array(
-      '#type' => 'checkbox',
-      '#title' => t('Display previous issues'),
-      '#return_value' => 1,
-      '#default_value' => $this->configuration['issue_status'],
-    );
-    $form['issue_count'] = array(
-      '#type' => 'select',
-      '#title' => t('Number of issues to display'),
-      '#options' => array_combine(array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10), array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)),
-      '#default_value' => $this->configuration['issues'],
-      '#states' => array(
-        'visible' => array(
-          ":input[name='status']" => array('checked' => TRUE),
-        ),
-      ),
-    );
     /*if (\Drupal::moduleHandler()->moduleExists('views')) {
       $form['rss_feed'] = array(
         '#type' => 'checkbox',
@@ -181,8 +162,6 @@ class SimplenewsSubscriptionBlock extends BlockBase implements ContainerFactoryP
     $this->configuration['message'] = $form_state->getValue('message');
     $this->configuration['form'] = $form_state->getValue('form');
     //$this->configuration['link_previous'] = $form_state->getValue('link_previous');
-    $this->configuration['issue_status'] = $form_state->getValue('issue_status');
-    $this->configuration['issue_count'] = $form_state->getValue('issue_count');
     //$this->configuration['rss_feed'] = $form_state->getValue('rss_feed');
     $this->configuration['unique_id'] = \Drupal::service('uuid')->generate();
 }

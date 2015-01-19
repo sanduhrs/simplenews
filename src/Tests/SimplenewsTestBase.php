@@ -119,8 +119,6 @@ abstract class SimplenewsTestBase extends WebTestBase {
    *  ['message'] = Block message
    *  ['form'] = '1': Subscription form; '0': Link to form
    *  ['link_previous'] = {1, 0} Display link to previous issues
-   *  ['issue_status'] = {1, 0} Display previous issues
-   *  ['issue_count'] = {1, 2, 3, ...} Number of issues to display
    *  ['rss_feed'] = {1, 0} Display RSS-feed icon
    */
   function setupSubscriptionBlock($settings = array()) {
@@ -129,8 +127,6 @@ abstract class SimplenewsTestBase extends WebTestBase {
       'newsletters' => array(),
       'message' => t('Select the newsletter(s) to which you want to subscribe or unsubscribe.'),
       'form' => 1,
-      'issue_status' => 0,
-      'issues' => 5,
       'unique_id' => \Drupal::service('uuid')->generate()
     ];
 
