@@ -57,7 +57,7 @@ simplenews.node_tab:
   title: Newsletter
   route_name: simplenews.node_tab
   base_route: entity.node.canonical
-  weight: 9
+  weight: 5
 
 simplenews.newsletter_issue_list:
   title: Newsletter issues

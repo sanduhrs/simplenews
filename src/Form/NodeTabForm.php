@@ -147,8 +147,13 @@ class NodeTabForm extends FormBase {
       }
       return $form;
     }
-    $form['submit'] = array(
+    $form['actions'] = array(
+      '#type' => 'actions',
+    );
+
+    $form['actions']['submit'] = array(
       '#type' => 'submit',
+      '#button_type' => 'primary',
       '#value' => t('Submit'),
     );
 
