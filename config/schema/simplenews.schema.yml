@@ -247,9 +247,6 @@ block.settings.simplenews_subscription_block:
     message:
       type: label
       label: Message
-    form:
-      type: integer
-      label: Form behavior
     unique_id:
       type: string
       label: Unique ID

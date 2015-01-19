@@ -117,7 +117,6 @@ abstract class SimplenewsTestBase extends WebTestBase {
    * @param array $settings
    *  ['newsletters'] = Array of newsletters (id => 1)
    *  ['message'] = Block message
-   *  ['form'] = '1': Subscription form; '0': Link to form
    *  ['link_previous'] = {1, 0} Display link to previous issues
    *  ['rss_feed'] = {1, 0} Display RSS-feed icon
    */
@@ -126,7 +125,6 @@ abstract class SimplenewsTestBase extends WebTestBase {
     $settings += [
       'newsletters' => array(),
       'message' => t('Select the newsletter(s) to which you want to subscribe or unsubscribe.'),
-      'form' => 1,
       'unique_id' => \Drupal::service('uuid')->generate()
     ];
 

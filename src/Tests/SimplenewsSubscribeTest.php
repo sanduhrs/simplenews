@@ -347,7 +347,6 @@ class SimplenewsSubscribeTest extends SimplenewsTestBase {
     $block_settings = array(
       'newsletters' => array($newsletter_id),
       'message' => $this->randomMachineName(4),
-      'form' => 1,
     );
     $single_block = $this->setupSubscriptionBlock($block_settings);
 
@@ -435,7 +434,6 @@ class SimplenewsSubscribeTest extends SimplenewsTestBase {
     $block_settings = array(
       'newsletters' => array_keys(simplenews_newsletter_get_all()),
       'message' => $this->randomMachineName(4),
-      'form' => 1,
     );
 
     $multi_block = $this->setupSubscriptionBlock($block_settings);
@@ -640,7 +638,6 @@ class SimplenewsSubscribeTest extends SimplenewsTestBase {
     $block_settings = array(
       'newsletters' => array($newsletter_id),
       'message' => $this->randomMachineName(4),
-      'form' => 1,
     );
     $block = $this->setupSubscriptionBlock($block_settings);
 
@@ -725,7 +722,6 @@ class SimplenewsSubscribeTest extends SimplenewsTestBase {
     $block_settings = array(
       'newsletters' => array($newsletter_id),
       'message' => $this->randomMachineName(4),
-      'form' => 1,
     );
     $single_block = $this->setupSubscriptionBlock($block_settings);
 
@@ -792,7 +788,6 @@ class SimplenewsSubscribeTest extends SimplenewsTestBase {
     $block_settings = array(
       'newsletters' => array_keys(simplenews_newsletter_get_all()),
       'message' => $this->randomMachineName(4),
-      'form' => 1,
     );
 
     $multi_block = $this->setupSubscriptionBlock($block_settings);
