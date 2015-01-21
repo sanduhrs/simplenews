@@ -68,6 +68,10 @@ class SimplenewsSubscribeTest extends SimplenewsTestBase {
       $this->assertMailText(t('Subscribe to @name', array('@name' => $newsletter->name)), 0, in_array($newsletter_id, $enable));
     }
 
+    $mails = $this->drupalGetMails();
+    $this->assertEqual($mails[0]['from'], 'simpletest@example.com');
+    $this->assertEqual($mails[0]['headers']['From'], '"Drupal" <simpletest@example.com>');
+
     $confirm_url = $this->extractConfirmationLink($this->getMail(0));
 
     $this->drupalGet($confirm_url);
@@ -515,6 +519,10 @@ class SimplenewsSubscribeTest extends SimplenewsTestBase {
     $this->assertMailText(t('We have received a request to remove the @mail', array('@mail' => $mail)), 6);
 
     $confirm_url = $this->extractConfirmationLink($this->getMail(6));
+
+    $mails = $this->drupalGetMails();
+    $this->assertEqual($mails[0]['from'], 'simpletest@example.com');
+    $this->assertEqual($mails[0]['headers']['From'], '"Drupal" <simpletest@example.com>');
 
     $this->drupalGet($confirm_url);
     $newsletter = simplenews_newsletter_load($newsletter_id);

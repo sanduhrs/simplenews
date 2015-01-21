@@ -690,8 +690,8 @@ function simplenews_send_status_update() {
  */
 function _simplenews_set_from() {
   $config = \Drupal::config('simplenews.settings');
-  $address = $config->get('from_address');
-  $name = $config->get('from_name');
+  $address = $config->get('newsletter.from_address');
+  $name = $config->get('newsletter.from_name');
 
   // Windows based PHP systems don't accept formatted email addresses.
   $formatted_address = (Unicode::substr(PHP_OS, 0, 3) == 'WIN') ? $address : '"'. addslashes(Unicode::mimeHeaderEncode($name)) .'" <'. $address .'>';
