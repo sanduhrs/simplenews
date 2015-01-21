@@ -57,6 +57,10 @@ function drush_simplenews_spool_count() {
  * Drush command to send the mail spool queue.
  */
 function drush_simplenews_spool_send($limit = FALSE) {
+  if (!simplenews_assert_uri()) {
+    drush_set_error('Site URI not specified, use --uri.');
+    return;
+  }
 
   module_load_include('inc', 'simplenews', 'includes/simplenews.mail');
 

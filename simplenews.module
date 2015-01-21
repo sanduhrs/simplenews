@@ -308,9 +308,28 @@ function simplenews_form_node_form_alter(&$form, FormStateInterface $form_state,
 }
 
 /**
+ * Checks that the site URI is set, and sets an error message otherwise.
+ *
+ * @return bool
+ *   TRUE if the URI is set, otherwise FALSE.
+ */
+function simplenews_assert_uri() {
+  $host = \Drupal::request()->getHost();
+  // Check if the host name is configured.
+  if ($host == 'default') {
+    \Drupal::logger('simplenews')->error('Stop sending newsletter to avoid broken links / SPAM. Site URI not specified.');
+    return FALSE;
+  }
+  return TRUE;
+}
+
+/**
  * Implements hook_cron().
  */
 function simplenews_cron() {
+  if (!simplenews_assert_uri()) {
+    return;
+  }
   module_load_include('inc', 'simplenews', 'includes/simplenews.mail');
   $config = \Drupal::config('simplenews.settings');
   simplenews_mail_spool($config->get('mail.throttle'));
