@@ -27,10 +27,10 @@ class SimplenewsSendTest extends SimplenewsTestBase {
       'send newsletter',
       'administer nodes',
       'administer simplenews subscriptions',
-      'create simplenews content',
-      'edit any simplenews content',
+      'create simplenews_issue content',
+      'edit any simplenews_issue content',
       'view own unpublished content',
-      'delete any simplenews content',
+      'delete any simplenews_issue content',
     ));
     $this->drupalLogin($admin_user);
 
@@ -44,7 +44,7 @@ class SimplenewsSendTest extends SimplenewsTestBase {
   function testProgrammaticNewsletter() {
     // Create a very basic node.
     $node = Node::create(array(
-      'type' => 'simplenews',
+      'type' => 'simplenews_issue',
       'title' => $this->randomString(10),
       'uid' => 0,
       'status' => 1
@@ -77,7 +77,7 @@ class SimplenewsSendTest extends SimplenewsTestBase {
 
     // Create another node.
     $node = Node::create(array(
-      'type' => 'simplenews',
+      'type' => 'simplenews_issue',
       'title' => $this->randomString(10),
       'uid' => 0,
       'status' => 1
@@ -116,7 +116,7 @@ class SimplenewsSendTest extends SimplenewsTestBase {
     $config->save();
 
     // Verify that the newsletter settings are shown.
-    $this->drupalGet('node/add/simplenews');
+    $this->drupalGet('node/add/simplenews_issue');
     $this->assertText(t('Create Newsletter Issue'));
 
     $edit = array(
@@ -168,7 +168,7 @@ class SimplenewsSendTest extends SimplenewsTestBase {
     // Verify that the newsletter settings are shown.
     $nodes = array();
     for ($i = 0; $i < 3; $i++) {
-      $this->drupalGet('node/add/simplenews');
+      $this->drupalGet('node/add/simplenews_issue');
       $this->assertText(t('Create Newsletter Issue'));
 
       $edit = array(
@@ -237,7 +237,7 @@ class SimplenewsSendTest extends SimplenewsTestBase {
     $config->save();
 
     // Verify that the newsletter settings are shown.
-    $this->drupalGet('node/add/simplenews');
+    $this->drupalGet('node/add/simplenews_issue');
     $this->assertText(t('Create Newsletter Issue'));
 
     $edit = array(
@@ -314,7 +314,7 @@ class SimplenewsSendTest extends SimplenewsTestBase {
   function testSendNowCron() {
 
     // Verify that the newsletter settings are shown.
-    $this->drupalGet('node/add/simplenews');
+    $this->drupalGet('node/add/simplenews_issue');
     $this->assertText(t('Create Newsletter Issue'));
 
     $edit = array(
@@ -393,7 +393,7 @@ class SimplenewsSendTest extends SimplenewsTestBase {
     $config->save();
 
     // Verify that the newsletter settings are shown.
-    $this->drupalGet('node/add/simplenews');
+    $this->drupalGet('node/add/simplenews_issue');
     $this->assertText(t('Create Newsletter Issue'));
 
     $edit = array(
@@ -457,7 +457,7 @@ class SimplenewsSendTest extends SimplenewsTestBase {
     $this->drupalPostForm(NULL, $edit, t('Save'));
     $this->assertText(t('Newsletter @name has been added', array('@name' => $edit['name'])));
 
-    $this->drupalGet('node/add/simplenews');
+    $this->drupalGet('node/add/simplenews_issue');
     $this->assertText(t('Create Newsletter Issue'));
 
     $first_newsletter_id = $this->getRandomNewsletter();
@@ -498,7 +498,7 @@ class SimplenewsSendTest extends SimplenewsTestBase {
    */
   function testDelete() {
     // Verify that the newsletter settings are shown.
-    $this->drupalGet('node/add/simplenews');
+    $this->drupalGet('node/add/simplenews_issue');
     $this->assertText(t('Create Newsletter Issue'));
 
     // Prevent deleting the mail spool entries automatically.
@@ -611,7 +611,7 @@ class SimplenewsSendTest extends SimplenewsTestBase {
 
     // Create a very basic node.
     $node = Node::create(array(
-      'type' => 'simplenews',
+      'type' => 'simplenews_issue',
       'title' => $this->randomString(10),
       'uid' => '0',
       'status' => 1,

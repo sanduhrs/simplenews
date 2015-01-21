@@ -1,9 +1,9 @@
-id: node.simplenews.simplenews_issue
+id: node.simplenews_issue.simplenews_issue
 status: true
 langcode: en
 field_name: simplenews_issue
 entity_type: node
-bundle: simplenews
+bundle: simplenews_issue
 label: Issue
 description: ''
 required: false
@@ -17,5 +17,5 @@ settings:
 dependencies:
   config:
     - field.storage.node.issue
-    - node.type.simplenews
+    - node.type.simplenews_issue
 field_type: simplenews_issue

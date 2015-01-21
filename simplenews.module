@@ -1064,7 +1064,7 @@ function simplenews_help($path, $arg) {
 
       $help .= "<p>" . t('For more information, see the online handbook entry for <a href="@handbook">Simplenews</a>.', array('@handbook', 'http://drupal.org/node/197057')) . "</p>\n";
       return $help;
-    case 'node/add/simplenews':
+    case 'node/add/simplenews_issue':
       $help = '<ul>';
       $help .= '<li>' . t('Add this newsletter issue to a newsletter by selecting a newsletter from the select list. To send this newsletter issue, first save the node, then use the "Newsletter" tab.') . "</li>\n";
       if (user_access('administer simplenews settings')) {
@@ -1087,7 +1087,7 @@ function simplenews_help($path, $arg) {
     case 'admin/config/services/simplenews/add':
       $help = '<p>' . t('You can create different newsletters (or subjects) to categorize your news (e.g. Cats news, Dogs news, ...).') . "</p>\n";
       return $help;
-    case 'admin/structure/types/manage/simplenews/display':
+    case 'admin/structure/types/manage/simplenews_issue/display':
       $help = '<p>' . t("'Plain' display settings apply to the content of emails send in plain text format. 'HTML' display settings apply to both HTML and plain text alternative content of emails send in HTML format.") . "</p>\n";
       return $help;
   }

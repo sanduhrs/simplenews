@@ -53,7 +53,7 @@ class SimplenewsAdministrationTest extends SimplenewsTestBase {
       'administer permissions',
       'administer newsletters',
       'administer simplenews subscriptions',
-      'create simplenews content',
+      'create simplenews_issue content',
       'send newsletter',
     ));
     $this->drupalLogin($admin_user);
@@ -193,7 +193,7 @@ class SimplenewsAdministrationTest extends SimplenewsTestBase {
     for ($index = 0; $index < 3; $index++) {
       $name = $this->randomMachineName();
       $generated_names[] = $name;
-      $this->drupalGet('node/add/simplenews');
+      $this->drupalGet('node/add/simplenews_issue');
       $edit = array(
         'title' => $name,
         'simplenews_newsletter[und]' => $edit_newsletter->newsletter_id,

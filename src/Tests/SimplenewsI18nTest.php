@@ -74,11 +74,11 @@ class SimplenewsI18nTest extends SimplenewsTestBase {
     $this->secondaryLanguage = 'es';
     $this->addLanguage($this->secondaryLanguage);
 
-    $config = ContentLanguageSettings::loadByEntityTypeBundle('node', 'simplenews');
+    $config = ContentLanguageSettings::loadByEntityTypeBundle('node', 'simplenews_issue');
     $config->setLanguageAlterable(TRUE);
     $config->save();
 
-    $field = FieldConfig::loadByName('node', 'simplenews', 'body');
+    $field = FieldConfig::loadByName('node', 'simplenews_issue', 'body');
     $field->setTranslatable(TRUE);
     $field->save();
     $this->rebuildContainer();
@@ -114,7 +114,7 @@ class SimplenewsI18nTest extends SimplenewsTestBase {
     $edit = array(
       'language_configuration[content_translation]' => TRUE,
     );
-    $this->drupalPostForm('admin/structure/types/manage/simplenews', $edit, t('Save content type'));
+    $this->drupalPostForm('admin/structure/types/manage/simplenews_issue', $edit, t('Save content type'));
 
     // Create a Newsletter including a translation.
     $newsletter_id = $this->getRandomNewsletter();
@@ -123,7 +123,7 @@ class SimplenewsI18nTest extends SimplenewsTestBase {
       'simplenews_issue' => $newsletter_id,
       'body[0][value]' => 'Link to node: [node:url]',
     );
-    $this->drupalPostForm('node/add/simplenews', $english, ('Save and publish'));
+    $this->drupalPostForm('node/add/simplenews_issue', $english, ('Save and publish'));
     $this->assertTrue(preg_match('|node/(\d+)$|', $this->getUrl(), $matches), 'Node created');
     $node = Node::load($matches[1]);
 
@@ -188,7 +188,7 @@ class SimplenewsI18nTest extends SimplenewsTestBase {
       'langcode[0][value]' => 'en',
       'body[0][value]' => 'Link to node: [node:url]',
     );
-    $this->drupalPostForm('node/add/simplenews', $english, ('Save and publish'));
+    $this->drupalPostForm('node/add/simplenews_issue', $english, ('Save and publish'));
     $this->clickLink(t('Edit'));
     $edit = array(
       'langcode[0][value]' => 'es',

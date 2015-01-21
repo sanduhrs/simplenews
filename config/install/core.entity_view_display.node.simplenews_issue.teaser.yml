@@ -1,20 +1,20 @@
-uuid: 6e5a75a4-cf9b-4b8c-bf00-dbde3b42dcb2
+uuid: 1754e700-7290-485d-a404-4a052ef18ae2
 langcode: en
 status: true
 dependencies:
   config:
-    - core.entity_view_mode.node.email_textalt
-    - field.field.node.simplenews.body
-    - field.field.node.simplenews.simplenews_issue
-    - node.type.simplenews
+    - core.entity_view_mode.node.teaser
+    - field.field.node.simplenews_issue.body
+    - field.field.node.simplenews_issue.simplenews_issue
+    - node.type.simplenews_issue
   module:
     - text
     - user
-id: node.simplenews.email_textalt
+id: node.simplenews_issue.teaser
 label: null
 targetEntityType: node
-bundle: simplenews
-mode: email_textalt
+bundle: simplenews_issue
+mode: teaser
 content:
   body:
     type: text_trimmed
