@@ -74,15 +74,23 @@ class SimplenewsI18nTest extends SimplenewsTestBase {
     $this->secondaryLanguage = 'es';
     $this->addLanguage($this->secondaryLanguage);
 
+    // Display the language widget.
     $config = ContentLanguageSettings::loadByEntityTypeBundle('node', 'simplenews_issue');
     $config->setLanguageAlterable(TRUE);
     $config->save();
 
+    // Make Simplenews issue translatable.
+    \Drupal::service('content_translation.manager')->setEnabled('node', 'simplenews_issue', TRUE);
+    drupal_static_reset();
+    \Drupal::entityManager()->clearCachedDefinitions();
+    \Drupal::service('router.builder')->rebuild();
+    \Drupal::service('entity.definition_update_manager')->applyUpdates();
+
+    // Make Simplenews issue body translatable.
     $field = FieldConfig::loadByName('node', 'simplenews_issue', 'body');
     $field->setTranslatable(TRUE);
     $field->save();
     $this->rebuildContainer();
-
   }
 
   /**
