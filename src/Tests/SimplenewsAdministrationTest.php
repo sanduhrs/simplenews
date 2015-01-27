@@ -248,7 +248,7 @@ class SimplenewsAdministrationTest extends SimplenewsTestBase {
    *
    */
   function testSubscriptionManagement() {
-    $admin_user = $this->drupalCreateUser(array('administer newsletters', 'administer simplenews settings', 'administer simplenews subscriptions'));
+    $admin_user = $this->drupalCreateUser(array('administer newsletters', 'administer simplenews settings', 'administer simplenews subscriptions', 'administer users'));
     $this->drupalLogin($admin_user);
 
     // Create a second newsletter.
@@ -290,7 +290,9 @@ class SimplenewsAdministrationTest extends SimplenewsTestBase {
 
     $delimiters = array(',', ' ', "\n");
 
-    $this->drupalGet('admin/people/simplenews');
+    // Visit subscribers by clicking menu tab in people.
+    $this->drupalGet('admin/people');
+    $this->clickLink('Subscribers');
     $i = 0;
     foreach ($groups as $key => $group) {
       $this->clickLink(t('Mass subscribe'));
