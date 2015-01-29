@@ -655,4 +655,40 @@ class SimplenewsSendTest extends SimplenewsTestBase {
     $this->assertEqual(3, $mails_with_users, '3 mails with user ids found');
     $this->assertEqual(2, $mails_without_users, '2 mails with no user ids found');
   }
+
+  /**
+   * Test the theme suggestions when sending mails.
+   */
+  function testNewsletterTheme() {
+    // Install and enable the test theme.
+    \Drupal::service('theme_handler')->install(array('simplenews_newsletter_test_theme'));
+    \Drupal::theme()->setActiveTheme(\Drupal::service('theme.initialization')->initTheme('simplenews_newsletter_test_theme'));
+
+    $node = Node::create(array(
+      'type' => 'simplenews_issue',
+      'title' => $this->randomString(10),
+      'uid' => '0',
+      'status' => 1,
+    ));
+    $node->simplenews_issue->target_id = $this->getRandomNewsletter();
+    $node->simplenews_issue->handler = 'simplenews_all';
+    $node->save();
+
+    module_load_include('inc', 'simplenews', 'includes/simplenews.mail');
+
+    // Send the node.
+    simplenews_add_node_to_spool($node);
+    $node->save();
+
+    // Send mails.
+    simplenews_mail_spool();
+    simplenews_clear_spool();
+    // Update sent status for newsletter admin panel.
+    simplenews_send_status_update();
+
+    $mails = $this->drupalGetMails();
+
+    // Check if the correct theme was used in mails.
+    $this->assertTrue(strpos($mails[0]['body'], 'Simplenews test theme') != FALSE);
+  }
 }

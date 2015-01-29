@@ -106,9 +106,9 @@ INSTALLATION
     general and by-newsletter theming can be performed.
     Theme newsletter body:
       simplenews-newsletter-body.tpl.php (for all newsletters)
-      simplenews-newsletter-body--[tid].tpl.php
+      simplenews-newsletter-body--[newsletter_id].tpl.php
       simplenews-newsletter-body--[view mode].tpl.php
-      simplenews-newsletter-body--[tid]--[view mode].tpl.php
+      simplenews-newsletter-body--[newsletter_id]--[view mode].tpl.php
 
       [tid]: Machine readable name of the newsletter category
       [view mode]: 'email-plain', 'email-html', 'email-textalt'
@@ -117,9 +117,9 @@ INSTALLATION
 
     Theme newsletter footer:
       simplenews-newsletter-footer.tpl.php (for all newsletters)
-      simplenews-newsletter-footer--[tid].tpl.php
+      simplenews-newsletter-footer--[newsletter_id].tpl.php
       simplenews-newsletter-footer--[view mode].tpl.php
-      simplenews-newsletter-footer--[tid]--[view mode].tpl.php
+      simplenews-newsletter-footer--[newsletter_id]--[view mode].tpl.php
 
       [tid]: Machine readable name of the newsletter category
       [view mode]: 'email-plain', 'email-html', 'email-textalt'

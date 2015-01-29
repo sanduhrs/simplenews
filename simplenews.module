@@ -1214,9 +1214,14 @@ function template_preprocess_simplenews_field(&$variables, $hook) {
   }
 
   $variables['view_mode'] = $variables['element']['#view_mode'];
+}
 
-  // Add specific suggestions that can override the default implementation.
-  $variables['theme_hook_suggestions'] = array(
+/**
+ * Implements hook_theme_suggestions_HOOK().
+ */
+function simplenews_theme_suggestions_simplenews_field(array $variables) {
+  $element = $variables['element'];
+  return array(
     'simplenews_field__' . $element['#field_name'],
     'simplenews_field__' . $element['#view_mode'],
     'simplenews_field__' . $element['#field_name'] . '__' . $element['#view_mode'],
@@ -1364,9 +1369,13 @@ function template_preprocess_simplenews_newsletter_body(&$variables) {
   $variables['title'] = $entity->label();
   $variables['language'] = $variables['build']["#langcode"];
   $variables['view_mode'] = $variables['build']['#view_mode'];
+}
 
-  // Add specific suggestions that can override the default implementation.
-  $variables['theme_hook_suggestions'] = array(
+/**
+ * Implements hook_theme_suggestions_HOOK().
+ */
+function simplenews_theme_suggestions_simplenews_newsletter_body(array $variables) {
+  return array(
     'simplenews_newsletter_body__' . $variables['newsletter']->id(),
     'simplenews_newsletter_body__' . $variables['build']['#view_mode'],
     'simplenews_newsletter_body__' . $variables['newsletter']->id() . '__' . $variables['build']['#view_mode'],
@@ -1393,15 +1402,19 @@ function template_preprocess_simplenews_newsletter_footer(&$variables) {
 
   $variables['view_mode'] = $variables['build']['#view_mode'];
 
-  // Add specific suggestions that can override the default implementation.
-  $variables['theme_hook_suggestions'] = array(
+  // Do not display the unsubscribe link by default for hidden categories.
+  $variables['opt_out_hidden'] = $variables['newsletter']->opt_inout == 'hidden';
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK().
+ */
+function simplenews_theme_suggestions_simplenews_newsletter_footer(array $variables) {
+  return array(
     'simplenews_newsletter_footer__' . $variables['newsletter']->id(),
     'simplenews_newsletter_footer__' . $variables['build']['#view_mode'],
     'simplenews_newsletter_footer__' . $variables['newsletter']->id() . '__' . $variables['build']['#view_mode'],
   );
-
-  // Do not display the unsubscribe link by default for hidden categories.
-  $variables['opt_out_hidden'] = $variables['newsletter']->opt_inout == 'hidden';
 }
 
 /**
