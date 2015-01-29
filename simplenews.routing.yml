@@ -187,6 +187,8 @@ simplenews.node_tab:
     _title: 'Newsletter'
   requirements:
     _custom_access: 'Drupal\simplenews\Form\NodeTabForm::checkAccess'
+  options:
+    _admin_route: true
 
 simplenews.newsletter_issue_list:
   path: 'admin/content/simplenews'

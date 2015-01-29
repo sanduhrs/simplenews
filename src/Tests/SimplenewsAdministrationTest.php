@@ -39,7 +39,7 @@ class SimplenewsAdministrationTest extends SimplenewsTestBase {
 
     // Allow registration of new accounts without approval.
     $site_config = $this->config('user.settings');
-    $site_config->set('verify_mail', false);
+    $site_config->set('verify_mail', FALSE);
     $site_config->save();
 
     // Allow authenticated users to subscribe.
@@ -245,10 +245,14 @@ class SimplenewsAdministrationTest extends SimplenewsTestBase {
    * Test newsletter subscription management.
    *
    * Steps performed:
-   *
    */
   function testSubscriptionManagement() {
-    $admin_user = $this->drupalCreateUser(array('administer newsletters', 'administer simplenews settings', 'administer simplenews subscriptions', 'administer users'));
+    $admin_user = $this->drupalCreateUser(array(
+        'administer newsletters',
+        'administer simplenews settings',
+        'administer simplenews subscriptions',
+        'administer users'
+      ));
     $this->drupalLogin($admin_user);
 
     // Create a second newsletter.
@@ -545,7 +549,7 @@ class SimplenewsAdministrationTest extends SimplenewsTestBase {
 
     // Get the subscriber id from the path.
     $this->assertTrue(preg_match('|admin/people/simplenews/edit/(\d+)$|', $this->getUrl(), $matches), 'Subscriber found');
-    $subscriber =  Subscriber::load($matches[1]);
+    $subscriber = Subscriber::load($matches[1]);
 
     $this->assertTitle(t('Edit subscriber @mail', array('@mail' => $subscriber->getMail())) . ' | Drupal');
     $this->assertFieldChecked('edit-status');
@@ -603,7 +607,17 @@ class SimplenewsAdministrationTest extends SimplenewsTestBase {
    * Test content type configuration.
    */
   function testContentTypes() {
-    $admin_user = $this->drupalCreateUser(array('administer blocks', 'administer content types', 'administer nodes', 'access administration pages', 'administer permissions', 'administer newsletters', 'administer simplenews subscriptions', 'bypass node access', 'send newsletter'));
+    $admin_user = $this->drupalCreateUser(array(
+        'administer blocks',
+        'administer content types',
+        'administer nodes',
+        'access administration pages',
+        'administer permissions',
+        'administer newsletters',
+        'administer simplenews subscriptions',
+        'bypass node access',
+        'send newsletter'
+      ));
     $this->drupalLogin($admin_user);
 
     $this->drupalGet('admin/structure/types');
@@ -631,7 +645,7 @@ class SimplenewsAdministrationTest extends SimplenewsTestBase {
     // Send newsletter.
     $this->clickLink(t('Newsletter'));
     $this->assertText(t('Send newsletter'));
-    $this->drupalPostForm(NULL, array(), t('Submit'));
+    $this->drupalPostForm(NULL, array(), t('Send test newsletter issue'));
 
     $mails = $this->drupalGetMails();
     $this->assertEqual('simplenews_test', $mails[0]['id']);

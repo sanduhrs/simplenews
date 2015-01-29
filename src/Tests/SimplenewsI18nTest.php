@@ -149,10 +149,7 @@ class SimplenewsI18nTest extends SimplenewsTestBase {
 
     // Send newsletter.
     $this->clickLink(t('Newsletter'));
-    $edit = array(
-      'send' => SIMPLENEWS_COMMAND_SEND_NOW,
-    );
-    $this->drupalPostForm(NULL, $edit, t('Submit'));
+    $this->drupalPostForm(NULL, array(), t('Send now'));
     $this->cronRun();
     //simplenews_cron();
 

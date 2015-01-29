@@ -128,15 +128,15 @@ class SimplenewsSendTest extends SimplenewsTestBase {
     $node = Node::load($matches[1]);
 
     $this->clickLink(t('Newsletter'));
-    $this->assertText(t('Send one test newsletter to the test address'));
-    $this->assertText(t('Send newsletter'));
+    $this->assertText(t('Send'));
+    $this->assertText(t('Test'));
     $this->assertNoText(t('Send newsletter when published'), t('Send on publish is not shown for published nodes.'));
 
     // Verify state.
     $this->assertEqual(SIMPLENEWS_STATUS_SEND_NOT, $node->simplenews_issue->status, t('Newsletter not sent yet.'));
 
     // Send now.
-    $this->drupalPostForm(NULL, array('send' => SIMPLENEWS_COMMAND_SEND_NOW), t('Submit'));
+    $this->drupalPostForm(NULL, array(), t('Send now'));
 
     // Verify state.
     \Drupal::entityManager()->getStorage('node')->resetCache();
@@ -178,7 +178,8 @@ class SimplenewsSendTest extends SimplenewsTestBase {
       // The last newsletter shouldn't be published.
       if ($i != 2) {
         $this->drupalPostForm(NULL, $edit, ('Save and publish'));
-      } else {
+      }
+      else {
         $this->drupalPostForm(NULL, $edit, ('Save as unpublished'));
       }
       $this->assertTrue(preg_match('|node/(\d+)$|', $this->getUrl(), $matches), 'Node created');
@@ -249,9 +250,8 @@ class SimplenewsSendTest extends SimplenewsTestBase {
     $node = Node::load($matches[1]);
 
     $this->clickLink(t('Newsletter'));
-    $this->assertText(t('Send one test newsletter to the test address'));
-    $this->assertText(t('Send newsletter'));
-    $this->assertNoText(t('Send newsletter when published'), t('Send on publish is not shown for published nodes.'));
+    $this->assertText(t('Send'));
+    $this->assertText(t('Test'));
 
     // Verify state.
     \Drupal::entityManager()->getStorage('node')->resetCache();
@@ -259,7 +259,7 @@ class SimplenewsSendTest extends SimplenewsTestBase {
     $this->assertEqual(SIMPLENEWS_STATUS_SEND_NOT, $node->simplenews_issue->status, t('Newsletter not sent yet.'));
 
     // Send now.
-    $this->drupalPostForm(NULL, array('send' => SIMPLENEWS_COMMAND_SEND_NOW), t('Submit'));
+    $this->drupalPostForm(NULL, array(), t('Send now'));
 
     // Verify state.
     \Drupal::entityManager()->getStorage('node')->resetCache();
@@ -333,9 +333,8 @@ class SimplenewsSendTest extends SimplenewsTestBase {
     $node = Node::load($matches[1]);
 
     $this->clickLink(t('Newsletter'));
-    $this->assertText(t('Send one test newsletter to the test address'));
-    $this->assertText(t('Send newsletter'));
-    $this->assertNoText(t('Send newsletter when published'), t('Send on publish is not shown for published nodes.'));
+    $this->assertText(t('Send'));
+    $this->assertText(t('Test'));
 
     // Verify state.
     \Drupal::entityManager()->getStorage('node')->resetCache();
@@ -343,7 +342,7 @@ class SimplenewsSendTest extends SimplenewsTestBase {
     $this->assertEqual(SIMPLENEWS_STATUS_SEND_NOT, $node->simplenews_issue->status, t('Newsletter not sent yet.'));
 
     // Send now.
-    $this->drupalPostForm(NULL, array('send' => SIMPLENEWS_COMMAND_SEND_NOW), t('Submit'));
+    $this->drupalPostForm(NULL, array(), t('Send now'));
 
     // Verify state.
     \Drupal::entityManager()->getStorage('node')->resetCache();
@@ -405,8 +404,8 @@ class SimplenewsSendTest extends SimplenewsTestBase {
     $node = Node::load($matches[1]);
 
     $this->clickLink(t('Newsletter'));
-    $this->assertText(t('Send one test newsletter to the test address'));
-    $this->assertText(t('Send newsletter when published'), t('Send on publish is shown'));
+    $this->assertText(t('Send'));
+    $this->assertText(t('Test'));
 
     // Verify state.
     \Drupal::entityManager()->getStorage('node')->resetCache();
@@ -414,7 +413,7 @@ class SimplenewsSendTest extends SimplenewsTestBase {
     $this->assertEqual(SIMPLENEWS_STATUS_SEND_NOT, $node->simplenews_issue->status, t('Newsletter not sent yet.'));
 
     // Send now.
-    $this->drupalPostForm(NULL, array('send' => SIMPLENEWS_COMMAND_SEND_PUBLISH), t('Submit'));
+    $this->drupalPostForm(NULL, array(), t('Send on publish'));
 
     // Verify state.
     \Drupal::entityManager()->getStorage('node')->resetCache(array($node->id()));
@@ -515,9 +514,8 @@ class SimplenewsSendTest extends SimplenewsTestBase {
     $node = Node::load($matches[1]);
 
     $this->clickLink(t('Newsletter'));
-    $this->assertText(t('Send one test newsletter to the test address'));
-    $this->assertText(t('Send newsletter'));
-    $this->assertNoText(t('Send newsletter when published'), t('Send on publish is not shown for published nodes.'));
+    $this->assertText(t('Send'));
+    $this->assertText(t('Test'));
 
     // Verify state.
     \Drupal::entityManager()->getStorage('node')->resetCache();
@@ -525,7 +523,7 @@ class SimplenewsSendTest extends SimplenewsTestBase {
     $this->assertEqual(SIMPLENEWS_STATUS_SEND_NOT, $node->simplenews_issue->status, t('Newsletter not sent yet.'));
 
     // Send now.
-    $this->drupalPostForm(NULL, array('send' => SIMPLENEWS_COMMAND_SEND_NOW), t('Submit'));
+    $this->drupalPostForm(NULL, array(), t('Send now'));
 
     // Verify state.
     \Drupal::entityManager()->getStorage('node')->resetCache();
