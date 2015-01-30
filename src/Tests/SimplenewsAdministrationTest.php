@@ -314,7 +314,11 @@ class SimplenewsAdministrationTest extends SimplenewsTestBase {
     $this->assertText($user->label());
 
     // Verify that all addresses are displayed in the table.
-    $mail_addresses = $this->xpath('//tr/td[1]');
+    $rows = $this->xpath('//tbody/tr');
+    $mail_addresses = array();
+    for ($i = 0; $i < count($subscribers_flat); $i++) {
+      $mail_addresses[] = trim((string) $rows[$i]->td[0]);
+    }
     $this->assertEqual(15, count($mail_addresses));
     foreach ($mail_addresses as $mail_address) {
       $mail_address = (string) $mail_address;
@@ -330,20 +334,18 @@ class SimplenewsAdministrationTest extends SimplenewsTestBase {
     $first_mail = array_rand($subscribers[$first]);
     $all_mail = array_rand($subscribers['all']);
 
-    /*
-     * @todo Enable these tests again in https://www.drupal.org/node/2401019.
-     *
     // Limit list to subscribers of the first newsletter only.
     // Build a flat list of the subscribers of this list.
     $subscribers_flat = array_merge($subscribers[$first], $subscribers['all']);
 
-    $edit = array(
-      'list' => 'newsletter_id-' . $first,
-    );
-    $this->drupalPostForm(NULL, $edit, t('Filter'));
+    $this->drupalGet('admin/people/simplenews', array('query' => array('subscriptions_target_id' => $first)));
 
     // Verify that all addresses are displayed in the table.
-    $mail_addresses = $this->xpath('//tr/td[1]');
+    $rows = $this->xpath('//tbody/tr');
+    $mail_addresses = array();
+    for ($i = 0; $i < count($subscribers_flat); $i++) {
+      $mail_addresses[] = trim((string) $rows[$i]->td[0]);
+    }
     $this->assertEqual(10, count($mail_addresses));
     foreach ($mail_addresses as $mail_address) {
       $mail_address = (string) $mail_address;
@@ -355,18 +357,18 @@ class SimplenewsAdministrationTest extends SimplenewsTestBase {
 
     // Filter a single mail address, the one assigned to a user.
     $edit = array(
-      'email' => Unicode::substr(current($subscribers['all']), 0, 4)
+      'mail' => Unicode::substr(current($subscribers['all']), 0, 4)
     );
-    $this->drupalPostForm(NULL, $edit, t('Filter'));
+    $this->drupalGet('admin/people/simplenews', array('query' => array('mail' => $edit['mail'])));
 
     $rows = $this->xpath('//tbody/tr');
     $this->assertEqual(1, count($rows));
-    $this->assertEqual(current($subscribers['all']), (string) $rows[0]->td[1]);
-    $this->assertEqual($user->label(), (string) $rows[0]->td[2]->a);
+    $this->assertEqual(current($subscribers['all']), trim((string) $rows[0]->td[0]));
+    $this->assertEqual($user->label(), trim((string) $rows[0]->td[1]->span));
 
     // Reset the filter.
-    $this->drupalPostForm(NULL, array(), t('Reset'));
-    */
+    $this->drupalGet('admin/people/simplenews');
+
 
     // Test mass-unsubscribe, unsubscribe one from the first group and one from
     // the all group, but only from the first newsletter.
@@ -385,17 +387,12 @@ class SimplenewsAdministrationTest extends SimplenewsTestBase {
     $this->assertNoText($first_mail);
     $this->assertText($all_mail);
 
-    /*
-     * @todo Enable these tests again in https://www.drupal.org/node/2401019.
-     *
+
     // Limit to first newsletter, the all mail shouldn't be shown anymore.
-    $edit = array(
-      'list' => 'newsletter_id-' . $first,
-    );
-    $this->drupalPostForm(NULL, $edit, t('Filter'));
+
+    $this->drupalGet('admin/people/simplenews', array('query' => array('subscriptions_target_id' => $first)));
     $this->assertNoText($first_mail);
     $this->assertNoText($all_mail);
-    */
 
     // Check exporting.
     $this->clickLink(t('Export'));
@@ -539,16 +536,10 @@ class SimplenewsAdministrationTest extends SimplenewsTestBase {
       $this->assertNoText($mail);
     }
 
-    // Reset list and click on the first subscriber.
-    /*
-     * @todo Enable these tests again in https://www.drupal.org/node/2401019.
-     *
-    $this->drupalPostForm(NULL, array(), t('Reset'));
-    */
-    $this->clickLink(t('Edit'));
+    $this->clickLink(t('Edit'), 1);
 
     // Get the subscriber id from the path.
-    $this->assertTrue(preg_match('|admin/people/simplenews/edit/(\d+)$|', $this->getUrl(), $matches), 'Subscriber found');
+    $this->assertTrue(preg_match('|admin/people/simplenews/edit/(\d+)\?destination=admin/people/simplenews|', $this->getUrl(), $matches), 'Subscriber found');
     $subscriber = Subscriber::load($matches[1]);
 
     $this->assertTitle(t('Edit subscriber @mail', array('@mail' => $subscriber->getMail())) . ' | Drupal');
@@ -579,6 +570,7 @@ class SimplenewsAdministrationTest extends SimplenewsTestBase {
     $this->drupalGet('admin/people/simplenews/edit/' . $subscriber->id());
     $this->assertTitle(t('Edit subscriber @mail', array('@mail' => $subscriber->getMail())) . ' | Drupal');
     $nlids = $subscriber->getSubscribedNewsletterIds();
+    // If the subscriber still has subscribed to newsletter, try to unsubscribe.
     $newsletter_id = reset($nlids);
     $edit['subscriptions[' . $newsletter_id . ']'] = FALSE;
     $this->drupalPostForm(NULL, $edit, t('Save'));
@@ -674,4 +666,41 @@ class SimplenewsAdministrationTest extends SimplenewsTestBase {
     $this->drupalPostForm('admin/structure/types/manage/' . $type . '/delete', array(), t('Delete'));
   }
 
+  /**
+   * Test content subscription status filter in subscriber view.
+   */
+  function testSubscriberStatusFilter() {
+
+    $subscribers = array();
+    // Create some subscribers.
+    for ($i = 0; $i < 3; $i++) {
+      $subscribers[] = Subscriber::create(array('mail' => $this->randomEmail()));
+    }
+    foreach ($subscribers as $subscriber) {
+      $subscriber->setStatus(SIMPLENEWS_SUBSCRIPTION_ACTIVE);
+    }
+
+    // Subscribe to the default newsletter and set subscriber status.
+    $subscribers[0]->subscribe('default', SIMPLENEWS_SUBSCRIPTION_STATUS_SUBSCRIBED);
+    $subscribers[1]->subscribe('default', SIMPLENEWS_SUBSCRIPTION_STATUS_UNCONFIRMED);
+    $subscribers[2]->subscribe('default', SIMPLENEWS_SUBSCRIPTION_STATUS_UNSUBSCRIBED);
+
+    foreach ($subscribers as $subscriber) {
+      $subscriber->save();
+    }
+
+    // Filter out subscribers by their subscription status and assert the output.
+    $this->drupalGet('admin/people/simplenews', array('query' => array('subscriptions_status' => SIMPLENEWS_SUBSCRIPTION_STATUS_SUBSCRIBED)));
+    $row = $this->xpath('//tbody/tr');
+    $this->assertEqual(1, count($row));
+    $this->assertEqual($subscribers[0]->getMail(), trim((string) $row[0]->td[0]));
+    $this->drupalGet('admin/people/simplenews', array('query' => array('subscriptions_status' => SIMPLENEWS_SUBSCRIPTION_STATUS_UNCONFIRMED)));
+    $row = $this->xpath('//tbody/tr');
+    $this->assertEqual(1, count($row));
+    $this->assertEqual($subscribers[1]->getMail(), trim((string) $row[0]->td[0]));
+    $this->drupalGet('admin/people/simplenews', array('query' => array('subscriptions_status' => SIMPLENEWS_SUBSCRIPTION_STATUS_UNSUBSCRIBED)));
+    $row = $this->xpath('//tbody/tr');
+    $this->assertEqual(1, count($row));
+    $this->assertEqual($subscribers[2]->getMail(), trim((string) $row[0]->td[0]));
+  }
 }

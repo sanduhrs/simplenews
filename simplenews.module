@@ -1149,6 +1149,17 @@ function simplenews_opt_inout_options() {
 }
 
 /**
+ * Returns the available options for the subscriber status.
+ */
+function simplenews_subscriber_status_list() {
+  return array(
+    SIMPLENEWS_SUBSCRIPTION_STATUS_SUBSCRIBED => t('Subscribed'),
+    SIMPLENEWS_SUBSCRIPTION_STATUS_UNSUBSCRIBED => t('Unsubscribed'),
+    SIMPLENEWS_SUBSCRIPTION_STATUS_UNCONFIRMED => t('Unconfirmed'),
+  );
+}
+
+/**
  * Implements hook_theme().
  *
  */
@@ -1787,4 +1798,12 @@ function simplenews_mask_mail($mail) {
     // Missing top-level domain.
     return preg_replace('/^(.).*@(.).*$/', '$1*****@$2*****', $mail);
   }
+}
+
+/**
+ * Implements hook_field_formatter_info_alter().
+ */
+function simplenews_field_formatter_info_alter(&$info) {
+  $info['entity_reference_label']['field_types'][] = 'simplenews_subscription';
+  $info['entity_reference_label']['field_types'][] = 'simplenews_issue';
 }

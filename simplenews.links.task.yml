@@ -1,10 +1,3 @@
-simplenews.subscriber_list:
-  title: Subscribers
-  description: 'Listing of all subscribers.'
-  base_route: entity.user.collection
-  route_name: simplenews.subscriber_list
-  weight: 11
-
 simplenews.settings_subscriber:
   title: Settings
   description: 'Simplenews subscriber settings.'

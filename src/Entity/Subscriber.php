@@ -22,14 +22,15 @@ use Drupal\user\UserInterface;
  *   id = "simplenews_subscriber",
  *   label = @Translation("Simplenews subscriber"),
  *   handlers = {
- *     "list_builder" = "Drupal\simplenews\SubscriberListBuilder",
  *     "form" = {
  *       "default" = "Drupal\simplenews\Form\SubscriberForm",
  *       "account" = "Drupal\simplenews\Form\SubscriptionsAccountForm",
  *       "block" = "Drupal\simplenews\Form\SubscriptionsBlockForm",
  *       "page" = "Drupal\simplenews\Form\SubscriptionsPageForm",
  *       "delete" = "Drupal\simplenews\Form\SubscriberDeleteForm",
- *     }
+ *     },
+ *     "view_builder" = "Drupal\Core\Entity\EntityViewBuilder",
+ *     "views_data" = "Drupal\simplenews\SubscriberViewsData"
  *   },
  *   base_table = "simplenews_subscriber",
  *   entity_keys = {
@@ -343,7 +344,7 @@ class Subscriber extends ContentEntityBase implements SubscriberInterface {
       ->setDisplayConfigurable('form', TRUE);
 
     $fields['langcode'] = BaseFieldDefinition::create('language')
-      ->setLabel(t('Language code'))
+      ->setLabel(t('Language'))
       ->setDescription(t("The subscriber's preferred language."));
 
     $fields['changes'] = BaseFieldDefinition::create('string_long')

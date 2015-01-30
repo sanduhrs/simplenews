@@ -62,14 +62,6 @@ entity.simplenews_newsletter.delete_form:
   requirements:
     _entity_access: 'simplenews_newsletter.delete'
 
-simplenews.subscriber_list:
-  path: 'admin/people/simplenews'
-  defaults:
-    _entity_list: 'simplenews_subscriber'
-    _title: 'Subscribers'
-  requirements:
-    _permission: 'administer simplenews subscriptions'
-
 simplenews.subscriber_add:
   path: 'admin/people/simplenews/add'
   defaults:
