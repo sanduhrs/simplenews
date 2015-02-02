@@ -54,14 +54,6 @@ class SimplenewsI18nTest extends SimplenewsTestBase {
     $this->adminUser = $this->drupalCreateUser(array('bypass node access', 'administer nodes', 'administer languages', 'administer content types', 'access administration pages', 'administer filters', 'translate interface', 'subscribe to newsletters', 'administer site configuration', 'translate any entity', 'administer content translation', 'administer simplenews subscriptions', 'send newsletter', 'create content translations'));
     $this->drupalLogin($this->adminUser);
     $this->setUpLanguages();
-
-    // @todo Necessary because
-    //   content_translation_language_fallback_candidates_entity_view_alter()
-    //   is broken.
-    $anonymous = Role::load(DRUPAL_ANONYMOUS_RID);
-    $anonymous->grantPermission('translate any entity');
-    $anonymous->save();
-
   }
 
   /**
