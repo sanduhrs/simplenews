@@ -146,7 +146,7 @@ class NodeTabForm extends FormBase {
         '#type' => 'item',
       );
       if ($status == SIMPLENEWS_STATUS_SEND_READY) {
-        $form['status']['#title'] = t('This newsletter issue has been sent to @count subsccribers', array('@count' => $node->simplenews_issue->sent_count));
+        $form['status']['#title'] = t('This newsletter issue has been sent to @count subscribers', array('@count' => $node->simplenews_issue->sent_count));
       }
       else {
         module_load_include('inc', 'simplenews', 'includes/simplenews.mail');
