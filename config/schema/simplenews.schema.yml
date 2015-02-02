@@ -25,9 +25,6 @@ simplenews.settings:
         from_name:
           type: label
           label: Default from name
-        send:
-          type: integer
-          label: Default send operation
         test_address:
           type: string
           label: Test email address

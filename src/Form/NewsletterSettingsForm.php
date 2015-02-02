@@ -63,15 +63,6 @@ class NewsletterSettingsForm extends ConfigFormBase {
       '#default_value' => $config->get('newsletter.receipt'),
       '#description' => $this->t('Request a Read Receipt from your newsletters. A lot of email programs ignore these so it is not a definitive indication of how many people have read your newsletter.'),
     );
-    $form['simplenews_default_options']['simplenews_send'] = array(
-      '#type' => 'radios',
-      '#title' => $this->t('Default send action'),
-      '#options' => array(
-        SIMPLENEWS_COMMAND_SEND_TEST => $this->t('Send one test newsletter to the test address'),
-        SIMPLENEWS_COMMAND_SEND_NOW => $this->t('Send newsletter'),
-      ),
-      '#default_value' => $config->get('newsletter.send'),
-    );
     $form['simplenews_test_address'] = array(
       '#type' => 'fieldset',
       '#title' => $this->t('Test addresses'),
@@ -123,7 +114,6 @@ class NewsletterSettingsForm extends ConfigFormBase {
       ->set('newsletter.format', $form_state->getValue('simplenews_format'))
       ->set('newsletter.priority', $form_state->getValue('simplenews_priority'))
       ->set('newsletter.receipt', $form_state->getValue('simplenews_receipt'))
-      ->set('newsletter.send', $form_state->getValue('simplenews_send'))
       ->set('newsletter.test_address', $form_state->getValue('simplenews_test_address'))
       ->set('newsletter.test_address_override', $form_state->getValue('simplenews_test_address_override'))
       ->set('newsletter.from_name', $form_state->getValue('simplenews_from_name'))

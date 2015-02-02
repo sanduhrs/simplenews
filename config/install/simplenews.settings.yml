@@ -4,7 +4,6 @@ newsletter:
   format: plain
   priority: 0
   receipt: 0
-  send: 0
   test_address_override: 0
 
 subscriber:
