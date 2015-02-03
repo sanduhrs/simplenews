@@ -114,6 +114,10 @@ class Subscriber extends ContentEntityBase implements SubscriberInterface {
     if (!\Drupal::config('simplenews.settings')->get('subscriber.sync_account')) {
       return NULL;
     }
+    $mail = $this->getMail();
+    if(empty($mail)){
+      return NULL;
+    }
     return $this->getUserId() ? User::load($this->getUserId()) : user_load_by_mail($this->getMail());
   }
 

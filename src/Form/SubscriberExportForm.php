@@ -47,7 +47,7 @@ class SubscriberExportForm extends FormBase {
     $query = \Drupal::entityQuery('simplenews_subscriber')
       ->condition('status', $condition_active)
       ->condition('subscriptions.status', $condition_subscribed)
-      ->condition('subscriptions.target_id', $newsletters);
+      ->condition('subscriptions.target_id', (array) $newsletters, 'IN');
     $subscriber_ids = $query->execute();
 
     $mails = array();

@@ -506,7 +506,7 @@ function simplenews_get_spool($limit = SIMPLENEWS_UNLIMITED, $conditions = array
  */
 function simplenews_update_spool($msids, $data) {
   db_update('simplenews_mail_spool')
-    ->condition('msid', $msids)
+    ->condition('msid', (array) $msids, 'IN')
     ->fields(array(
       'status' => $data['status'],
       'error' => isset($result['error']) ? (int) $data['error'] : 0,

@@ -189,7 +189,7 @@ class NewsletterIssueListForm extends FormBase {
     //simplenews_build_issue_filter_query($query);
     $nids = $query
       ->tableSort($header)
-      ->condition('type', simplenews_get_content_types())
+      ->condition('type', (array) simplenews_get_content_types(), 'IN')
       ->pager(30)
       ->execute();
     $options = array();

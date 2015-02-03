@@ -160,7 +160,7 @@ class Newsletter extends ConfigEntityBase implements NewsletterInterface {
       // Make sure there are no active blocks for these newsletters.
       $ids = \Drupal::entityQuery('block')
         ->condition('plugin', 'simplenews_subscription_block')
-        ->condition('settings.newsletters.*', array_keys($entities))
+        ->condition('settings.newsletters.*', array_keys($entities), 'IN')
         ->execute();
       if ($ids) {
         $blocks = Block::loadMultiple($ids);
