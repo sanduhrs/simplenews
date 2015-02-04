@@ -11,20 +11,17 @@ dependencies:
     - text
     - user
 id: node.simplenews_issue.email_html
-label: null
 targetEntityType: node
 bundle: simplenews_issue
 mode: email_html
 content:
   body:
-    type: text_trimmed
+    type: text_default
     weight: 0
-    settings:
-      trim_length: 600
+    settings: {  }
     third_party_settings: {  }
     label: hidden
 hidden:
-  langcode: true
   simplenews_issue: true
   links: true
 third_party_settings: {  }

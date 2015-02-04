@@ -628,11 +628,13 @@ class SimplenewsAdministrationTest extends SimplenewsTestBase {
     // Create an issue.
     $edit = array(
       'title[0][value]' => $this->randomMachineName(),
+      'body[0][value]' => 'Test_body.',
       'simplenews_issue' => $this->getRandomNewsletter(),
     );
     $this->drupalPostForm(NULL, $edit, ('Save and publish'));
 
     $node = $this->drupalGetNodeByTitle($edit['title[0][value]']);
+    $this->assertText('Test_body.');
 
     // Send newsletter.
     $this->clickLink(t('Newsletter'));
