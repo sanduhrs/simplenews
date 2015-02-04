@@ -51,9 +51,8 @@ class NodeTabForm extends FormBase {
       $form['test']['test_address'] = array(
         '#type' => 'textfield',
         '#title' => t('Test email addresses'),
-        '#description' => t('A comma-separated list of email addresses to be used as test addresses. Allow test address override to change the value.'),
-        '#default_value' => $config->get('newsletter.test_address'),
-        '#disabled' => $config->get('newsletter.test_address_override') ? FALSE : TRUE,
+        '#description' => t('A comma-separated list of email addresses to be used as test addresses.'),
+        '#default_value' => \Drupal::currentUser()->getEmail(),
         '#size' => 60,
         '#maxlength' => 128,
       );
@@ -63,6 +62,7 @@ class NodeTabForm extends FormBase {
         '#value' => t('Send test newsletter issue'),
         '#name' => 'send_test',
         '#submit' => array('::submitTestMail'),
+        '#validate' => array('::validateTestAddress'),
       );
       $form['send'] = array(
         '#type' => 'details',
@@ -191,29 +191,28 @@ class NodeTabForm extends FormBase {
       }
     }
 
-    $default_address = $config->get('newsletter.test_address');
-    $mails = array($default_address);
-    if (isset($values['send']) && $values['send'] == SIMPLENEWS_COMMAND_SEND_TEST && $config->get('newsletter.test_address_override')) {
-      // @todo Can we simplify and use only two kind of messages?
-      if (!empty($values['test_address'])) {
-        $mails = explode(',', $values['test_address']);
-        foreach ($mails as $mail) {
-          $mail = trim($mail);
-          if ($mail == '') {
-            $form_state->setErrorByName('test_address', t('Test email address is empty.'));
-          }
-          elseif (!valid_email_address($mail)) {
-            $form_state->setErrorByName('test_address', t('Invalid email address "%mail".', array('%mail' => $mail)));
-          }
+    parent::validateForm($form, $form_state);
+  }
+
+  /**
+   * Validates the test address.
+   */
+  public function validateTestAddress(array $form, FormStateInterface $form_state) {
+    $test_address = $form_state->getValue('test_address');
+    $test_address = trim($test_address);
+    if (!empty($test_address)) {
+      $mails = explode(',', $test_address);
+      foreach ($mails as $mail) {
+        $mail = trim($mail);
+        if (!valid_email_address($mail)) {
+          $form_state->setErrorByName('test_address', t('Invalid email address "%mail".', array('%mail' => $mail)));
         }
       }
-      else {
-        $form_state->setErrorByName('test_address', t('Missing test email address.'));
-      }
+      $form_state->set('test_addresses', $mails);
     }
-    $form_state->set('test_addresses', $mails);
-
-    parent::validateForm($form, $form_state);
+    else {
+      $form_state->setErrorByName('test_address', t('Missing test email address.'));
+    }
   }
 
   /**

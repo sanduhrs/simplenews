@@ -119,7 +119,6 @@ function simplenews_install() {
   if (empty($site_mail)) {
     $site_mail = ini_get('sendmail_from');
   }
-  $config->set('newsletter.test_address', $site_mail);
   $config->set('newsletter.from_address', $site_mail);
 
   if (empty($site_name)) {

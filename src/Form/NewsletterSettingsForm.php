@@ -63,24 +63,6 @@ class NewsletterSettingsForm extends ConfigFormBase {
       '#default_value' => $config->get('newsletter.receipt'),
       '#description' => $this->t('Request a Read Receipt from your newsletters. A lot of email programs ignore these so it is not a definitive indication of how many people have read your newsletter.'),
     );
-    $form['simplenews_test_address'] = array(
-      '#type' => 'fieldset',
-      '#title' => $this->t('Test addresses'),
-      '#collapsible' => FALSE,
-      '#description' => $this->t('Supply a comma-separated list of email addresses to be used as test addresses. The override function allows to override these addresses in the newsletter editing form.'),
-    );
-    $form['simplenews_test_address']['simplenews_test_address'] = array(
-      '#type' => 'email',
-      '#title' => $this->t('Email address'),
-      '#size' => 60,
-      '#maxlength' => 128,
-      '#default_value' => $config->get('newsletter.test_address'),
-    );
-    $form['simplenews_test_address']['simplenews_test_address_override'] = array(
-      '#type' => 'checkbox',
-      '#title' => $this->t('Allow test address override'),
-      '#default_value' => $config->get('newsletter.test_address_override'),
-    );
     $form['simplenews_sender_info'] = array(
       '#type' => 'fieldset',
       '#title' => $this->t('Sender information'),
@@ -110,12 +92,10 @@ class NewsletterSettingsForm extends ConfigFormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    $this->configFactory()->get('simplenews.settings')
+    $this->config('simplenews.settings')
       ->set('newsletter.format', $form_state->getValue('simplenews_format'))
       ->set('newsletter.priority', $form_state->getValue('simplenews_priority'))
       ->set('newsletter.receipt', $form_state->getValue('simplenews_receipt'))
-      ->set('newsletter.test_address', $form_state->getValue('simplenews_test_address'))
-      ->set('newsletter.test_address_override', $form_state->getValue('simplenews_test_address_override'))
       ->set('newsletter.from_name', $form_state->getValue('simplenews_from_name'))
       ->set('newsletter.from_address', $form_state->getValue('simplenews_from_address'))
       ->save();

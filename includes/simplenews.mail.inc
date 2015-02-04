@@ -14,6 +14,7 @@ use Drupal\Core\Session\AnonymousUserSession;
 use Drupal\Core\Url;
 use Drupal\node\Entity\Node;
 use Drupal\simplenews\Entity\Subscriber;
+use Drupal\node\NodeInterface;
 use Drupal\simplenews\Source\SourceInterface;
 use Drupal\simplenews\Source\SourceNode;
 use Drupal\simplenews\Source\Spool;
@@ -108,7 +109,7 @@ function simplenews_mail_attempt_immediate_send(array $conditions = array(), $us
  *
  * @ingroup issue
  */
-function simplenews_send_test($node, $test_addresses) {
+function simplenews_send_test(NodeInterface $node, array $test_addresses) {
   // Prevent session information from being saved while sending.
   /*if ($original_session = drupal_save_session()) {
     drupal_save_session(FALSE);

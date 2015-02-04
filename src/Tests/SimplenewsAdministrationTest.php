@@ -637,12 +637,19 @@ class SimplenewsAdministrationTest extends SimplenewsTestBase {
     // Send newsletter.
     $this->clickLink(t('Newsletter'));
     $this->assertText(t('Send newsletter'));
-    $this->drupalPostForm(NULL, array(), t('Send test newsletter issue'));
+    $this->assertField('test_address', $admin_user->getEmail());
+    // Test newsletter to empty address and check the error message.
+    $this->drupalPostForm(NULL, array('test_address' => ''), t('Send test newsletter issue'));
+    $this->assertText(t('Missing test email address.'));
+    // Test newsletter to invalid address and check the error message.
+    $this->drupalPostForm(NULL, array('test_address' => 'invalid_address'), t('Send test newsletter issue'));
+    $this->assertText(t('Invalid email address "invalid_address"'));
+    $this->drupalPostForm(NULL, array('test_address' => $admin_user->getEmail()), t('Send test newsletter issue'));
+    $this->assertText(t('Test newsletter sent to anonymous @email', array('@email' => $admin_user->getEmail())));
 
     $mails = $this->drupalGetMails();
     $this->assertEqual('simplenews_test', $mails[0]['id']);
-    // @todo: Test with a custom test mail address.
-    $this->assertEqual('simpletest@example.com', $mails[0]['to']);
+    $this->assertEqual($admin_user->getEmail(), $mails[0]['to']);
     $this->assertEqual(t('[Default newsletter] @title', array('@title' => $node->getTitle())), $mails[0]['subject']);
 
     // Update the content type, remove the simpletest checkbox.
