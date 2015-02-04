@@ -664,6 +664,11 @@ class SimplenewsAdministrationTest extends SimplenewsTestBase {
     // Delete content type.
     // @todo: Add assertions.
     $this->drupalPostForm('admin/structure/types/manage/' . $type . '/delete', array(), t('Delete'));
+
+    // Check the Add Newsletter Issue button.
+    $this->drupalGet('admin/content/simplenews');
+    $this->clickLink(t('Add Newsletter Issue'));
+    $this->assertUrl('node/add/simplenews_issue');
   }
 
   /**

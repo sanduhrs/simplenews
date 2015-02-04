@@ -27,3 +27,9 @@ simplenews.subscriber_export:
   title: 'Export'
   appears_on:
     - view.simplenews_subscribers.page_1
+
+simplenews.newsletter_issue_add:
+  route_name: node.add
+  appears_on:
+    - simplenews.newsletter_issue_list
+  deriver: 'Drupal\simplenews\Plugin\Derivative\AddSimplenewsIssueActionLinks'
