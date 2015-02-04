@@ -127,6 +127,8 @@ function simplenews_install() {
   $config->set('newsletter.from_name', $site_name);
   $config->save();
 
+  user_role_grant_permissions(DRUPAL_ANONYMOUS_RID, array('subscribe to newsletters'));
+  user_role_grant_permissions(DRUPAL_AUTHENTICATED_RID, array('subscribe to newsletters'));
 
   // Init the default newsletter.
   $newsletter = Newsletter::load('default');

@@ -50,39 +50,6 @@ abstract class SimplenewsTestBase extends WebTestBase {
     $newsletter->save();
 
   }
-
-  /**
-   * Set anonymous user permission to subscribe.
-   *
-   * @param boolean $enabled
-   *   Allow anonymous subscribing.
-   */
-  function setAnonymousUserSubscription($enabled) {
-    $role = Role::load(DRUPAL_ANONYMOUS_RID);
-    if ($enabled) {
-      $role->grantPermission('subscribe to newsletters');
-    } else {
-      $role->revokePermission('subscribe to newsletters');
-    }
-    $role->save();
-  }
-
-  /**
-   * Set authenticated user permission to subscribe.
-   *
-   * @param boolean $enabled
-   *   Allow authenticated subscribing.
-   */
-  function setAuthenticatedUserSubscription($enabled) {
-    $role = Role::load(DRUPAL_AUTHENTICATED_RID);
-    if ($enabled) {
-      $role->grantPermission('subscribe to newsletters');
-    } else {
-      $role->revokePermission('subscribe to newsletters');
-    }
-    $role->save();
-  }
-
   /**
    * Generates a random email address.
    *

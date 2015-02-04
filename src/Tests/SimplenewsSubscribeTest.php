@@ -32,7 +32,6 @@ class SimplenewsSubscribeTest extends SimplenewsTestBase {
       'administer simplenews subscriptions',
     ));
     $this->drupalLogin($admin_user);
-    $this->setAnonymousUserSubscription(TRUE);
 
     $this->drupalGet('admin/config/services/simplenews');
     for ($i = 0; $i < 5; $i++) {
@@ -317,7 +316,6 @@ class SimplenewsSubscribeTest extends SimplenewsTestBase {
       'administer permissions')
     );
     $this->drupalLogin($admin_user);
-    $this->setAnonymousUserSubscription(TRUE);
 
     // Create some newsletters for multi-sign up block.
     $this->drupalGet('admin/config/services/simplenews');
@@ -625,7 +623,6 @@ class SimplenewsSubscribeTest extends SimplenewsTestBase {
       'administer newsletters')
     );
     $this->drupalLogin($admin_user);
-    $this->setAnonymousUserSubscription(TRUE);
 
     $this->drupalGet('admin/config/services/simplenews');
     $this->clickLink(t('Add newsletter'));
@@ -707,7 +704,6 @@ class SimplenewsSubscribeTest extends SimplenewsTestBase {
       'administer newsletters')
     );
     $this->drupalLogin($admin_user);
-    $this->setAuthenticatedUserSubscription(TRUE);
 
     // Create some newsletters for multi-sign up block.
     $this->drupalGet('admin/config/services/simplenews');

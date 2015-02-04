@@ -42,9 +42,6 @@ class SimplenewsAdministrationTest extends SimplenewsTestBase {
     $site_config->set('verify_mail', FALSE);
     $site_config->save();
 
-    // Allow authenticated users to subscribe.
-    $this->setAuthenticatedUserSubscription(TRUE);
-
     $admin_user = $this->drupalCreateUser(array(
       'administer blocks',
       'administer content types',
