@@ -1116,12 +1116,12 @@ function simplenews_format_options() {
  */
 function simplenews_get_priority() {
   return array(
-    SIMPLENEWS_PRIORITY_NONE => t('none'),
-    SIMPLENEWS_PRIORITY_HIGHEST => t('highest'),
-    SIMPLENEWS_PRIORITY_HIGH => t('high'),
-    SIMPLENEWS_PRIORITY_NORMAL => t('normal'),
-    SIMPLENEWS_PRIORITY_LOW => t('low'),
-    SIMPLENEWS_PRIORITY_LOWEST => t('lowest'),
+    SIMPLENEWS_PRIORITY_NONE => t('- None -'),
+    SIMPLENEWS_PRIORITY_HIGHEST => t('Highest'),
+    SIMPLENEWS_PRIORITY_HIGH => t('High'),
+    SIMPLENEWS_PRIORITY_NORMAL => t('Normal'),
+    SIMPLENEWS_PRIORITY_LOW => t('Low'),
+    SIMPLENEWS_PRIORITY_LOWEST => t('Lowest'),
   );
 }
 
@@ -1130,7 +1130,7 @@ function simplenews_get_priority() {
  */
 function simplenews_new_account_options() {
   return array(
-    'none' => t('None'),
+    'none' => t('- None -'),
     'on' => t('Default on'),
     'off' => t('Default off'),
     'silent' => t('Silent'),
