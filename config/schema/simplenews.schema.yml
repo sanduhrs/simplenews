@@ -209,6 +209,9 @@ field.value.simplenews_issue:
     sent_count:
       type: integer
       label: Sent count
+    subscribers:
+      type: integer
+      label: Subscriber count
 
 # Simplenews suscription field type schema.
 field.storage_settings.simplenews_subscription:
