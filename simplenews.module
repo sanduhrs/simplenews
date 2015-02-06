@@ -11,6 +11,7 @@ use Drupal\Core\Access\AccessResult;
 use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\Element;
+use Drupal\Core\Url;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\field\Entity\FieldStorageConfig;
 use Drupal\node\NodeInterface;
@@ -523,46 +524,51 @@ function simplenews_user_delete(UserInterface $account) {
 function simplenews_user_view(array &$build, UserInterface $account, EntityViewDisplayInterface $display, $view_mode, $langcode) {
   $user = \Drupal::currentUser();
   if ($user->id() == $account->id() || $account->hasPermission('administer users')) {
-    $build['simplenews'] = array(
-      '#type' => 'user_profile_category',
-      '#title' => t('Newsletters'),
-    );
-    // Collect newsletter to which the current user is subscribed.
-    // 'hidden' newsletters are not listed.
-    $newsletters = simplenews_newsletter_get_visible();
-    $subscriber = simplenews_subscriber_load_by_mail($account->getEmail());
+    if ($display->getComponent('simplenews')) {
+      $build['simplenews'] = array(
+        '#type' => 'details',
+        '#title' => t('Subscribed to'),
+        '#open' => TRUE,
+      );
+      // Collect newsletter to which the current user is subscribed.
+      // 'hidden' newsletters are not listed.
+      $newsletters = simplenews_newsletter_get_visible();
+      $subscriber = simplenews_subscriber_load_by_mail($account->getEmail());
 
-    if ($subscriber) {
-      foreach ($newsletters as $newsletter) {
-        if ($subscriber->isSubscribed($newsletter->id())) {
-          // @todo Make links
-          $links[] = $newsletter->label();
+      $links = [];
+      if ($subscriber) {
+        foreach ($newsletters as $newsletter) {
+          if ($subscriber->isSubscribed($newsletter->id())) {
+            // @todo Make links
+            $links[] = $newsletter->label();
+          }
         }
       }
-    }
-    if (isset($links)) {
-      // @todo replace with theme('links', $links) to form a list of newsletters?
-      $links = implode(', ', $links);
-    }
-    else {
-      $links = t('None');
-    }
 
-    // When a user has no permission to subscribe and is not subscribed
-    // we do not display the 'no subscriptions' message.
-    if ($account->hasPermission('subscribe to newsletters') || $links != t('None')) {
-      $build['simplenews']['subscriptions'] = array(
-        '#type' => 'user_profile_item',
-        '#title' => t('Subscribed to'),
-        '#markup' => $links,
-      );
-    }
-    if ($account->hasPermission('subscribe to newsletters')) {
-      $build['simplenews']['my_newsletters'] = array(
-        '#type' => 'user_profile_item',
-        '#title' => '',
-        '#markup' => t('Manage <a href="!url">subscriptions</a>', array('!url' => \Drupal::url('simplenews.newsletter_subscriptions_user', array('user' => $account->id())))),
-      );
+      // When a user has no permission to subscribe and is not subscribed
+      // we do not display the 'no subscriptions' message.
+      if ($account->hasPermission('subscribe to newsletters')) {
+        if ($links) {
+          $build['simplenews']['subscriptions'] = array(
+            '#theme' => 'item_list',
+            '#items' => $links,
+          );
+        }
+        else {
+          $build['simplenews']['subscriptions'] = array(
+            '#type' => 'item',
+            '#markup' => t('None'),
+          );
+        }
+
+      }
+      if ($account->hasPermission('subscribe to newsletters')) {
+        $build['simplenews']['my_newsletters'] = array(
+          '#type' => 'link',
+          '#title' => t('Manage subscriptions'),
+          '#url' => new Url('simplenews.newsletter_subscriptions_user', array('user' => $account->id())),
+        );
+      }
     }
   }
 }
