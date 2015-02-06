@@ -714,4 +714,123 @@ class SimplenewsAdministrationTest extends SimplenewsTestBase {
     $this->assertEqual(1, count($row));
     $this->assertEqual($subscribers[2]->getMail(), trim((string) $row[0]->td[0]));
   }
+
+  /**
+   * Test newsletter issue overview.
+   */
+  function testNewsletterIssuesOverview() {
+    $admin_user = $this->drupalCreateUser(array(
+      'administer newsletters',
+      'create simplenews_issue content',
+      'administer simplenews subscriptions',
+      'administer nodes',
+    ));
+    $this->drupalLogin($admin_user);
+    // Create a newsletter.
+    $edit = array(
+      'name' => $name = $this->randomMachineName(),
+      'id'  => Unicode::strtolower($name),
+    );
+    $this->drupalPostForm('admin/config/services/simplenews/add', $edit, t('Save'));
+    // Create a newsletter issue and publish.
+    $edit = array(
+      'title[0][value]' => 'Test_issue_1',
+      'simplenews_issue'  => Unicode::strtolower($name),
+    );
+    $this->drupalPostForm('node/add/simplenews_issue', $edit, t('Save and publish'));
+    // Create another newsletter issue and keep unpublished.
+    $edit = array(
+      'title[0][value]' => 'Test_issue_2',
+      'simplenews_issue'  => Unicode::strtolower($name),
+    );
+    $this->drupalPostForm('node/add/simplenews_issue', $edit, t('Save as unpublished'));
+    // Test mass subscribe with previously unsubscribed users.
+    for ($i = 0; $i < 3; $i++) {
+      $subscribers[] = $this->randomEmail();
+    }
+    $edit = array(
+      'emails' => implode(', ', $subscribers),
+      'newsletters[' . Unicode::strtolower($name) . ']' => TRUE,
+    );
+    $this->drupalPostForm('admin/people/simplenews/import', $edit, t('Subscribe'));
+    $this->drupalGet('admin/content/simplenews');
+    // Check the correct values are present in the view.
+    $rows = $this->xpath('//tbody/tr');
+    // Check the number of results in the view.
+    $this->assertEqual(2, count($rows));
+
+    foreach ($rows as $row) {
+      if ($row->td[1]->a == 'Test_issue_2') {
+        $this->assertEqual($name, trim((string) $row->td[2]->a));
+        $this->assertEqual('Newsletter issue will be sent to 3 subscribers on publish.', trim((string) $row->td[5]->span['title']));
+        $this->assertEqual('✖', trim((string) $row->td[3]));
+        $this->assertEqual('3', trim((string) $row->td[5]->span));
+      }
+      else {
+        $this->assertEqual('✔', trim((string) $row->td[3]));
+      }
+    }
+    // Send newsletter issues using bulk operations.
+    $edit = array(
+      'node_bulk_form[0]' => TRUE,
+      'node_bulk_form[1]' => TRUE,
+      'action' => 'simplenews_send_action'
+    );
+    $this->drupalPostForm(NULL, $edit, t('Apply'));
+    // Check the relevant messages.
+    $this->assertText('Newsletter issue Test_issue_2 is unpublished and will be sent on publish.');
+    $this->assertText('The following newsletter(s) are now pending: Test_issue_1.');
+    $rows = $this->xpath('//tbody/tr');
+    // Assert the status message of each newsletter.
+    foreach ($rows as $row) {
+      if ($row->td[1]->a == 'Test_issue_2') {
+        $this->assertEqual('Newsletter issue will be sent to 3 subscribers on publish.', trim((string) $row->td[5]->span['title']));
+      }
+      else {
+        $this->assertEqual('Newsletter issue is pending,0 mails sent out of 3.', trim((string) $row->td[5]->img['title']));
+        $this->assertEqual(file_create_url(drupal_get_path('module', 'simplenews')) . '/images/sn-cron.png', trim((string) $row->td[5]->img['src']));
+      }
+    }
+    // Stop sending the pending newsletters.
+    $edit = array(
+      'node_bulk_form[0]' => TRUE,
+      'node_bulk_form[1]' => TRUE,
+      'action' => 'simplenews_stop_action'
+    );
+    $this->drupalPostForm(NULL, $edit, t('Apply'));
+    // Check the stop message.
+    $this->assertText('Sending of Test_issue_1 was stopped. 3 pending email(s) were deleted.');
+    $rows = $this->xpath('//tbody/tr');
+    // Check the send status of each issue.
+    foreach ($rows as $row) {
+      if ($row->td[1]->a == 'Test_issue_2') {
+        $this->assertEqual('Newsletter issue will be sent to 3 subscribers on publish.', trim((string) $row->td[5]->span['title']));
+      }
+      else {
+        $this->assertEqual('Newsletter issue will be sent to 3 subscribers.', trim((string) $row->td[5]->span['title']));
+      }
+    }
+
+    // Send newsletter issues using bulk operations.
+    $edit = array(
+      'node_bulk_form[0]' => TRUE,
+      'node_bulk_form[1]' => TRUE,
+      'action' => 'simplenews_send_action'
+    );
+    $this->drupalPostForm(NULL, $edit, t('Apply'));
+    // Run cron to send the mails.
+    $this->cronRun();
+    $this->drupalGet('admin/content/simplenews');
+    $rows = $this->xpath('//tbody/tr');
+    // Check the send status of each issue.
+    foreach ($rows as $row) {
+      if ($row->td[1]->a == 'Test_issue_2') {
+        $this->assertEqual('Newsletter issue will be sent to 3 subscribers on publish.', trim((string) $row->td[5]->span['title']));
+      }
+      else {
+        $this->assertEqual('Newsletter issue sent to 3 subscribers.', trim((string) $row->td[5]->img['title']));
+        $this->assertEqual(file_create_url(drupal_get_path('module', 'simplenews')) . '/images/sn-sent.png', trim((string) $row->td[5]->img['src']));
+      }
+    }
+  }
 }

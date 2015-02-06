@@ -244,3 +244,11 @@ block.settings.simplenews_subscription_block:
     unique_id:
       type: string
       label: Unique ID
+
+action.configuration.simplenews_send_action:
+  type: action_configuration_default
+  label: 'Send selected newsletter issue'
+
+action.configuration.simplenews_stop_action:
+  type: action_configuration_default
+  label: 'Stop selected newsletter issue'

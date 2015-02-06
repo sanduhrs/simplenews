@@ -31,5 +31,5 @@ simplenews.subscriber_export:
 simplenews.newsletter_issue_add:
   route_name: node.add
   appears_on:
-    - simplenews.newsletter_issue_list
+    - view.simplenews_newsletters.page_1
   deriver: 'Drupal\simplenews\Plugin\Derivative\AddSimplenewsIssueActionLinks'

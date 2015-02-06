@@ -29,6 +29,16 @@ function simplenews_field_views_data(FieldStorageConfigInterface $field_storage)
  */
 function simplenews_views_data() {
 
+  $data['node']['send_status'] = array(
+    'real field' => 'nid',
+    'field' => array(
+      'title' => t('Send status'),
+      'help' => t('Send status of the newsletter.'),
+      'id' => 'simplenews_send_status',
+    ),
+    'group' => t('Content'),
+  );
+
   /* ------------ Definitions for Simplenews mailspool ---------------------- */
 
   $data['simplenews_mail_spool']['table'] = array(

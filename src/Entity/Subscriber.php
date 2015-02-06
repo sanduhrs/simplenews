@@ -115,7 +115,8 @@ class Subscriber extends ContentEntityBase implements SubscriberInterface {
       return NULL;
     }
     $mail = $this->getMail();
-    if(empty($mail)){
+
+    if (empty($mail)) {
       return NULL;
     }
     return $this->getUserId() ? User::load($this->getUserId()) : user_load_by_mail($this->getMail());

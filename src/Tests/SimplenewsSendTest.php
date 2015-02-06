@@ -189,44 +189,6 @@ class SimplenewsSendTest extends SimplenewsTestBase {
       $node = current($nodes);
       $this->assertEqual(SIMPLENEWS_STATUS_SEND_NOT, $node->simplenews_issue->status, t('Newsletter not sent yet.'));
     }
-
-    /*
-     * @todo Enable these tests again in https://www.drupal.org/node/2401019.
-     *
-
-    // Send the first and last newsletter on the newsletter overview.
-    list ($first, $second, $unpublished) = $nodes;
-
-
-    $edit = array(
-      'issues[' . $first->id() . ']' => $first->id(),
-      'issues[' . $unpublished->id() . ']' => $unpublished->id(),
-      'operation' => 'activate',
-    );
-    $this->drupalPostForm('admin/content/simplenews', $edit, t('Update'));
-
-    $this->assertText(t('Sent the following newsletters: @title.', array('@title' => $first->getTitle())));
-    $this->assertText(t('Newsletter @title is unpublished and will be sent on publish.', array('@title' => $unpublished->getTitle())));
-
-    // Verify states.
-    \Drupal::entityManager()->getStorage('node')->resetCache();
-    $first = Node::load($first->id());
-    $second = Node::load($first->id());
-    $unpublished = Node::load($unpublished->id());
-    $this->assertEqual(SIMPLENEWS_STATUS_SEND_READY, $first->simplenews_issue->status, t('First Newsletter sending finished'));
-    $this->assertEqual(SIMPLENEWS_STATUS_SEND_NOT, $second->simplenews_issue->status, t('Second Newsletter not sent'));
-    $this->assertEqual(SIMPLENEWS_STATUS_SEND_PUBLISH, $unpublished->simplenews_issue->status, t('Newsletter set to send on publish'));
-
-    // Verify mails.
-    $mails = $this->drupalGetMails();
-    $this->assertEqual(5, count($mails), t('All mails were sent.'));
-    foreach ($mails as $mail) {
-      $this->assertEqual($mail['subject'], '[Default newsletter] ' . $first->getTitle(), t('Mail has correct subject'));
-      $this->assertTrue(isset($this->subscribers[$mail['to']]), t('Found valid recipient'));
-      unset($this->subscribers[$mail['to']]);
-    }
-    $this->assertEqual(0, count($this->subscribers), t('all subscribers have received a mail'));
-    */
   }
 
   /**
