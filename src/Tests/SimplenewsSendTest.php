@@ -535,7 +535,6 @@ class SimplenewsSendTest extends SimplenewsTestBase {
 
     // Verify that deleting isn't possible right now.
     $this->clickLink(t('Edit'));
-    $this->assertText(t("You can't delete this newsletter because it has not been sent to all its subscribers."));
     $this->assertNoText(t('Delete'));
 
     // Send mails.
