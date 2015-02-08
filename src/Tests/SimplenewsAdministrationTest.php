@@ -487,6 +487,15 @@ class SimplenewsAdministrationTest extends SimplenewsTestBase {
     $this->assertText(t('The following addresses were skipped because they have previously unsubscribed from @name: @mail.', $substitutes));
     $this->assertText(t("If you would like to resubscribe them, use the 'Force resubscription' option."));
 
+    // Try to mass subscribe without specifying newsletters.
+    $tested_subscribers[2] = $this->randomEmail();
+    $edit = array(
+      'emails' => implode(', ', $tested_subscribers),
+      'resubscribe' => TRUE,
+    );
+
+    $this->drupalPostForm('admin/people/simplenews/import', $edit, t('Subscribe'));
+    $this->assertText('Subscribe to field is required.');
 
     // Test mass subscribe with previously unsubscribed users and force
     // resubscription.
@@ -496,13 +505,22 @@ class SimplenewsAdministrationTest extends SimplenewsTestBase {
       'newsletters[' . $first . ']' => TRUE,
       'resubscribe' => TRUE,
     );
-
     $this->drupalPostForm('admin/people/simplenews/import', $edit, t('Subscribe'));
+
     drupal_static_reset('simplenews_user_is_subscribed');
     \Drupal::entityManager()->getStorage('simplenews_subscriber')->resetCache();
     $this->assertTrue(simplenews_user_is_subscribed($tested_subscribers[0], $first, t('Subscriber resubscribed trough mass subscription.')));
     $this->assertTrue(simplenews_user_is_subscribed($tested_subscribers[1], $first, t('Subscriber resubscribed trough mass subscription.')));
     $this->assertTrue(simplenews_user_is_subscribed($tested_subscribers[2], $first, t('Subscriber subscribed trough mass subscription.')));
+
+    // Try to mass unsubscribe without specifying newsletters.
+    $tested_subscribers[2] = $this->randomEmail();
+    $edit = array(
+      'emails' => implode(', ', $tested_subscribers),
+    );
+
+    $this->drupalPostForm('admin/people/simplenews/unsubscribe', $edit, t('Unsubscribe'));
+    $this->assertText('Unsubscribe from field is required.');
 
     // Create two blocks, to ensure that they are updated/deleted when a
     // newsletter is deleted.

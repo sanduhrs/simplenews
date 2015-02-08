@@ -36,18 +36,14 @@ class SubscriberMassUnsubscribeForm extends FormBase {
     );
 
     $form['newsletters'] = array(
-      '#type' => 'details',
-      '#open' => TRUE,
+      '#type' => 'checkboxes',
       '#title' => t('Unsubscribe from'),
-      '#tree' => TRUE,
+      '#options' => simplenews_newsletter_list(),
+      '#required' => TRUE,
     );
 
-    foreach (simplenews_newsletter_get_all() as $newsletter) {
-      $form['newsletters'][$newsletter->id()] = array(
-        '#type' => 'checkbox',
-        '#title' => String::checkPlain($newsletter->label()),
-        '#description' => String::checkPlain($newsletter->description),
-      );
+    foreach (simplenews_newsletter_get_all() as $id => $newsletter) {
+      $form['newsletters'][$id]['#description'] = String::checkPlain($newsletter->description);
     }
 
     $form['submit'] = array(
