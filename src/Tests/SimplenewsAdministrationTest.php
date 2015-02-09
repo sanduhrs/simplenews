@@ -643,13 +643,12 @@ class SimplenewsAdministrationTest extends SimplenewsTestBase {
     // Create an issue.
     $edit = array(
       'title[0][value]' => $this->randomMachineName(),
-      'body[0][value]' => 'Test_body.',
+      'body[0][value]' => 'User ID: [current-user:uid]',
       'simplenews_issue' => $this->getRandomNewsletter(),
     );
     $this->drupalPostForm(NULL, $edit, ('Save and publish'));
 
     $node = $this->drupalGetNodeByTitle($edit['title[0][value]']);
-    $this->assertText('Test_body.');
 
     // Send newsletter.
     $this->clickLink(t('Newsletter'));
@@ -668,6 +667,8 @@ class SimplenewsAdministrationTest extends SimplenewsTestBase {
     $this->assertEqual('simplenews_test', $mails[0]['id']);
     $this->assertEqual($admin_user->getEmail(), $mails[0]['to']);
     $this->assertEqual(t('[Default newsletter] @title', array('@title' => $node->getTitle())), $mails[0]['subject']);
+    // @todo: This mail should be sent for the admin user. https://www.drupal.org/node/2421477
+    $this->assertTrue(strpos($mails[0]['body'], 'User ID: not yet assigned'));
 
     // Update the content type, remove the simpletest checkbox.
     $edit = array(

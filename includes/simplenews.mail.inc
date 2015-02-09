@@ -110,18 +110,11 @@ function simplenews_mail_attempt_immediate_send(array $conditions = array(), $us
  * @ingroup issue
  */
 function simplenews_send_test(NodeInterface $node, array $test_addresses) {
-  // Prevent session information from being saved while sending.
-  /*if ($original_session = drupal_save_session()) {
-    drupal_save_session(FALSE);
-  }*/
-
   // Force the current user to anonymous to ensure consistent permissions.
-  $original_user = $GLOBALS['user'];
-  $anonymous_user = new AnonymousUserSession();
-  $GLOBALS['user'] = $anonymous_user;
+  \Drupal::service('account_switcher')->switchTo(new AnonymousUserSession());
 
   // Send the test newsletter to the test address(es) specified in the node.
-  // Build array of test email addresses
+  // Build array of test email addresses.
 
   // Send newsletter to test addresses.
   // Emails are send direct, not using the spool.
@@ -159,10 +152,7 @@ function simplenews_send_test(NodeInterface $node, array $test_addresses) {
     drupal_set_message(t('Test newsletter sent to anonymous %recipient.', array('%recipient' => $recipients_txt)));
   }
 
-  $GLOBALS['user'] = $original_user;
-  /*if ($original_session) {
-    drupal_save_session(TRUE);
-  }*/
+  \Drupal::service('account_switcher')->switchBack();
 }
 
 /**
