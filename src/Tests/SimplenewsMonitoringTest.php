@@ -14,7 +14,7 @@ use Drupal\simpletest\KernelTestBase;
  * Tests for simplenews sensor.
  *
  * @group simplenews
- * @requires module monitoring
+ * @dependencies monitoring
  */
 class SimplenewsMonitoringTest extends KernelTestBase {
 
