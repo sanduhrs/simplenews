@@ -14,7 +14,7 @@ use Drupal\simplenews\Entity\Newsletter;
 /**
  * Entity form for Subscriber with common routines.
  */
-abstract class SubscriberFormBase extends ContentEntityForm {
+abstract class SubscriptionsFormBase extends ContentEntityForm {
 
   /**
    * Submit button ID for creating new subscriptions.

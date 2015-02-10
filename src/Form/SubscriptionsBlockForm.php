@@ -12,7 +12,7 @@ use Drupal\Core\Form\FormStateInterface;
 /**
  * Configure simplenews subscriptions of the logged user.
  */
-class SubscriptionsBlockForm extends SubscriberFormBase {
+class SubscriptionsBlockForm extends SubscriptionsFormBase {
 
   protected $uniqueId;
 

@@ -252,10 +252,11 @@ class SimplenewsAdministrationTest extends SimplenewsTestBase {
       ));
     $this->drupalLogin($admin_user);
 
-    // Create a second newsletter.
+    // Create a newsletter.
+    $newsletter_name = Unicode::strtolower($this->randomMachineName());
     $edit = array(
-      'name' => $name = $this->randomMachineName(),
-      'id'  => Unicode::strtolower($name),
+      'name' => $newsletter_name,
+      'id'  => $newsletter_name,
     );
     $this->drupalPostForm('admin/config/services/simplenews/add', $edit, t('Save'));
 
@@ -608,6 +609,49 @@ class SimplenewsAdministrationTest extends SimplenewsTestBase {
     $this->drupalGet('admin/people/simplenews/edit/' . $xss_subscriber->id());
     $this->assertNoRaw($xss_mail);
     $this->assertRaw(String::checkPlain($xss_mail));
+
+    // Editing a subscriber with subscription.
+    $edit = array(
+      'subscriptions[' . $newsletter_name . ']' => TRUE,
+      'status' => TRUE,
+      'mail[0][value]' => 'edit@example.com',
+    );
+    $this->drupalPostForm('admin/people/simplenews/edit/' . $xss_subscriber->id(), $edit, t('Save'));
+    $this->assertText('Subscriber edit@example.com has been updated.');
+
+    // Create a second newsletter.
+    $second_newsletter_name = Unicode::strtolower($this->randomMachineName());
+    $edit2 = array(
+      'name' => $second_newsletter_name,
+      'id'  => $second_newsletter_name,
+    );
+    $this->drupalPostForm('admin/config/services/simplenews/add', $edit2, t('Save'));
+
+    // Test for adding a subscriber.
+    $subscribe = array(
+      'subscriptions[' . $newsletter_name . ']' => TRUE,
+      'status' => TRUE,
+      'mail[0][value]' => 'drupaltest@example.com',
+    );
+    $this->drupalPostForm('admin/people/simplenews/add', $subscribe, t('Subscribe'));
+
+    // The subscriber should appear once in the list.
+    $rows = $this->xpath('//tbody/tr');
+    $counter = 0;
+    foreach ($rows as $value) {
+      if (trim((string) $value->td[0]) == 'drupaltest@example.com') {
+        $counter++;
+      }
+    }
+    $this->assertEqual(1, $counter);
+    $this->assertText('Subscriber drupaltest@example.com has been added.');
+
+    // Check exact subscription statuses.
+    $subscriber = simplenews_subscriber_load_by_mail('drupaltest@example.com');
+    $this->assertEqual($subscriber->getSubscription($newsletter_name)->get('status')->getValue(), SIMPLENEWS_SUBSCRIPTION_STATUS_SUBSCRIBED);
+    // The second newsletter was not subscribed, so there should be no
+    // subscription record at all.
+    $this->assertFalse($subscriber->getSubscription($second_newsletter_name));
   }
 
   /**
@@ -623,7 +667,7 @@ class SimplenewsAdministrationTest extends SimplenewsTestBase {
         'administer newsletters',
         'administer simplenews subscriptions',
         'bypass node access',
-        'send newsletter'
+        'send newsletter',
       ));
     $this->drupalLogin($admin_user);
 

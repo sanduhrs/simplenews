@@ -14,7 +14,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 /**
  * Configure simplenews subscriptions of the logged user.
  */
-class SubscriptionsPageForm extends SubscriberFormBase {
+class SubscriptionsPageForm extends SubscriptionsFormBase {
 
   /**
    * {@inheritdoc}

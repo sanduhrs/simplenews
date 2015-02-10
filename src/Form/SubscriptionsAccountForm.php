@@ -14,7 +14,7 @@ use Drupal\user\UserInterface;
 /**
  * Configure simplenews subscriptions of a user.
  */
-class SubscriptionsAccountForm extends SubscriberFormBase {
+class SubscriptionsAccountForm extends SubscriptionsFormBase {
 
   /**
    * {@inheritdoc}

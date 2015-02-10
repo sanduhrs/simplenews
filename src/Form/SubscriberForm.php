@@ -8,16 +8,23 @@
 namespace Drupal\simplenews\Form;
 
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Entity\ContentEntityForm;
 
 /**
  * Form controller for the subscriber edit forms.
+ *
+ * The acting user is someone with administrative privileges managing other
+ * users (not themselves).
  */
-class SubscriberForm extends SubscriberFormBase {
+class SubscriberForm extends ContentEntityForm {
+
   /**
    * Overrides Drupal\Core\Entity\EntityForm::form().
    */
   public function form(array $form, FormStateInterface $form_state) {
     $form = parent::form($form, $form_state);
+    $this->getSubscriptionWidget($form_state)
+      ->setAvailableNewsletterIds(array_keys(simplenews_newsletter_get_visible()));
     /* @var \Drupal\simplenews\SubscriberInterface $subscriber */
     $subscriber = $this->entity;
 
@@ -73,18 +80,12 @@ class SubscriberForm extends SubscriberFormBase {
    */
   protected function actions(array $form, FormStateInterface $form_state) {
     $actions = parent::actions($form, $form_state);
-    $actions[static::SUBMIT_UPDATE]['#value'] = $this->t('Save');
-    return $actions;
-  }
 
-  /**
-   * {@inheritdoc}
-   */
-  protected function getSubmitMessage(FormStateInterface $form_state, $op, $confirm) {
+    // Switch label to Subscribe for new subscribers.
     if ($this->entity->isNew()) {
-      return $this->t('Subscriber %label has been added.', array('%label' => $this->entity->label()));
+      $actions['submit']['#value'] = $this->t('Subscribe');
     }
-    return $this->t('Subscriber %label has been updated.', array('%label' => $this->entity->label()));
+    return $actions;
   }
 
   /**
@@ -92,7 +93,44 @@ class SubscriberForm extends SubscriberFormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     parent::submitForm($form, $form_state);
+
+    // The subscriptions field has properties which are set to NULL by ordinary
+    // saving, which is wrong. The Subscriber::(un)subscribe() methods save the
+    // values correctly. For each newsletter ID we check if it exists in
+    // current subscriptions and new subscriptions respectively.
+    $current_subscriptions =  $this->entity->getSubscribedNewsletterIds();
+    $subscription_values = $form_state->getValue('subscriptions');
+    $new_subscriptions = array();
+    foreach ($subscription_values as $subscription_value) {
+      array_push($new_subscriptions, $subscription_value['target_id']);
+    }
+    foreach (array_keys(simplenews_newsletter_get_visible()) as $newsletter) {
+      if (in_array($newsletter, $current_subscriptions) && !in_array($newsletter, $new_subscriptions)) {
+        $this->entity->unsubscribe($newsletter);
+      } elseif (!in_array($newsletter, $current_subscriptions) && in_array($newsletter, $new_subscriptions)) {
+        $this->entity->subscribe($newsletter);
+      }
+    }
+
     $form_state->setRedirect('view.simplenews_subscribers.page_1');
+
+    if ($this->entity->isNew()) {
+      drupal_set_message($this->t('Subscriber %label has been added.', array('%label' => $this->entity->label())));
+    } else {
+      drupal_set_message($this->t('Subscriber %label has been updated.', array('%label' => $this->entity->label())));
+    }
   }
 
+  /**
+   * Returns the renderer for the 'subscriptions' field.
+   *
+   * @param \Drupal\Core\Form\FormStateInterface $form_state
+   *   The form state object.
+   *
+   * @return \Drupal\simplenews\SubscriptionWidgetInterface
+   *   The widget.
+   */
+  protected function getSubscriptionWidget(FormStateInterface $form_state) {
+    return $this->getFormDisplay($form_state)->getRenderer('subscriptions');
+  }
 }

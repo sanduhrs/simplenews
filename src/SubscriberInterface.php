@@ -132,7 +132,7 @@ interface SubscriberInterface extends ContentEntityInterface {
    * @param string $newsletter_id
    *   The ID of a newsletter.
    *
-   * @return \Drupal\simplenews\SubscriptionItem
+   * @return \Drupal\simplenews\Plugin\Field\FieldType\SubscriptionItem
    *   Returns the subscription item if the subscriber has the subscription, otherwise FALSE.
    */
   public function getSubscription($newsletter_id);
