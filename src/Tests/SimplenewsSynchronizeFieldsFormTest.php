@@ -75,7 +75,7 @@ class SimplenewsSynchronizeFieldsFormTest extends SimplenewsTestBase {
     $this->assertEqual($this->user->field_shared->value, $new_value);
 
     // Unset the sync setting and assert field is not synced.
-    $this->drupalPostForm('admin/config/people/simplenews/settings/subscriber', array('simplenews_sync_account' => FALSE), t('Save configuration'));
+    $this->drupalPostForm('admin/config/people/simplenews/settings/subscriber', array('simplenews_sync_fields' => FALSE), t('Save configuration'));
 
     $unsynced_value = $this->randomMachineName();
     $this->drupalPostForm('admin/people/simplenews/edit/' . $subscriber->id(), array('field_shared[0][value]' => $unsynced_value), t('Save'));

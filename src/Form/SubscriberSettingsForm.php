@@ -39,11 +39,11 @@ class SubscriberSettingsForm extends ConfigFormBase {
       '#title' => $this->t('User account'),
       '#collapsible' => FALSE,
     );
-    $form['account']['simplenews_sync_account'] = array(
+    $form['account']['simplenews_sync_fields'] = array(
       '#type' => 'checkbox',
-      '#title' => $this->t('Synchronize with account'),
-      '#default_value' => $config->get('subscriber.sync_account'),
-      '#description' => $this->t('<p>When checked subscriptions will be synchronized with site accounts. Fields that exist with identical name and type on subscriber and accounts will be synchronized. When accounts are deleted, subscriptions with the same email address will be removed. When site accounts are blocked/unblocked, subscriptions will be deactivated/activated. When not checked subscriptions will be unchanged when associated accounts are deleted or blocked.</p><p><strong>Note:</strong> This option is intended to be set once only. If disabled and later enabled again, beware of data inconsistency.</p>'),
+      '#title' => $this->t('Synchronize between account and subscriber fields'),
+      '#default_value' => $config->get('subscriber.sync_fields'),
+      '#description' => $this->t('<p>When checked fields that exist with identical name and type on subscriber and accounts will be synchronized.</p>'),
     );
 
     return parent::buildForm($form, $form_state);
@@ -61,7 +61,7 @@ class SubscriberSettingsForm extends ConfigFormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $this->config('simplenews.settings')
-      ->set('subscriber.sync_account', $form_state->getValue('simplenews_sync_account'))
+      ->set('subscriber.sync_fields', $form_state->getValue('simplenews_sync_fields'))
       ->save();
 
     parent::submitForm($form, $form_state);

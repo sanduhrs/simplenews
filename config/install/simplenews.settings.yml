@@ -6,7 +6,7 @@ newsletter:
   receipt: 0
 
 subscriber:
-  sync_account: TRUE
+  sync_fields: TRUE
 
 subscription:
   use_combined: multiple

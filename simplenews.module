@@ -417,7 +417,7 @@ function simplenews_user_profile_form_submit($form, FormStateInterface $form_sta
 function simplenews_user_create(UserInterface $account) {
   // Copy values for shared fields from existing subscriber.
   $mail = $account->getEmail();
-  $sync = \Drupal::config('simplenews.settings')->get('subscriber.sync_account');
+  $sync = \Drupal::config('simplenews.settings')->get('subscriber.sync_fields');
   if ($sync && $mail && $subscriber = simplenews_subscriber_load_by_mail($mail)) {
     foreach ($subscriber->getUserSharedFields($account) as $field_name) {
       $account->set($field_name, $subscriber->get($field_name)->getValue());
@@ -489,14 +489,12 @@ function simplenews_user_presave(UserInterface $account) {
     if (!$account->isNew()) {
       // Update mail, status and language if they are changed.
       $subscriber->setMail($account->getEmail());
-      if (\Drupal::config('simplenews.settings')->get('subscriber.sync_account')) {
-        $subscriber->status = $account->isActive();
-      }
+      $subscriber->status = $account->isActive();
       $subscriber->setLangcode($account->getPreferredLangcode());
     }
 
     // Copy values for shared fields to existing subscriber.
-    if (\Drupal::config('simplenews.settings')->get('subscriber.sync_account')) {
+    if (\Drupal::config('simplenews.settings')->get('subscriber.sync_fields')) {
       foreach ($subscriber->getUserSharedFields($account) as $field_name) {
         $subscriber->set($field_name, $account->get($field_name)->getValue());
       }

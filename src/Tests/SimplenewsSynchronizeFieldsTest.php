@@ -36,7 +36,7 @@ class SimplenewsSynchronizeFieldsTest extends KernelTestBase {
     $this->installSchema('system', array('sequences', 'sessions'));
     $this->config('system.mail')->set('interface.default', 'test_mail_collector')->save();
     $this->config('simplenews.settings')
-      ->set('subscriber.sync_account', TRUE)
+      ->set('subscriber.sync_fields', TRUE)
       ->save();
     ConfigurableLanguage::create(array('id' => 'fr'))->save();
   }
@@ -78,12 +78,12 @@ class SimplenewsSynchronizeFieldsTest extends KernelTestBase {
     $this->assertEqual($subscriber->getLangcode(), 'en');
     $this->assertTrue($subscriber->getStatus());
 
-    // Status is not synced if sync_account is not set.
-    $this->config('simplenews.settings')->set('subscriber.sync_account', FALSE)->save();
+    // Status is still synced even if sync_fields is not set.
+    $this->config('simplenews.settings')->set('subscriber.sync_fields', FALSE)->save();
     $user->block();
     $user->save();
     $subscriber = Subscriber::load($subscriber->id());
-    $this->assertTrue($subscriber->getStatus());
+    $this->assertFalse($subscriber->getStatus());
   }
 
   /**
@@ -178,7 +178,7 @@ class SimplenewsSynchronizeFieldsTest extends KernelTestBase {
    */
   public function testDisableSync() {
     // Disable sync.
-    $this->config('simplenews.settings')->set('subscriber.sync_account', FALSE)->save();
+    $this->config('simplenews.settings')->set('subscriber.sync_fields', FALSE)->save();
 
     // Create and attach a field to both.
     $this->addField('string', 'field_on_both', 'simplenews_subscriber');

@@ -111,15 +111,17 @@ class Subscriber extends ContentEntityBase implements SubscriberInterface {
    * {@inheritdoc}
    */
   public function getUser() {
-    if (!\Drupal::config('simplenews.settings')->get('subscriber.sync_account')) {
-      return NULL;
-    }
     $mail = $this->getMail();
 
     if (empty($mail)) {
       return NULL;
     }
-    return $this->getUserId() ? User::load($this->getUserId()) : user_load_by_mail($this->getMail());
+    if ($user = User::load($this->getUserId())) {
+      return $user;
+    }
+    else {
+      return user_load_by_mail($this->getMail()) ?: NULL;
+    }
   }
 
   /**
@@ -264,7 +266,7 @@ class Subscriber extends ContentEntityBase implements SubscriberInterface {
     parent::postSave($storage, $update);
 
     // Copy values for shared fields to existing user.
-    if ($user = $this->getUser()) {
+    if (\Drupal::config('simplenews.settings')->get('subscriber.sync_fields') && $user = $this->getUser()) {
       static::$syncing = TRUE;
       foreach ($this->getUserSharedFields($user) as $field_name) {
         $user->set($field_name, $this->get($field_name)->getValue());
@@ -289,7 +291,7 @@ class Subscriber extends ContentEntityBase implements SubscriberInterface {
     }
 
     // Copy values for shared fields from existing user.
-    if ($user = $this->getUser()) {
+    if (\Drupal::config('simplenews.settings')->get('subscriber.sync_fields') && $user = $this->getUser()) {
       foreach ($this->getUserSharedFields($user) as $field_name) {
         $this->set($field_name, $user->get($field_name)->getValue());
       }

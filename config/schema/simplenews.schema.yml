@@ -29,9 +29,9 @@ simplenews.settings:
     subscriber:
       type: mapping
       mapping:
-        sync_account:
+        sync_fields:
           type: boolean
-          label: Sync users and their subscriber entities
+          label: Sync between account and subscriber fields
 
     subscription:
       type: mapping
