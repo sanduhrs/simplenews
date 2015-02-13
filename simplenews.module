@@ -521,7 +521,7 @@ function simplenews_user_delete(UserInterface $account) {
  */
 function simplenews_user_view(array &$build, UserInterface $account, EntityViewDisplayInterface $display, $view_mode, $langcode) {
   $user = \Drupal::currentUser();
-  if ($user->id() == $account->id() || $account->hasPermission('administer users')) {
+  if ($user->id() == $account->id() || $user->hasPermission('administer users')) {
     if ($display->getComponent('simplenews')) {
       $build['simplenews'] = array(
         '#type' => 'details',
