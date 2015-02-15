@@ -610,6 +610,12 @@ class SimplenewsAdministrationTest extends SimplenewsTestBase {
     $this->assertNoRaw($xss_mail);
     $this->assertRaw(String::checkPlain($xss_mail));
 
+    // Create a new user for the next test.
+    $new_user = $this->drupalCreateUser(array('subscribe to newsletters'));
+    // Test for saving the subscription for no newsletter.
+    $this->drupalPostForm('user/' . $new_user->id() . '/simplenews', null, t('Save'));
+    $this->assertText('The newsletter subscriptions for user ' . $new_user->getUsername() . ' have been updated.');
+
     // Editing a subscriber with subscription.
     $edit = array(
       'subscriptions[' . $newsletter_name . ']' => TRUE,
