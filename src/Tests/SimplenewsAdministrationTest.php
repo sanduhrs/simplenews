@@ -2,12 +2,7 @@
 
 /**
  * @file
- * Simplenews adminstration test functions.
- *
- * @ingroup simplenews
- *
- * @todo:
- * Newsletter node create, send draft, send final
+ * Contains \Drupal\simplenews\Tests\SimplenewsAdministrationTest.
  */
 
 namespace Drupal\simplenews\Tests;
@@ -79,7 +74,6 @@ class SimplenewsAdministrationTest extends SimplenewsTestBase {
       }
     }
 
-    drupal_static_reset('simplenews_newsletter_load_multiple');
     $newsletters = simplenews_newsletter_get_all();
 
     // Check registration form.
@@ -263,7 +257,6 @@ class SimplenewsAdministrationTest extends SimplenewsTestBase {
     // Add a number of users to each newsletter separately and then add another
     // bunch to both.
     $subscribers = array();
-    drupal_static_reset('simplenews_newsletter_load_multiple');
 
     $groups = array();
     $newsletters = simplenews_newsletter_get_all();
@@ -327,7 +320,7 @@ class SimplenewsAdministrationTest extends SimplenewsTestBase {
     $this->assertTrue(empty($subscribers_flat));
 
     reset($groups);
-    $first = key($groups);
+    $first = 'default';
 
     $first_mail = array_rand($subscribers[$first]);
     $all_mail = array_rand($subscribers['all']);
@@ -585,6 +578,8 @@ class SimplenewsAdministrationTest extends SimplenewsTestBase {
     // Remove the newsletter.
     $this->drupalGet('admin/people/simplenews/edit/' . $subscriber->id());
     $this->assertTitle(t('Edit subscriber @mail', array('@mail' => $subscriber->getMail())) . ' | Drupal');
+    \Drupal::entityManager()->getStorage('simplenews_subscriber')->resetCache();
+    $subscriber = Subscriber::load($subscriber->id());
     $nlids = $subscriber->getSubscribedNewsletterIds();
     // If the subscriber still has subscribed to newsletter, try to unsubscribe.
     $newsletter_id = reset($nlids);
