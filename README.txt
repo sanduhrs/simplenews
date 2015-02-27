@@ -3,7 +3,7 @@ DESCRIPTION
 -----------
 
 Simplenews publishes and sends newsletters to lists of subscribers. Both
-anonymous and authenticated users can opt-in to different mailing lists. 
+anonymous and authenticated users can opt-in to different mailing lists.
 HTML email can be sent by adding Mime mail module.
 
 
@@ -31,7 +31,7 @@ INSTALLATION
  3. ACCESS PERMISSION
 
     Grant the access at the Access control page:
-      Administer > User management > Access control. 
+      Administer > User management > Access control.
 
  4. CONFIGURE SIMPLENEWS
 
@@ -52,16 +52,16 @@ INSTALLATION
  6. CONFIGURE SIMPLENEWS BLOCKS
 
     Configure the Simplenews blocks on the Block configuration page. You reach
-    this page from Block admin page (Administer > Site building > Blocks). 
+    this page from Block admin page (Administer > Site building > Blocks).
     Click the 'Configure' link of the appropriate simplenews block.
- 
+
     Permission "subscribe to newsletters" is required to view the subscription
     form in the simplenews block or to view the link to the subscription form.
 
  7. SIMPLENEWS BLOCK THEMING
 
-    More control over the content of simplenews blocks can be achieved using 
-    the block theming. Theme your simplenews block by copying 
+    More control over the content of simplenews blocks can be achieved using
+    the block theming. Theme your simplenews block by copying
     simplenews-block.tpl.php into your theme directory and edit the content.
     The file is self documented listing all available variables.
 
@@ -70,7 +70,7 @@ INSTALLATION
       simplenews-block.tpl--[tid].php (for newsletter series tid)
 
  8. MULTILINGUAL SUPPORT
- 
+
     Simplenews supports multilingual newsletters for node translation,
     multilingual taxonomy and url path prefixes.
 
@@ -107,7 +107,7 @@ INSTALLATION
 
 9.  NEWSLETTER THEMING
 
-    You can customize the theming of newsletters. Copy any of the *.tpl.php 
+    You can customize the theming of newsletters. Copy any of the *.tpl.php
     files from the simplenews module directory to your theme directory. Both
     general and by-newsletter theming can be performed.
     Theme newsletter body:
@@ -120,8 +120,8 @@ INSTALLATION
     The files are self documented listing all available variables.
 
     Using the Display fields settings each field of a simplenews newsletter can
-    be displayed or hidden in plain text and/or HTML newsletters. You find 
-    these settings at: 
+    be displayed or hidden in plain text and/or HTML newsletters. You find
+    these settings at:
       admin/content/node-type/my-node-type/display
 
 
@@ -131,17 +131,17 @@ INSTALLATION
     by Poormanscron or any other cron mechanism such as crontab.
     If you have a medium or large size mailing list (i.e. more than 500
     subscribers) always use cron to send the newsletters.
-  
+
     To use cron:
      * Check the 'Use cron to send newsletters' checkbox.
      * Set the 'Cron throttle' to the number of newsletters send per cron run.
        Too high values may lead to mail server overload or you may hit hosting
        restrictions. Contact your host.
-    
+
     Don't use cron:
      * Uncheck the 'Use cron to send newsletters' checkbox.
-       All newsletters will be sent immediately when saving the node. If not 
-       all emails can be sent within the available php execution time, the 
+       All newsletters will be sent immediately when saving the node. If not
+       all emails can be sent within the available php execution time, the
        remainder will be sent by cron. Therefore ALWAYS enable cron.
 
     These settings are found on the Newsletter Settings page under
@@ -149,7 +149,7 @@ INSTALLATION
       Administer > Site configuration > Simplenews > Send mail.
 
  11. (UN)SUBSCRIBE CONFIRMATION
- 
+
     By default the unsubscribe link will direct the user to a confirmation page.
     Upon confirmation the user is directed to the home page, where a message
     will be displayed. On the Simplenews subscription admin page you can
@@ -183,11 +183,11 @@ INSTALLATION
     vulnerable to Cross Site Request Forgeries. Email addresses may be
     (un)subscribed without a notice. Do not use this setting in uncontrolled
     environments (like the internet!).
- 
+
  13. TIPS
 
     A subscription page is available at: /newsletter/subscriptions
-    
+
     If your unsubscribe URL looks like:
       http://newsletter/confirm/remove/8acd182182615t632
     instead of:
@@ -201,3 +201,59 @@ DOCUMENTATION
 -------------
 More help can be found on the help pages: example.com/admin/help/simplenews
 and in the drupal.org handbook: http://drupal.org/node/197057
+
+  1. Roadmap
+
+    If you switch to 6.x-2.x make sure you add token module. Drupal 6 has
+    limitations in its upgrade implementation and omits the check of this newly
+    added dependency. An alpha-release for 6.x-2.x has been created. Features
+    in 6.x are considered frozen.
+
+  2. Known problems
+
+    In D6 using Poormanscron can cause simplenews to send multiple copies of the
+    same email to the same recipient. Therefore I strongly advise against using
+    Poormanscron.. Use cron(tab) and cron.php instead.
+    See https://www.drupal.org/node/361071.
+
+RELATED MODULES
+---------------
+
+  1. Actively maintained modules
+
+    The following modules work with Simplenews:
+    Simplenews Linkchecker (D6-2.x, D7)
+    (https://www.drupal.org/project/simplenews_linkchecker)
+    Webform Simplenews Component (D6-1.x, D6-2.x, D7)
+    (https://www.drupal.org/project/webform_simplenews)
+    Simplenews Scheduler (D6-1.x, D6-2.x, D7)
+    (https://www.drupal.org/project/simplenews_scheduler)
+    Simplenews Roles (D6-1.x, D6-2.x, D7)
+    (https://www.drupal.org/project/simplenews_roles)
+    Simplenews Content Selection
+    (https://www.drupal.org/project/simplenews_content_selection)
+    Simplenews Digest (D6)
+    (https://www.drupal.org/project/simplenews_digest)
+    Simplenews Analytics (D6)
+    (https://www.drupal.org/project/simplenews_analytics)
+    Simplenews Statistics (D6 stable)
+    (https://www.drupal.org/project/simplenews_statistics)
+    Simplenews RealName (D6-1.x, D6-2.x)
+    (https://www.drupal.org/project/simplenews_realname)
+    Simplenews Bounce D6 (under development)
+    (https://www.drupal.org/project/simplenews_bounce)
+    Sequenced newsletter (D6-2.x)
+    (https://www.drupal.org/project/sequenced_newsletter)
+
+  2. Deprecated related modules (only relevant for 6.x-1.x)
+
+    Simplenews Subscription Manager (abandoned)
+    (https://www.drupal.org/project/simplenews_sub_manager)
+    Simplenews Template
+    (https://www.drupal.org/project/simplenews_template)
+    Simplenews Multiple Signup Block
+    (https://www.drupal.org/project/simplenews_multisignup)
+    Simplenews on register
+    (https://www.drupal.org/project/simplenews_register)
+    Simplenews Threaded Send
+    (https://www.drupal.org/project/simplenews_threaded_send)
