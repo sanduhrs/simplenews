@@ -77,12 +77,12 @@ function simplenews_token_info() {
 function simplenews_tokens($type, $tokens, $data = array(), $options = array()) {
   $replacements = array();
   $sanitize = !empty($options['sanitize']);
-  if (isset($options['language'])) {
-    $url_options['language'] = $options['language'];
-    $language_code = $options['language']->language;
+  if (isset($options['langcode'])) {
+    $url_options['language'] = language_load($options['langcode']);
+    $langcode = $options['langcode'];
   }
   else {
-    $language_code = NULL;
+    $langcode = NULL;
   }
 
   switch ($type) {
