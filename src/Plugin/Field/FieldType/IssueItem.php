@@ -33,7 +33,8 @@ use Drupal\Core\TypedData\DataDefinition;
  *   description = @Translation("An entity field containing an extended entityreference."),
  *   no_ui = TRUE,
  *   default_widget = "options_select",
- *   constraints = {"ValidReference" = {}}
+ *   constraints = {"ValidReference" = {}},
+ *   list_class = "\Drupal\Core\Field\EntityReferenceFieldItemList"
  * )
  */
 class IssueItem extends ConfigurableEntityReferenceItem {

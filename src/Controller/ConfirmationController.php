@@ -183,7 +183,7 @@ class ConfirmationController extends ControllerBase {
         if ($action == 'remove') {
           simplenews_unsubscribe($subscriber->getMail(), $newsletter_id, FALSE, 'website');
           if ($path = $config->get('subscription.confirm_unsubscribe_page')) {
-            return $this->redirect(Url::fromUri("user-path:/$path")->getRouteName());
+            return $this->redirect(Url::fromUri("internal:/$path")->getRouteName());
           }
           drupal_set_message(t('%user was unsubscribed from the %newsletter mailing list.', array('%user' => $subscriber->getMail(), '%newsletter' => $newsletter->name)));
           return $this->redirect('<front>');
@@ -191,7 +191,7 @@ class ConfirmationController extends ControllerBase {
         elseif ($action == 'add') {
           simplenews_subscribe($subscriber->getMail(), $newsletter_id, FALSE, 'website');
           if ($path = $config->get('subscription.confirm_subscribe_page')) {
-            return $this->redirect(Url::fromUri("user-path:/$path")->getRouteName());
+            return $this->redirect(Url::fromUri("internal:/$path")->getRouteName());
           }
           drupal_set_message(t('%user was added to the %newsletter mailing list.', array('%user' => $subscriber->getMail(), '%newsletter' => $newsletter->name)));
           return $this->redirect('<front>');
