@@ -1,0 +1,21 @@
+{
+  "name": "drupal/simplenews",
+  "description": "Send newsletters to subscribed email addresses.",
+  "type": "drupal-module",
+  "homepage": "https://www.drupal.org/project/simplenews",
+  "authors": [
+    {
+      "name": "Miro Dietiker",
+      "homepage": "http://www.md-systems.ch",
+      "role": "Maintainer"
+    }
+  ],
+  "support": {
+    "issues": "https://www.drupal.org/project/issues/simplenews",
+    "irc": "irc://irc.freenode.org/drupal-contribute",
+    "source": "http://git.drupal.org/project/simplenews.git"
+  },
+  "license": "GPL-2.0+",
+  "minimum-stability": "dev",
+  "require": {}
+}
